@@ -1,0 +1,8 @@
+.title {
+    color: $color-primary;
+    font-weight: bold;
+    font-family: $font-title;
+    &.is-1 {
+        font-size: $font-size-title;
+    }
+}

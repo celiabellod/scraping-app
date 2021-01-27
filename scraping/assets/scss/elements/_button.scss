@@ -1,0 +1,11 @@
+.btn {
+    padding: 0.5rem 0;
+    border:none;
+    border-radius: 10px;
+    font-size: $font-size-text;
+    font-family: $font-text;
+    &.btn-secondary {
+        background-color: $color-secondary;
+        color: #fff;
+    }
+}

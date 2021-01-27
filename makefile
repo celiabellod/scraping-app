@@ -28,5 +28,4 @@ restart: ## Restart containers
 
 .PHONY: assets-watch
 assets-watch: ## watching assets
-	docker-compose exec app bash
-	npm run sass
+	docker-compose exec app /bin/bash -c  "npm run sass"

@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.title {
+  color: #3E4E68;
+  font-weight: bold;
+  font-family: "Lato", sans-serif;
+}
+.title.is-1 {
+  font-size: 5rem;
+}
+
+.btn {
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+}
+.btn.btn-secondary {
+  background-color: #E62F7B;
+  color: #fff;
+}
+
+.form {
+  height: 100vh;
+}
+.form-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3E4E68;
+}
+.form-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-right .form-container {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.form-right .form-container .form-title {
+  text-transform: uppercase;
+  margin-bottom: 6rem;
+  align-self: center;
+}
+.form-right .form-container .form-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 4rem;
+  padding-bottom: 1rem;
+}
+.form-right .form-container .form-input::placeholder {
+  font-family: "Montserrat", sans-serif;
+  color: #3E4E68;
+}
+.form-right .form-container .form-info {
+  align-self: flex-start;
+  margin-top: 5rem;
+  font-family: "Montserrat", sans-serif;
+  color: #3E4E68;
+}
+.form-right .form-container .form-btn {
+  width: 50%;
+  align-self: center;
+}
+
+.icon {
+  fill: #fff;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-2 {
+  grid-template-columns: 50% 50%;
+}
+
+/*# sourceMappingURL=style.css.map */
