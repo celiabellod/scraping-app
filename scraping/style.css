@@ -9,7 +9,7 @@ body {
   font-family: "Lato", sans-serif;
 }
 .title.is-1 {
-  font-size: 5rem;
+  font-size: 3rem;
 }
 
 .btn {
@@ -42,10 +42,13 @@ body {
   justify-content: center;
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
+}
+.form-right .form-container .form-container-name {
+  display: flex;
+  justify-content: space-between;
 }
 .form-right .form-container .form-title {
-  text-transform: uppercase;
   margin-bottom: 6rem;
   align-self: center;
 }
@@ -60,15 +63,21 @@ body {
   font-family: "Montserrat", sans-serif;
   color: #3E4E68;
 }
+.form-right .form-container .form-input#lastname, .form-right .form-container .form-input#firstname {
+  width: 45%;
+}
 .form-right .form-container .form-info {
   align-self: flex-start;
-  margin-top: 5rem;
+  margin-top: 8rem;
   font-family: "Montserrat", sans-serif;
   color: #3E4E68;
+  width: 40%;
+  line-height: 1.5rem;
 }
 .form-right .form-container .form-btn {
   width: 50%;
   align-self: center;
+  margin-top: 2rem;
 }
 
 .icon {

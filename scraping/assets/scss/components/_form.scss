@@ -14,9 +14,12 @@
             justify-content: center;
             display: flex;
             flex-direction: column;
-            width:50%;
+            width:60%;
+            .form-container-name {
+                display: flex;
+                justify-content: space-between;
+            }
             .form-title {
-                text-transform: uppercase;
                 margin-bottom: 6rem;
                 align-self:center;
             }
@@ -30,16 +33,22 @@
                     font-family: $font-text;
                     color: $color-primary;
                 }
+                &#lastname, &#firstname {
+                    width: 45%;
+                }
             }
             .form-info {
                 align-self:flex-start;
-                margin-top:5rem;
+                margin-top:8rem;
                 font-family: $font-text;
                 color: $color-primary;
+                width: 40%;
+                line-height: 1.5rem;
             }
             .form-btn {
                 width:50%;
                 align-self: center;
+                margin-top:2rem;
             }
         }
        

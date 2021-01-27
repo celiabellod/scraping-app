@@ -3,8 +3,8 @@ ob_start();
 
 $link = "../../";
 
-$title = 'Login';
-$info = 'Sign up';
+$title = 'LOGIN';
+$info = ['signup.php','Sign up'];
 $inputs = [
         1 => ['email', 'E-mail'],
         2 => ['password', 'Password']
