@@ -1,8 +1,4 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'].'src/Autoloader.php';
-Autoloader::register();
-
-$connexion = new UserModel;
 
 class UserModel 
 {

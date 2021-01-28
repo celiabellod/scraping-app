@@ -12,7 +12,8 @@ class Autoloader {
                 'Controller/',
                 'Model/',
                 'Services/',
-                'Vue/'
+                'Vue/',
+                'config/'
             ];
     
             foreach($directorys as $directory) {

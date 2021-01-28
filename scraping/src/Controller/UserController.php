@@ -1,7 +1,4 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'].'src/Autoloader.php';
-Autoloader::register();
-
 class UserController 
 {
 
@@ -25,8 +22,8 @@ class UserController
     * @param string $password
     * @return void
     */
-    public function logIn($email, $password) {
-
+    public function logIn($email, $password, $route) {
+        header('Location:'.$route);
     }
 
     /*
@@ -37,8 +34,8 @@ class UserController
     * @param string $passwordConfirm
     * @return void
     */
-    public function signUp($email, $firstname, $lastname, $password, $passwordConfirm) {
-        
+    public function signup($email, $firstname, $lastname, $password, $passwordConfirm, $route) {
+        header('Location:'.$route);
     }
 
     /*

@@ -3,15 +3,14 @@ ob_start();
 
 $link = "../../";
 
-$title = 'LOGIN';
-$info = ['signup.php','Sign up'];
+$title = 'Sign up';
+$info = ['login.php','Already an account ? Login'];
 $inputs = [
         1 => ['email', 'E-mail'],
-        2 => ['password', 'Password']
 ];
 
 include $link.'parts/_form.php';
 
 $content = ob_get_clean();
-require($_SERVER['DOCUMENT_ROOT'].'src/Vue/template.php');
+require($_SERVER['DOCUMENT_ROOT'].'src/Templates/template.php');
 ?>
