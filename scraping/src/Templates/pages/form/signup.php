@@ -4,7 +4,7 @@ ob_start();
 $link = "../../";
 
 $title = 'Sign up';
-$info = ['login.php','Already an account ? Login'];
+$info = ['login','Already an account ? Login'];
 $inputs = [
         1 => ['email', 'E-mail'],
 ];
