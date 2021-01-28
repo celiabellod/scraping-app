@@ -1,6 +1,4 @@
-<?php ob_start();
-$link = "../../";
-?>
+<?php ob_start();?>
 <main class="grid grid-main">
     <?php include '../../parts/_aside.php'; ?>
     <div class="main-content">

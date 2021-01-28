@@ -1,8 +1,6 @@
 <?php
 ob_start();
 
-$link = "../../";
-
 $title = 'Create my account';
 $inputs = [
         1 => ['text','firstname', 'Firstname'],
@@ -11,8 +9,8 @@ $inputs = [
         4 => ['password','passwordConfirm', 'Password confirm']
 ];
 
-include $link.'parts/_form.php';
+include '../../parts/_form.php';
 
 $content = ob_get_clean();
-require($_SERVER['DOCUMENT_ROOT'].'src/Vue/template.php');
+require($_SERVER['DOCUMENT_ROOT'].'src/Templates/template.php');
 ?>

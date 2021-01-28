@@ -32,7 +32,7 @@
             ?>
             <button type="submit" class="btn btn-secondary form-btn">Go !</button>
             <?php
-                if($info):
+                if(isset($info)):
                     echo '<a href="'.$info[0].'" class="form-info">'.$info[1].'</a>';
                 endif; 
             ?>

@@ -1,6 +1,5 @@
 <?php 
 ob_start();
-$link = "../../";
 include $_SERVER['DOCUMENT_ROOT'].'src/_inc.php' ;
 ?>
 <main class="grid grid-main">

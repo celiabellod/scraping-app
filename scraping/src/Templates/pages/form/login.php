@@ -1,8 +1,6 @@
 <?php
 ob_start();
 
-$link = "../../";
-
 $title = 'LOGIN';
 $info = ['signup','Sign up'];
 $inputs = [
@@ -10,7 +8,7 @@ $inputs = [
         2 => ['password','password', 'Password']
 ];
 
-include $link.'parts/_form.php';
+include '../../parts/_form.php';
 
 $content = ob_get_clean();
 require($_SERVER['DOCUMENT_ROOT'].'src/Templates/template.php');

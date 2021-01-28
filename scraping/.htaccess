@@ -3,6 +3,8 @@ RewriteEngine On
 RewriteRule ^$ src/Templates/pages/form/login.php [L]
 RewriteRule ^login$ src/Templates/pages/form/login.php [L]
 RewriteRule ^signup$ src/Templates/pages/form/signup.php [L]
+RewriteRule ^create-account$ src/Templates/pages/form/create-account.php [L]
+RewriteRule ^change-password$ src/Templates/pages/form/change-password.php [L]
 
 #Admin route
 
