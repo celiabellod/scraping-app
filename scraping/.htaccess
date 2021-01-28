@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteRule ^$ src/Templates/pages/form/login.php [L]
+RewriteRule ^login$ src/Templates/pages/form/login.php [L]
+RewriteRule ^signup$ src/Templates/pages/form/signup.php [L]
