@@ -3,8 +3,14 @@
 
 @import "elements/title";
 @import "elements/button";
+@import "elements/pagination";
+@import "elements/icon";
 
 @import "components/form";
+@import "components/tab";
 @import "components/aside";
+@import "components/main";
 
 @import "layout/grid";
+
+@import "pages/new-extraction.scss";

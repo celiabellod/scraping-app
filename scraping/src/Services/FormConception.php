@@ -2,8 +2,8 @@
 
 class FormConception {
 
-    public function createInput($input, $placeholder){
-        $input =  "<input type='$input' id='$input' name='$input' placeholder='$placeholder' class='form-input'/>";  
+    public function createInput($type, $name, $placeholder){
+        $input =  "<input type='$type' id='$name' name='$name' placeholder='$placeholder' class='form-input'/>";  
         return $input;
     }
 

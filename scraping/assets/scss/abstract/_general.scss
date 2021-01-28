@@ -1,4 +1,10 @@
 body {
     margin: 0;
     font-family: $font-text;
+    font-size: $font-size-text;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
 }

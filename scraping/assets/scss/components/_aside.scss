@@ -1,4 +1,4 @@
-.aside {
+.main-aside {
     background-color: $color-primary;
     min-height: 100vh;
     height: 100%;
@@ -6,7 +6,7 @@
     flex-direction: column;
     color: #fff;
     .user {
-        padding-top: 3rem;
+        padding-top: 4rem;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -20,7 +20,7 @@
         }
 
     }
-    &-content{
+    .aside-content {
         padding: 0rem 4.5rem;
         height: 100%;
         display: flex;
@@ -35,6 +35,9 @@
                 color:#fff;
                 text-decoration: none;
             }
+        }
+        p.logout {
+            margin-bottom: 2rem;
         }
     }
     

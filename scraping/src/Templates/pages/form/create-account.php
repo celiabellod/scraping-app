@@ -5,10 +5,10 @@ $link = "../../";
 
 $title = 'Create my account';
 $inputs = [
-        1 => ['firstname', 'Firstname'],
-        2 => ['lastname', 'Lastname'],
-        3 => ['password', 'Password'],
-        4 => ['passwordConfirm', 'Password confirm']
+        1 => ['text','firstname', 'Firstname'],
+        2 => ['text','lastname', 'Lastname'],
+        3 => ['password','password', 'Password'],
+        4 => ['password','passwordConfirm', 'Password confirm']
 ];
 
 include $link.'parts/_form.php';

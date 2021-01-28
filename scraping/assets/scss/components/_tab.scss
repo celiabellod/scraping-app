@@ -1,0 +1,16 @@
+.tab {
+    border-collapse: collapse;
+    overflow: hidden;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 100%;
+    &-head {
+        text-align: left;
+        background-color: $color-primary;
+        color: #fff;
+    }
+    th,td {
+        padding: 0.9rem 2rem;
+        border-bottom: 1px solid rgb(209, 208, 208);
+    }
+}

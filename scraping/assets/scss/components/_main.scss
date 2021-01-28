@@ -1,0 +1,36 @@
+.main-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: $color-primary;
+    &-title {
+        margin-bottom: 0;
+    }
+    .back-link {
+        align-self: flex-start;
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 80%;
+        height:100%;
+    }
+    p.info{
+        margin: 0rem;
+        align-self: flex-end;
+    }
+    .info-bottom {
+        display: flex;
+        width:100%;
+        justify-content: space-between;
+        p:last-child{
+            color: $color-secondary;
+        }
+    }
+    .under-title {
+        margin-top: -2rem;
+    }
+}

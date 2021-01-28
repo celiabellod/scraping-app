@@ -5,8 +5,8 @@ $link = "../../";
 
 $title = 'Change password';
 $inputs = [
-        1 => ['email', 'E-mail'],
-        2 => ['password', 'Password']
+        1 => ['email','email', 'E-mail'],
+        2 => ['password','password', 'Password']
 ];
 
 include $link.'parts/_form.php';

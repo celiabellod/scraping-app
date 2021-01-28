@@ -1,12 +1,17 @@
 .title {
-    color: $color-primary;
     font-weight: bold;
     font-family: $font-title;
     &.is-1 {
-        font-size: $font-size-h1;
+        color: $color-primary;
+        font-size: $font-size-title;
     }
     &.is-2 {
-        font-size: $font-size-h2;
+        color: $color-secondary;
+        font-size: $font-size-title;
+    }
+    &.is-3 {
+        color: $color-secondary;
+        font-size: 1.5rem;
     }
 
 }
