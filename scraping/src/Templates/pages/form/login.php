@@ -2,7 +2,7 @@
 ob_start();
 
 $title = 'LOGIN';
-$info = ['signup','Sign up'];
+$info = ['signup.php','Sign up'];
 $inputs = [
         1 => ['email','email', 'E-mail'],
         2 => ['password','password', 'Password']

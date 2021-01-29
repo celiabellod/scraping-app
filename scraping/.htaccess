@@ -1,14 +1,6 @@
 RewriteEngine On
 
-RewriteRule ^$ src/Templates/pages/form/login.php [L]
-RewriteRule ^login$ src/Templates/pages/form/login.php [L]
-RewriteRule ^signup$ src/Templates/pages/form/signup.php [L]
-RewriteRule ^create-account$ src/Templates/pages/form/create-account.php [L]
-RewriteRule ^change-password$ src/Templates/pages/form/change-password.php [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?p=$1 [QSA,L]
 
-#Admin route
 
-RewriteRule ^dashboard$ src/Templates/pages/admin/dashboard.php [L]
-RewriteRule ^historics$ src/Templates/pages/admin/historics.php [L]
-RewriteRule ^historic$ src/Templates/pages/admin/single-historic.php [L]
-RewriteRule ^new-extraction$ src/Templates/pages/admin/new-extraction.php [L]

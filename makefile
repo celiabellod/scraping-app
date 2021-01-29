@@ -29,3 +29,7 @@ restart: ## Restart containers
 .PHONY: assets-watch
 assets-watch: ## watching assets
 	docker-compose exec app /bin/bash -c  "npm run sass"
+
+.PHONY: svg-sprite
+svg-sprite: ## watching assets
+	docker-compose exec app /bin/bash -c  "npm run svg-sprite"

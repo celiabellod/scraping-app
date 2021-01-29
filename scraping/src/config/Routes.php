@@ -12,6 +12,12 @@ class Routes {
      */
     private $routesUrl = [];
 
+
+     /**
+     * @var array 
+     */
+    private $routesName = [];
+
     /**
      * @var integer 
      */
@@ -32,6 +38,7 @@ class Routes {
     public function initRoute($routeName, $url, $controller, $method) {
 
         $this->idRoutes++;
+        $this->routesName[$routeName] = $this->idRoutes;
         $this->routesUrl[$url] = $this->idRoutes;
         $this->routes[$this->idRoutes] = ["name" => $routeName, "url" => $url, "controller" => $controller, "method" => $method];
     }
@@ -47,7 +54,7 @@ class Routes {
             return [
                     $this->routes[$this->routesUrl[$url]]["controller"], 
                     $this->routes[$this->routesUrl[$url]]["method"], 
-                    $this->routes[$this->routesUrl[$url]]["url"]
+                    $this->routes[$this->routesUrl[$url]]["url"],
                 ];
         } else {
             return $this->error404 = true;
@@ -63,6 +70,16 @@ class Routes {
             return true;
         }
         return false;
+    }
+
+    /*
+    * @param string $routeName
+    * @return string
+    */
+    public function urlFor($routeName) {
+        if (array_key_exists($routeName, $this->routesName)) {
+            return "/" . $this->routes[$this->routesName[$routeName]]["url"];
+        }
     }
 
 

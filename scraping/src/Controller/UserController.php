@@ -1,7 +1,7 @@
 <?php
+
 class UserController 
 {
-
     /*
     * @var Objet
     */
@@ -18,12 +18,10 @@ class UserController
     }
 
     /*
-    * @param string $email
-    * @param string $password
     * @return void
     */
-    public function logIn($email, $password, $route) {
-        header('Location:'.$route);
+    public function logIn() {
+        header('Location:src/Templates/pages/form/login.php');
     }
 
     /*
@@ -34,8 +32,8 @@ class UserController
     * @param string $passwordConfirm
     * @return void
     */
-    public function signup($email, $firstname, $lastname, $password, $passwordConfirm, $route) {
-        header('Location:'.$route);
+    public function signup() {
+        header('Location:src/Templates/pages/form/signup.php');
     }
 
     /*

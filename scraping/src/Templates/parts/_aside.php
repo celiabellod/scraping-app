@@ -7,9 +7,12 @@
     </div>
     <div class="aside-content">
         <nav class="nav">
-            <a href="" class="nav-link">My extractions</a>
-            <a href="" class="nav-link">Add an extraction</a>
+            <a href="dashboard.php" class="nav-link">My extractions</a>
+            <a href="new-extraction.php" class="nav-link">Add an extraction</a>
         </nav>
-        <p class="logout">Log out</p>
+        <p class="logout">
+            <img src="../../../../assets/images/enter.svg" alt="" width="20">
+            Log out
+        </p>
     </div>
 </div>

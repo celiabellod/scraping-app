@@ -190,6 +190,11 @@ body {
 }
 .main-aside .aside-content p.logout {
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+}
+.main-aside .aside-content p.logout img {
+  margin-right: 0.8rem;
 }
 
 .main-content {

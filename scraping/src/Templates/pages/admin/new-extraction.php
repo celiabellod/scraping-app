@@ -7,7 +7,7 @@ include $_SERVER['DOCUMENT_ROOT'].'src/_inc.php' ;
     <div class="main-content">
         <div class="container">
             <h1 class="title is-2 extraction-title">New extraction</h1>
-            <form action="" class="form-extraction">
+            <form action="/new-extraction" method="post" class="form-extraction">
                 <section>
                     <div class="flex-center">
                         <?php $form = new FormConception(); 

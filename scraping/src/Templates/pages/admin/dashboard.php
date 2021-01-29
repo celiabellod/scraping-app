@@ -1,6 +1,10 @@
-<?php ob_start();
-$title = "My extractions"
+<?php
+require $_SERVER['DOCUMENT_ROOT'].'/Autoloader.php';
+Autoloader::register();
+ob_start();
+$title = "My extractions";
 ?>
+
 
     <p class="info">+ Add an  extraction</p>
     <table class="tab">
@@ -9,16 +13,19 @@ $title = "My extractions"
             <th>Periodicity</th>
             <th>Category</th>
         </tr>
-        <tr>
-            <td>ANSSI</td>
-            <td>1/day</td>
-            <td>Information</td>
-        </tr>
-        <tr>
-            <td>developpez</td>
-            <td>1/week</td>
-            <td>Information</td>
-        </tr>
+        <?php if(isset($_SESSION['extractions'])):
+             $extractions = unserialize($_SESSION['extractions']);
+            foreach($extractions as $extraction): ?>
+            <tr>
+                <td><?= $extraction->getId() ?></td>
+                <td><?= $extraction->getPeriodicity() ?></td>
+                <td><?= $extraction->getCategory() ?></td>
+            </tr>
+        <?php 
+            endforeach;
+            endif; 
+        ?>
+      
     </table>
     <?php include '../../parts/_pagination.php'; ?>
 

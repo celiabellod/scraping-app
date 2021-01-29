@@ -1,8 +1,9 @@
 <?php
-    
+
 class Autoloader {
     
     public static function register() {
+        session_start();
         spl_autoload_register(function ($class) {
 
             $root = $_SERVER['DOCUMENT_ROOT'].'src/';
