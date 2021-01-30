@@ -1,8 +1,7 @@
 <?php
 
 
-class Extraction {
-
+class Extraction extends Datas {
 
     /*
     * @var string

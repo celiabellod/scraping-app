@@ -1,0 +1,55 @@
+{% extends "admin/admin-base.html.twig" %}
+
+{% block adminMain %}
+    <h1 class="title is-2 extraction-title">New extraction</h1>
+    <form action="/new-extraction" method="post" class="form-extraction">
+        <section>
+            <div class="flex-center">
+                <input type='text' id='extractionName' name='extractionName' placeholder='Name of extraction *' class='form-input'/>
+            </div>
+            <div class="form-container-half">
+                <input type='text' id='url' name='url' placeholder='URL of extraction *' class='form-input'/>
+                <select name="periodicity" id="periodicity" class="form-select">
+                    <option value="">Periodicity *</option>
+                    <option value="1/day">1/day</option>
+                    <option value="1/week">1/week</option>
+                    <option value="1/month">1/month</option>
+                    <option value="1/year">1/year</option>
+                </select>
+            </div>
+            <div class="form-container-half">
+                <select name="type" id="type" class="form-select">
+                    <option value="">Type *</option>
+                    <option value="text">Simple</option>
+                    <option value="number">Multiplicty</option>
+                </select>
+                <select name="category" id="category" class="form-select">
+                    <option value="">Category *</option>
+                    <option value="information">Information</option>
+                    <option value="compare">Compare</option>
+                    <option value="price">Price</option>
+                    <option value="1/year"></option>
+                </select>
+            </div>
+        </section>
+        <section class="extraction-section">
+            <h2 class="title is-3">Container</h2>
+            <input type='text' id='primaryContainer' name='primaryContainer' placeholder='Primary *' class='form-input'/>
+            <input type='text' id='secondaryContainer' name='secondaryContainer' placeholder='Secondary' class='form-input'/>
+        </section>
+        <section class="extraction-section">
+            <h2 class="title is-3">Datas</h2>
+            <input type='text' id='dataName' name='dataName' placeholder='Name *' class='form-input'/>
+            <select name="dataType" id="dataType" class="form-select">
+                <option value="">Type *</option>
+                <option value="text">Text</option>
+                <option value="number">Number</option>
+                <option value="price">Price</option>
+            </select>
+            <input type='text' id='dataPath' name='dataPath' placeholder='Path *' class='form-input'/>
+        </section>
+        <div class="flex-center">
+            <button type="submit" class="btn btn-secondary form-btn btn-extraction">Go !</button>
+        </div>
+    </form>
+{% endblock %}

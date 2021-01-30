@@ -1,0 +1,16 @@
+{% extends "admin/admin-base.html.twig" %}
+
+{% block adminMain %}
+    <h1 class="title is-2 main-content-title">My extractions</h1>
+    <p class="info">+ Add an  extraction</p>
+    <table class="tab">
+        <tr class="tab-head">
+            <th>Name</th>
+            <th>Periodicity</th>
+            <th>Category</th>
+        </tr>
+    </table>
+    {% include 'parts/_pagination.html.twig' %}
+
+
+{% endblock %}

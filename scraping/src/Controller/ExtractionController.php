@@ -3,6 +3,13 @@
 class ExtractionController 
 {
 
+    private $twig;
+
+    public function __construct(){
+        $loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'/src/Templates');
+        $this->twig = new \Twig\Environment($loader);
+    }
+
      /*
     * @return void
     */
@@ -10,7 +17,11 @@ class ExtractionController
         $manager = new ExtractionModel();
         $extractions = $manager->getListExtraction();
         $_SESSION['extractions'] = serialize($extractions);
-        header('Location:src/Templates/pages/admin/dashboard.php');
+        echo $this->twig->render('admin/dashboard.html.twig');
+    }
+
+    public function showOne() {
+        echo $this->twig->render('admin/historics.html.twig');
     }
 
     /*
@@ -35,32 +46,26 @@ class ExtractionController
             $extraction = new Extraction([
                 'url' => $_POST['url'],
                 'name' => $_POST['extractionName'],
-                'dataType' => $_POST['type'],
+                'type' => $_POST['type'],
                 'periodicity' => $_POST['periodicity'],
                 'category' => $_POST['category'],
                 'primaryContainer' => $_POST['primaryContainer'],
                 'secondaryContainer' => $secondaryContainer,
+                'dataName' => $_POST['dataName'],
+                'dataType' => $_POST['dataType'],
+                'dataPath' => $_POST['dataPath'],
             ]);
 
             $manager = new ExtractionModel();
             $manager->add($extraction);
           
-            header('Location:dashboard');
+            echo $this->twig->render('admin/dashboard.html.twig');
         } else {
-            header('Location:new-extraction');
+            echo $this->twig->render('admin/new-extraction.html.twig');
         }
     
     }
 
-   /*
-    * @param string $url
-    * @param string $name
-    * @param string $dataType
-    * @param string $periodicity
-    * @param string $category
-    * @param array  $datas
-    * @return void
-    */
     public function updateExtraction() {
 
         if(!empty($_POST)){

@@ -1,8 +1,12 @@
 <?php
 
+
 class Autoloader {
+
+
     
     public static function register() {
+        require __DIR__.'/vendor/autoload.php';
         session_start();
         spl_autoload_register(function ($class) {
 

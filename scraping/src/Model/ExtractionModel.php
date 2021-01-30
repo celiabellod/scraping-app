@@ -24,19 +24,27 @@ class ExtractionModel
 
     public function add(Extraction $extraction){
 
-        $query = "INSERT INTO `extraction`(`url`, `name`,`dataType`, `periodicity`, `category`, `primaryContainer`, `secondaryContainer`) 
-                    VALUES (:url, :name, :dataType, :periodicity, :category, :primaryContainer, :secondaryContainer)";
+        $query = "INSERT INTO `extraction`
+                    (`url`, `name`,`type`, `periodicity`, `category`, `primaryContainer`, `secondaryContainer`) 
+                    VALUES (:url, :name, :type, :periodicity, :category, :primaryContainer, :secondaryContainer);
+
+                    INSERT INTO `datas`(`dataType`, `dataPath`,`dataName`) VALUES (:dataType, :dataPath, :dataName);
+                ";
+                
 
         $req = $this->db->prepare($query);
     
         $arrayValue = [
             ":url" => $extraction->getUrl(),
             ":name"  => $extraction->getName(),
-            ":dataType"  => $extraction->getDataType(),
+            ":type"  => $extraction->getDataType(),
             ":periodicity"  => $extraction->getPeriodicity(),
             ":category" => $extraction->getCategory(),
             ":primaryContainer" => $extraction->getPrimaryContainer(),
             ":secondaryContainer" => $extraction->getSecondaryContainer(),
+            ":dataType" => $extraction->getDataType(),
+            ":dataName"  => $extraction->getDataName(),
+            ":dataPath"  => $extraction->getDataPath(),
         ];
     
         if($req->execute($arrayValue)){

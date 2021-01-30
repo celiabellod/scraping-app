@@ -39,6 +39,8 @@ class Routes {
 
         $this->idRoutes++;
         $this->routesName[$routeName] = $this->idRoutes;
+        // $newUrl = preg_replace('#/:([\w]+)#', '', $url);
+        // $params = preg_replace('#^(.*)/:#', '', $url);
         $this->routesUrl[$url] = $this->idRoutes;
         $this->routes[$this->idRoutes] = ["name" => $routeName, "url" => $url, "controller" => $controller, "method" => $method];
     }
@@ -50,6 +52,7 @@ class Routes {
      * @return array|bool
      */
     public function getControlleur($url) {
+        $url = preg_replace('#/:([\w]+)#', '', $url);
         if (array_key_exists($url, $this->routesUrl)) {
             return [
                     $this->routes[$this->routesUrl[$url]]["controller"], 
@@ -71,17 +74,6 @@ class Routes {
         }
         return false;
     }
-
-    /*
-    * @param string $routeName
-    * @return string
-    */
-    public function urlFor($routeName) {
-        if (array_key_exists($routeName, $this->routesName)) {
-            return "/" . $this->routes[$this->routesName[$routeName]]["url"];
-        }
-    }
-
 
     /**
      * Get the value of routes

@@ -1,6 +1,7 @@
-<?php ob_start();
-$title = "ANSSI"
-?>
+{% extends "admin/admin-base.html.twig" %}
+
+{% block adminMain %}
+    <h1 class="title is-2 main-content-title">ANSSI</h1>
     <p class="under-title">1/day</p>
     <p class="info">+ Start extraction</p>
 
@@ -10,24 +11,14 @@ $title = "ANSSI"
             <th>Reference</th>
         </tr>
         <tr>
-            <td>2021/01/25</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>2021/01/25</td>
-            <td>1</td>
+            <td></td>
+            <td></td>
         </tr>
     </table>
-    <?php include '../../parts/_pagination.php'; ?>
+    {% include 'parts/_pagination.html.twig' %}
 
     <div class="info-bottom">
         <p>Category : Information</p>
         <p>Delete all historic</p>
     </div>
-    
-   
-
-<?php
-$content = ob_get_clean();
-require('_template-admin.php');
-?>
+{% endblock %}

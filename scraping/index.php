@@ -10,10 +10,10 @@ $routing->initRoute("login", "login", 'UserController', "logIn");
 $routing->initRoute("signup", "signup", 'UserController', "signup");
 $routing->initRoute("new-extraction", "new-extraction", 'ExtractionController', "createExtraction");
 $routing->initRoute("dashboard", "dashboard", 'ExtractionController', "showAll");
+$routing->initRoute("extraction", "extraction", 'ExtractionController', "showOne");
 
 
 $url =  $_GET['p'];
-var_dump($url);
 $routeController = $routing->getControlleur($url);
 
 if ($routing->isError404()) {

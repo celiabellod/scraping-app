@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <main class="grid grid-main">
+       {% include 'parts/_aside.html.twig' %}
+        <div class="main-content">
+            <div class="container">
+                <p class="back-link">Retour</p>
+                <a href="extraction/name">Test</a>
+                {% block adminMain %}{% endblock %}
+            </div>
+        </div>
+    <main>
+{% endblock %}
+
