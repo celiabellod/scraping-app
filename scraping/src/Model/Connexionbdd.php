@@ -1,5 +1,5 @@
 <?php
-new Connexionbdd();
+
 class Connexionbdd {
     
   private $servername = "mysql";

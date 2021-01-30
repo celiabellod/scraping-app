@@ -1,53 +1,66 @@
 <?php
 
-class UserController 
+class UserController extends AbstractController 
 {
-    /*
-    * @var Objet
-    */
-    private $user;
-
-    /*
-    * @var Objet
-    */
-    private $userModel;
-
-    private $twig;
-
-    public function __construct(){
-        $this->user = new User;
-        $this->userModel = new UserModel;
-
-        $loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'/src/Templates');
-        $this->twig = new \Twig\Environment($loader);
-    }
-
     /*
     * @return Templates
     */
     public function logIn() {
-
-        // echo $this->twig->render('form/login.html.twig', [
-        //     'title' => 'LOGIN',
-        //     'info' => [
-        //                 'title' => 'Sign Up',
-        //                 'link' => 'signup'
-        //     ],
-        //     'inputs' => [
-        //         1 => [
-        //             'type' => 'email',
-        //             'name' => 'email',
-        //             'placeholder' => 'E-mail'
-        //         ],
-        //         2 => [
-        //             'type' => 'password',
-        //             'name' => 'password',
-        //             'placeholder' => 'Password'
-        //         ]
-        //     ]
-        // ]);
-
-        echo $this->twig->render('admin/dashboard.html.twig');
+        if(!empty($_POST)){
+            $fields = ['email', 'password'];
+            foreach($fields as $field){
+                $fieldVerif = $this->verifPost($field);
+                if($fieldVerif == 'error'){
+                    //error
+                }
+            }
+            $manager = new UserModel();
+            $isUser = $manager->logInUser($_POST['email'], $_POST['password']);
+            if($isUser != 'error'){
+                echo $this->twig->render('admin/dashboard.html.twig');
+            } else {
+                echo $this->twig->render('form/login.html.twig', [
+                    'title' => 'LOGIN',
+                    'info' => [
+                            'title' => 'Sign Up',
+                            'link' => 'signup'
+                    ],
+                    'inputs' => [
+                        1 => [
+                            'type' => 'email',
+                            'name' => 'email',
+                            'placeholder' => 'E-mail'
+                        ],
+                        2 => [
+                            'type' => 'password',
+                            'name' => 'password',
+                            'placeholder' => 'Password'
+                        ]
+                    ]
+                ]);
+            }
+            
+        } else {
+            echo $this->twig->render('form/login.html.twig', [
+                'title' => 'LOGIN',
+                'info' => [
+                            'title' => 'Sign Up',
+                            'link' => 'signup'
+                ],
+                'inputs' => [
+                    1 => [
+                        'type' => 'email',
+                        'name' => 'email',
+                        'placeholder' => 'E-mail'
+                    ],
+                    2 => [
+                        'type' => 'password',
+                        'name' => 'password',
+                        'placeholder' => 'Password'
+                    ]
+                ]
+            ]);
+        }
 
     }
 

@@ -1,14 +1,7 @@
 <?php
 
-class ExtractionController 
+class ExtractionController extends AbstractController
 {
-
-    private $twig;
-
-    public function __construct(){
-        $loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'/src/Templates');
-        $this->twig = new \Twig\Environment($loader);
-    }
 
      /*
     * @return void
@@ -31,10 +24,10 @@ class ExtractionController
     public function createExtraction() {
         if(!empty($_POST)){
 
-            $tab = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
-            foreach($tab as $data){
-                $dataVerif = $this->verifPost($data);
-                if($dataVerif == 'error'){
+           $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
+            foreach($fields as $field){
+                $fieldVerif = $this->verifPost($field);
+                if($fieldVerif == 'error'){
                     //header('Location:src/Templates/pages/admin/new-extraction.php');
                 }
             }
@@ -104,16 +97,6 @@ class ExtractionController
             header('Location:src/Templates/pages/admin/new-extraction.php');
         }
     }
-
-
-    public function verifPost($data){
-        if(isset($POST[$data]) || !empty($POST[$data])) {
-            return $data;
-        } else {
-            return 'error';
-        }
-    }
-
-    
+   
 
 }
