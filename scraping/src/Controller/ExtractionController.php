@@ -16,8 +16,9 @@ class ExtractionController
     public function showAll() {
         $manager = new ExtractionModel();
         $extractions = $manager->getListExtraction();
-        $_SESSION['extractions'] = serialize($extractions);
-        echo $this->twig->render('admin/dashboard.html.twig');
+        echo $this->twig->render('admin/dashboard.html.twig', [
+            'extractions' => $extractions,
+        ]);
     }
 
     public function showOne() {
@@ -58,6 +59,8 @@ class ExtractionController
 
             $manager = new ExtractionModel();
             $manager->add($extraction);
+            $result = new ResultController();
+            $result->newScraping($extraction);
           
             echo $this->twig->render('admin/dashboard.html.twig');
         } else {

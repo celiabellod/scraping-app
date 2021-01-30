@@ -11,6 +11,7 @@ $routing->initRoute("signup", "signup", 'UserController', "signup");
 $routing->initRoute("new-extraction", "new-extraction", 'ExtractionController', "createExtraction");
 $routing->initRoute("dashboard", "dashboard", 'ExtractionController', "showAll");
 $routing->initRoute("extraction", "extraction", 'ExtractionController', "showOne");
+$routing->initRoute("single", "single", 'ResultController', "showAll");
 
 
 $url =  $_GET['p'];

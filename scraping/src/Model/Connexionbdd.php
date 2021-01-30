@@ -70,9 +70,7 @@ class Connexionbdd {
 
     $query= "CREATE TABLE IF NOT EXISTS `result` (
       `id` INT NOT NULL AUTO_INCREMENT ,
-      `resultType` VARCHAR(100) NOT NULL ,
-      `resultPath` VARCHAR(255) NOT NULL ,
-      `resultName` VARCHAR(100) NOT NULL ,
+      `data` TEXT NOT NULL ,
       /*`extraction_id` INT,
       `historic_id` INT,      
       CONSTRAINT fk_datas_extraction_id FOREIGN KEY(`extraction_id`) REFERENCES extraction(`id`)

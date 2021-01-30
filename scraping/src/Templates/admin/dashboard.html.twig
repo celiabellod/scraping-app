@@ -9,6 +9,13 @@
             <th>Periodicity</th>
             <th>Category</th>
         </tr>
+        {% for extraction in extractions %}
+            <tr>
+                <td>{{ extraction.name }}</td>
+                <td>{{ extraction.periodicity }}</td>
+                <td>{{ extraction.category }}</td>
+            </tr>
+        {% endfor %}
     </table>
     {% include 'parts/_pagination.html.twig' %}
 
