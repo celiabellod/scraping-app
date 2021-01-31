@@ -1,81 +1,48 @@
 <?php
 
 
-class Extraction 
+class Extraction extends AbstractModel
 {
 
-    /*
-    * @var int
-    */
+    /**
+     * @var int
+     */
     private $id;
 
-    /*
-    * @var string
+    /**
+    * @var String
     */
     private $url;
 
-    /*
-    * @var string
+    /**
+    * @var String
     */
     private $name;
 
-    /*
-    * @var string
+    /**
+    * @var String
     */
     private $type;
 
-    /*
-    * @var string
+    /**
+    * @var String
     */
     private $periodicity;
 
-    /*
-    * @var string
+    /**
+    * @var String
     */
     private $category;
 
-    /*
-    * @var string
+    /**
+    * @var String
     */
     private $primaryContainer;
 
-    /*
-    * @var string
+    /**
+    * @var String
     */
     private $secondaryContainer;
-
-     /*
-    * @var string
-    */
-    private $dataName;
-
-    /*
-    * @var string
-    */
-    private $dataType;
-    
-    /*
-    * @var string
-    */
-    private $dataPath;
-
-    public function __construct(array $datas)
-    {
-        $this->hydrate($datas);
-    }
-
-
-    public function hydrate(array $datas) 
-    {
-        foreach ($datas as $key => $value)
-        {
-          $method = 'set'.ucfirst($key);
-              
-          if (method_exists($this, $method)) {
-            $this->$method($value);
-          }
-        }
-    }
 
     /**
      * Get /*
@@ -265,78 +232,6 @@ class Extraction
     public function setType(string $type)
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get /*
-     *
-     * @return  string
-     */ 
-    public function getDataName()
-    {
-        return $this->dataName;
-    }
-
-    /**
-     * Set /*
-     *
-     * @param  string  $dataName  /*
-     *
-     * @return  self
-     */ 
-    public function setDataName(string $dataName)
-    {
-        $this->dataName = $dataName;
-
-        return $this;
-    }
-
-    /**
-     * Get /*
-     *
-     * @return  string
-     */ 
-    public function getDataType()
-    {
-        return $this->dataType;
-    }
-
-    /**
-     * Set /*
-     *
-     * @param string  $dataType  /*
-     *
-     * @return  self
-     */ 
-    public function setDataType(string $dataType)
-    {
-        $this->dataType = $dataType;
-
-        return $this;
-    }
-
-    /**
-     * Get /*
-     *
-     * @return string
-     */ 
-    public function getDataPath()
-    {
-        return $this->dataPath;
-    }
-
-    /**
-     * Set /*
-     *
-     * @param string  $dataPath  /*
-     *
-     * @return  self
-     */ 
-    public function setDataPath(string $dataPath)
-    {
-        $this->dataPath = $dataPath;
 
         return $this;
     }

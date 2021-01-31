@@ -15,8 +15,8 @@
                 <td>{{ extraction.periodicity }}</td>
                 <td>{{ extraction.category }}
                     <a href="extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
-                    <a href="update-extraction/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
-                    <a href="delete-extraction/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+                    <a href="extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
+                    <a href="xtraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
                 </td>
             </tr>
         {% endfor %}

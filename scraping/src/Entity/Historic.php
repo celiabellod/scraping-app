@@ -1,15 +1,15 @@
 <?php
 
 
-class Historic 
+class Historic extends AbstractModel
 {
 
-    /*
+    /**
     * @var int
     */
     private $id;
 
-    /*
+    /**
     * @var Date
     */
     private $date;
