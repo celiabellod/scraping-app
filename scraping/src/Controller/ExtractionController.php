@@ -3,7 +3,7 @@
 class ExtractionController extends AbstractController
 {
 
-     /*
+    /*
     * @return void
     */
     public function showAll() {
@@ -15,8 +15,11 @@ class ExtractionController extends AbstractController
     }
 
     public function showOne($id) {
-        var_dump($id);
-        //echo $this->twig->render('admin/historics.html.twig');
+        $manager = new ExtractionModel();
+        $extraction = $manager->getOneExtraction($id);
+        echo $this->twig->render('admin/oneExtraction.html.twig', [
+            'extraction' => $extraction
+        ]);
     }
 
     /*
@@ -56,7 +59,7 @@ class ExtractionController extends AbstractController
             $result = new ResultController();
             $result->newScraping($extraction);
           
-            echo $this->twig->render('admin/dashboard.html.twig');
+            $this->showAll();
         } else {
             echo $this->twig->render('admin/new-extraction.html.twig');
         }

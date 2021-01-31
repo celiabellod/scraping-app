@@ -36,9 +36,9 @@ class Connexionbdd {
       `category` VARCHAR(100) NOT NULL , 
       `primaryContainer` VARCHAR(100) NOT NULL ,
       `secondaryContainer` VARCHAR(100),
-      /*`user_id` INT,
+      `user_id` INT,
       CONSTRAINT fk_user_id FOREIGN KEY(`user_id`) REFERENCES user(`id`)
-      ON UPDATE CASCADE ON DELETE CASCADE,*/
+      ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY (`id`)) ENGINE = InnoDB;
     )";
     $this->db->query($query);
@@ -46,9 +46,9 @@ class Connexionbdd {
     $query= "CREATE TABLE IF NOT EXISTS `historic` (
       `id` INT NOT NULL AUTO_INCREMENT ,
       `date` DATE NOT NULL ,
-      /*`extraction_id` INT,   
+      `extraction_id` INT,   
       CONSTRAINT fk_historic_extraction_id FOREIGN KEY(`extraction_id`) REFERENCES extraction(`id`)
-      ON UPDATE CASCADE ON DELETE CASCADE,*/
+      ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY (`id`)) ENGINE = InnoDB;
     )";
     $this->db->query($query);
@@ -58,12 +58,10 @@ class Connexionbdd {
       `dataType` VARCHAR(100) NOT NULL ,
       `dataPath` VARCHAR(255) NOT NULL ,
       `dataName` VARCHAR(100) NOT NULL ,
-      /*`extraction_id` INT,
+      `extraction_id` INT,
       `historic_id` INT,      
       CONSTRAINT fk_datas_extraction_id FOREIGN KEY(`extraction_id`) REFERENCES extraction(`id`)
       ON UPDATE CASCADE ON DELETE CASCADE,
-      CONSTRAINT fk_datas_historic_id FOREIGN KEY(`historic_id`) REFERENCES historic(`id`)
-      ON UPDATE CASCADE ON DELETE CASCADE,*/
       PRIMARY KEY (`id`)) ENGINE = InnoDB;
     )";
     $this->db->query($query);
@@ -71,12 +69,12 @@ class Connexionbdd {
     $query= "CREATE TABLE IF NOT EXISTS `result` (
       `id` INT NOT NULL AUTO_INCREMENT ,
       `data` TEXT NOT NULL ,
-      /*`extraction_id` INT,
+      `extraction_id` INT,
       `historic_id` INT,      
-      CONSTRAINT fk_datas_extraction_id FOREIGN KEY(`extraction_id`) REFERENCES extraction(`id`)
+      CONSTRAINT fk_result_extraction_id FOREIGN KEY(`extraction_id`) REFERENCES extraction(`id`)
       ON UPDATE CASCADE ON DELETE CASCADE,
-      CONSTRAINT fk_datas_historic_id FOREIGN KEY(`historic_id`) REFERENCES historic(`id`)
-      ON UPDATE CASCADE ON DELETE CASCADE,*/
+      CONSTRAINT fk_result_historic_id FOREIGN KEY(`historic_id`) REFERENCES historic(`id`)
+      ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY (`id`)) ENGINE = InnoDB;
     )";
     $this->db->query($query);

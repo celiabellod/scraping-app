@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sass": "sass --watch ./assets/scss/style.scss:./style.css",
+    "sass": "sass --watch ./assets/scss/style.scss:./assets/css/style.css",
     "svg-sprite": "svg-sprite-generate -d assets/images/svgsprite -o assets/images/svgsprite.svg"
   },
   "author": "",

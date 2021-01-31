@@ -1,0 +1,29 @@
+{% extends "admin/admin-base.html.twig" %}
+
+{% block adminMain %}
+{{ parent() }}
+    <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
+    <p class="under-title">{{ extraction.periodicity }}</p>
+    <p class="info">+ Start extraction</p>
+
+    <table class="tab">
+        <tr class="tab-head">
+            <th>Date</th>
+            <th>Reference</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <a href="extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
+                <a href="update-extraction/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
+                <a href="delete-extraction/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+            </td>
+        </tr>
+    </table>
+    {% include 'parts/_pagination.html.twig' %}
+
+    <div class="info-bottom">
+        <p>Category : {{ extraction.category }}</p>
+        <p>Delete all historic</p>
+    </div>
+{% endblock %}

@@ -17,7 +17,8 @@ class UserController extends AbstractController
             $manager = new UserModel();
             $isUser = $manager->logInUser($_POST['email'], $_POST['password']);
             if($isUser != 'error'){
-                echo $this->twig->render('admin/dashboard.html.twig');
+                $extractionController = new ExtractionController;
+                $extractionController->showAll();
             } else {
                 echo $this->twig->render('form/login.html.twig', [
                     'title' => 'LOGIN',

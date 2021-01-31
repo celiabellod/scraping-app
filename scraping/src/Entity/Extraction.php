@@ -45,19 +45,19 @@ class Extraction
     private $secondaryContainer;
 
      /*
-    * @var array
+    * @var string
     */
-    private $dataName = [];
+    private $dataName;
 
     /*
-    * @var array
+    * @var string
     */
-    private $dataType = [];
+    private $dataType;
     
     /*
-    * @var array
+    * @var string
     */
-    private $dataPath = [];
+    private $dataPath;
 
     public function __construct(array $datas)
     {
@@ -85,6 +85,20 @@ class Extraction
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set /*
+     *
+     * @param  int  $id  /*
+     *
+     * @return  self
+     */ 
+    public function setId(int $id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -258,7 +272,7 @@ class Extraction
     /**
      * Get /*
      *
-     * @return  array
+     * @return  string
      */ 
     public function getDataName()
     {
@@ -268,11 +282,11 @@ class Extraction
     /**
      * Set /*
      *
-     * @param  array  $dataName  /*
+     * @param  string  $dataName  /*
      *
      * @return  self
      */ 
-    public function setDataName(array $dataName)
+    public function setDataName(string $dataName)
     {
         $this->dataName = $dataName;
 
@@ -282,7 +296,7 @@ class Extraction
     /**
      * Get /*
      *
-     * @return  array
+     * @return  string
      */ 
     public function getDataType()
     {
@@ -292,11 +306,11 @@ class Extraction
     /**
      * Set /*
      *
-     * @param  array  $dataType  /*
+     * @param string  $dataType  /*
      *
      * @return  self
      */ 
-    public function setDataType(array $dataType)
+    public function setDataType(string $dataType)
     {
         $this->dataType = $dataType;
 
@@ -306,7 +320,7 @@ class Extraction
     /**
      * Get /*
      *
-     * @return  array
+     * @return string
      */ 
     public function getDataPath()
     {
@@ -316,14 +330,15 @@ class Extraction
     /**
      * Set /*
      *
-     * @param  array  $dataPath  /*
+     * @param string  $dataPath  /*
      *
      * @return  self
      */ 
-    public function setDataPath(array $dataPath)
+    public function setDataPath(string $dataPath)
     {
         $this->dataPath = $dataPath;
 
         return $this;
     }
+
 }

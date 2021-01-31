@@ -22,6 +22,29 @@ class ExtractionModel
       return $extractions;
     }
 
+
+    public function getOneExtraction($id)
+    {
+        
+        $query = "SELECT * FROM extraction WHERE id = :id";
+        $req = $this->db->prepare($query);
+        $arrayValue = [
+            ":id" => $id,
+        ];
+        $req->execute($arrayValue);
+
+        $datas = $req->fetch(PDO::FETCH_ASSOC);
+
+        if(!empty($datas)){
+            $extraction = new Extraction($datas);
+            return $extraction;
+        } else {
+            return "error";
+        }
+    
+        $req->closeCursor();
+    }
+
     public function add(Extraction $extraction){
 
         $query = "INSERT INTO `extraction`
