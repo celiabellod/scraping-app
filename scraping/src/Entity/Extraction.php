@@ -1,10 +1,11 @@
 <?php
 
 
-class Extraction extends Datas {
+class Extraction 
+{
 
     /*
-    * @var string
+    * @var int
     */
     private $id;
 
@@ -21,7 +22,7 @@ class Extraction extends Datas {
     /*
     * @var string
     */
-    private $dataType;
+    private $type;
 
     /*
     * @var string
@@ -43,13 +44,29 @@ class Extraction extends Datas {
     */
     private $secondaryContainer;
 
+     /*
+    * @var array
+    */
+    private $dataName = [];
+
+    /*
+    * @var array
+    */
+    private $dataType = [];
+    
+    /*
+    * @var array
+    */
+    private $dataPath = [];
+
     public function __construct(array $datas)
     {
         $this->hydrate($datas);
     }
 
 
-    public function hydrate(array $datas) {
+    public function hydrate(array $datas) 
+    {
         foreach ($datas as $key => $value)
         {
           $method = 'set'.ucfirst($key);
@@ -58,6 +75,16 @@ class Extraction extends Datas {
             $this->$method($value);
           }
         }
+    }
+
+    /**
+     * Get /*
+     *
+     * @return  int
+     */ 
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -104,30 +131,6 @@ class Extraction extends Datas {
     public function setName(string $name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get /*
-     *
-     * @return  string
-     */ 
-    public function getDataType()
-    {
-        return $this->dataType;
-    }
-
-    /**
-     * Set /*
-     *
-     * @param  string  $dataType  /*
-     *
-     * @return  self
-     */ 
-    public function setDataType(string $dataType)
-    {
-        $this->dataType = $dataType;
 
         return $this;
     }
@@ -233,21 +236,93 @@ class Extraction extends Datas {
      *
      * @return  string
      */ 
-    public function getId()
+    public function getType()
     {
-        return $this->id;
+        return $this->type;
     }
 
     /**
      * Set /*
      *
-     * @param  string  $id  /*
+     * @param  string  $type  /*
      *
      * @return  self
      */ 
-    public function setId(string $id)
+    public function setType(string $type)
     {
-        $this->id = $id;
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get /*
+     *
+     * @return  array
+     */ 
+    public function getDataName()
+    {
+        return $this->dataName;
+    }
+
+    /**
+     * Set /*
+     *
+     * @param  array  $dataName  /*
+     *
+     * @return  self
+     */ 
+    public function setDataName(array $dataName)
+    {
+        $this->dataName = $dataName;
+
+        return $this;
+    }
+
+    /**
+     * Get /*
+     *
+     * @return  array
+     */ 
+    public function getDataType()
+    {
+        return $this->dataType;
+    }
+
+    /**
+     * Set /*
+     *
+     * @param  array  $dataType  /*
+     *
+     * @return  self
+     */ 
+    public function setDataType(array $dataType)
+    {
+        $this->dataType = $dataType;
+
+        return $this;
+    }
+
+    /**
+     * Get /*
+     *
+     * @return  array
+     */ 
+    public function getDataPath()
+    {
+        return $this->dataPath;
+    }
+
+    /**
+     * Set /*
+     *
+     * @param  array  $dataPath  /*
+     *
+     * @return  self
+     */ 
+    public function setDataPath(array $dataPath)
+    {
+        $this->dataPath = $dataPath;
 
         return $this;
     }

@@ -1,54 +1,70 @@
 <?php
 
 
-class Result {
+class Result 
+{
 
-      /*
-    * @var string
-    */
-    private $data;
-    
+  /*
+  * @var id
+  */
+  private $id;
 
-    public function __construct(array $datas)
-    {
-        $this->hydrate($datas);
-    }
+  /*
+  * @var string
+  */
+  private $data;
+  
+
+  public function __construct(array $datas)
+  {
+      $this->hydrate($datas);
+  }
 
 
-    public function hydrate(array $datas) {
-        foreach ($datas as $key => $value)
-        {
-          $method = 'set'.ucfirst($key);
-              
-          if (method_exists($this, $method)) {
-            $this->$method($value);
-          }
+  public function hydrate(array $datas) 
+  {
+      foreach ($datas as $key => $value){
+        $method = 'set'.ucfirst($key);
+            
+        if (method_exists($this, $method)) {
+          $this->$method($value);
         }
-    }
+      }
+  }
 
-    /*
+  /**
+   * Get /*
+   *
+   * @return  id
+   */ 
+  public function getId() 
+  {
+    return $this->id;
+  }
 
-    /**
-     * Get /*
-     *
-     * @return  string
-     */ 
-    public function getData()
-    {
-        return $this->data;
-    }
 
-    /**
-     * Set /*
-     *
-     * @param  string  $data  /*
-     *
-     * @return  self
-     */ 
-    public function setData(string $data)
-    {
-        $this->data = $data;
+  /**
+   * Get /*
+   *
+   * @return  string
+   */ 
+  public function getData()
+  {
+      return $this->data;
+  }
 
-        return $this;
-    }
+  /**
+   * Set /*
+   *
+   * @param  string  $data  /*
+   *
+   * @return  self
+   */ 
+  public function setData(string $data)
+  {
+      $this->data = $data;
+
+      return $this;
+  }
+
 }

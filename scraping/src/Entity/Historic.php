@@ -1,7 +1,13 @@
 <?php
 
 
-class Historic extends Datas {
+class Historic 
+{
+
+    /*
+    * @var int
+    */
+    private $id;
 
     /*
     * @var Date
@@ -9,8 +15,20 @@ class Historic extends Datas {
     private $date;
 
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->date = $this->setDate();
+    }
+
+
+    /**
+     * Get /*
+     *
+     * @return  int
+     */ 
+    public function getId()
+    {
+        return $this->id;
     }
     
     /**

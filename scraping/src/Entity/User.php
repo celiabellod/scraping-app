@@ -2,6 +2,10 @@
 
 class User 
 {
+    /*
+    * @var int
+    */
+    private $id;
 
     /*
     * @var string
@@ -38,6 +42,17 @@ class User
             $this->$method($value);
           }
         }
+    }
+
+
+    /**
+     * Get /*
+     *
+     * @return  int
+     */ 
+    public function getId()
+    {
+        return $this->id;
     }
 
 
