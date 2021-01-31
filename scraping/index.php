@@ -3,26 +3,31 @@
 require __DIR__.'/Autoloader.php';
 Autoloader::register();
 $routing = new Routes();
+$params = [];
 
 // Routes
-$routing->initRoute("home", "", 'UserController', "logIn");
-$routing->initRoute("login", "login", 'UserController', "logIn");
-$routing->initRoute("signup", "signup", 'UserController', "signup");
-$routing->initRoute("new-extraction", "new-extraction", 'ExtractionController', "createExtraction");
-$routing->initRoute("dashboard", "dashboard", 'ExtractionController', "showAll");
-$routing->initRoute("extraction", "extraction", 'ExtractionController', "showOne");
-$routing->initRoute("single", "single", 'ResultController', "showAll");
+$routing->initRoute("", 'UserController', "logIn");
+$routing->initRoute("login", 'UserController', "logIn");
+$routing->initRoute("signup", 'UserController', "signup");
+$routing->initRoute("new-extraction", 'ExtractionController', "createExtraction");
+$routing->initRoute("dashboard", 'ExtractionController', "showAll");
+$routing->initRoute("extraction", 'ExtractionController', "showOne");
+$routing->initRoute("single", 'ResultController', "showAll");
+$routing->initRoute("extraction/(\d+)", 'ExtractionController', "showOne");
 
 
-$url =  $_GET['p'];
-$routeController = $routing->getControlleur($url);
+$uri = (isset($_GET) && isset($_GET['p'])) ? $_GET['p'] : '';
+
+$routeManager = $routing->getControlleur($uri);
 
 if ($routing->isError404()) {
     header("HTTP/1.0 404 Not Found");
 }
 
-$controller = new $routeController[0];
-$method = [$controller, $routeController[1]];
+$controller = new $routeManager[0];
+$method = [$controller, $routeManager[1]];
+$params[] = $routeManager[2];
+
 if(is_callable($method, false, $callable_name)){
-    call_user_func($method);
+    call_user_func_array($method, $params);
 }

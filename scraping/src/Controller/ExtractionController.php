@@ -14,8 +14,9 @@ class ExtractionController extends AbstractController
         ]);
     }
 
-    public function showOne() {
-        echo $this->twig->render('admin/historics.html.twig');
+    public function showOne($id) {
+        var_dump($id);
+        //echo $this->twig->render('admin/historics.html.twig');
     }
 
     /*

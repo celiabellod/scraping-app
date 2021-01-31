@@ -7,22 +7,6 @@ class Routes {
      */
     private $routes = [];
 
-     /**
-     * @var array 
-     */
-    private $routesUrl = [];
-
-
-     /**
-     * @var array 
-     */
-    private $routesName = [];
-
-    /**
-     * @var integer 
-     */
-    private $idRoutes = 0;
-
     /**
      * @var boolean 
      */
@@ -35,14 +19,9 @@ class Routes {
      * @param string $controller
      * @param string $method
      */
-    public function initRoute($routeName, $url, $controller, $method) {
+    public function initRoute($path, $controller, $method) {
 
-        $this->idRoutes++;
-        $this->routesName[$routeName] = $this->idRoutes;
-        // $newUrl = preg_replace('#/:([\w]+)#', '', $url);
-        // $params = preg_replace('#^(.*)/:#', '', $url);
-        $this->routesUrl[$url] = $this->idRoutes;
-        $this->routes[$this->idRoutes] = ["name" => $routeName, "url" => $url, "controller" => $controller, "method" => $method];
+        $this->routes[$path] = ["controller" => $controller, "method" => $method];
     }
 
 
@@ -52,14 +31,17 @@ class Routes {
      * @return array|bool
      */
     public function getControlleur($url) {
-        $url = preg_replace('#/:([\w]+)#', '', $url);
-        if (array_key_exists($url, $this->routesUrl)) {
-            return [
-                    $this->routes[$this->routesUrl[$url]]["controller"], 
-                    $this->routes[$this->routesUrl[$url]]["method"], 
-                    $this->routes[$this->routesUrl[$url]]["url"],
+        foreach ($this->routes as $path => $info) {
+            if(preg_match('/^'.(str_replace('/', '\/', trim($path, '/'))).'$/', $url, $matches)){
+                return [
+                    $this->routes[$path]["controller"], 
+                    $this->routes[$path]["method"], 
+                    $matches[1]
                 ];
-        } else {
+            }
+        }
+
+        if($matches == 0){
             return $this->error404 = true;
         }
     }
