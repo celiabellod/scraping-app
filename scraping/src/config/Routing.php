@@ -1,6 +1,6 @@
 <?php
 
-class Routes {
+class Routing {
 
     /**
      * @var array 
@@ -30,18 +30,23 @@ class Routes {
      * @param string $url
      * @return array|bool
      */
-    public function getControlleur($url) {
+    public function getControlleur($uri) {
         foreach ($this->routes as $path => $info) {
-            if(preg_match('/^'.(str_replace('/', '\/', trim($path, '/'))).'$/', $url, $matches)){
+            if(preg_match('/^'.(str_replace('/', '\/', trim($path, '/'))).'$/', $uri, $matches)){
+                if(isset($matches[1])){
+                    $params = $matches[1];
+                } else {
+                    $params = '';
+                }
                 return [
                     $this->routes[$path]["controller"], 
                     $this->routes[$path]["method"], 
-                    $matches[1]
+                    $params
                 ];
             }
         }
 
-        if($matches == 0){
+        if(empty($matches)){
             return $this->error404 = true;
         }
     }
