@@ -45,13 +45,12 @@ class ExtractionModel
         $req->closeCursor();
     }
 
-    public function add(Extraction $extraction){
+    public function add(Extraction $extraction, Datas $datas){
 
-        $query = "INSERT INTO `extraction`
-                    (`url`, `name`,`type`, `periodicity`, `category`, `primaryContainer`, `secondaryContainer`) 
+
+        $query = "INSERT INTO extraction
+                    (`url`, `name`, `type`, `periodicity`, `category` ,`primaryContainer`,`secondaryContainer`) 
                     VALUES (:url, :name, :type, :periodicity, :category, :primaryContainer, :secondaryContainer);
-
-                    INSERT INTO `datas`(`dataType`, `dataPath`,`dataName`) VALUES (:dataType, :dataPath, :dataName);
                 ";
                 
 
@@ -60,22 +59,34 @@ class ExtractionModel
         $arrayValue = [
             ":url" => $extraction->getUrl(),
             ":name"  => $extraction->getName(),
-            ":type"  => $extraction->getDataType(),
+            ":type"  => $extraction->getType(),
             ":periodicity"  => $extraction->getPeriodicity(),
             ":category" => $extraction->getCategory(),
             ":primaryContainer" => $extraction->getPrimaryContainer(),
             ":secondaryContainer" => $extraction->getSecondaryContainer(),
-            ":dataType" => $extraction->getDataType(),
-            ":dataName"  => $extraction->getDataName(),
-            ":dataPath"  => $extraction->getDataPath(),
         ];
     
         if($req->execute($arrayValue)){
-            return 1;
+            $req->closeCursor();
+
+            $reqId = $this->db->query('SELECT LAST_INSERT_ID() FROM extraction');
+            $extractionId = $reqId->fetch(PDO::FETCH_ASSOC);
+            $query = "INSERT INTO `datas`(`dataType`, `dataPath`,`dataName`, `extraction_id`) VALUES (:dataType, :dataPath, :dataName, :extraction_id);";
+            $req = $this->db->prepare($query);
+            $arrayValue = [
+                ":dataType" => $datas->getDataType(),
+                ":dataName"  => $datas->getDataName(),
+                ":dataPath"  => $datas->getDataPath(),
+                ":extraction_id" => $extractionId["LAST_INSERT_ID()"]
+            ];
+            
+            if($req->execute($arrayValue)){
+                return 1;
+            }
         } else {
             return "error";
         }
-    
+        $reqId->closeCursor();
         $req->closeCursor();
           
     }

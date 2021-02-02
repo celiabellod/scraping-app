@@ -48,14 +48,17 @@ class ExtractionController extends AbstractController
                 'periodicity' => $_POST['periodicity'],
                 'category' => $_POST['category'],
                 'primaryContainer' => $_POST['primaryContainer'],
-                'secondaryContainer' => $secondaryContainer,
+                'secondaryContainer' => $secondaryContainer
+            ]);
+
+            $datas = new Datas([
                 'dataName' => $_POST['dataName'],
                 'dataType' => $_POST['dataType'],
                 'dataPath' => $_POST['dataPath'],
             ]);
 
             $manager = new ExtractionModel();
-            $manager->add($extraction);
+            $manager->add($extraction, $datas);
             $result = new ResultController();
             $result->newScraping($extraction);
           
