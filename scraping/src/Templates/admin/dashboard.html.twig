@@ -2,7 +2,7 @@
 
 {% block adminMain %}
     <h1 class="title is-2 main-content-title">My extractions</h1>
-    <a href="new-extraction" class="info">+ Add an  extraction</a>
+    <a href="/extraction/new" class="info">+ Add an  extraction</a>
     <table class="tab">
         <tr class="tab-head">
             <th>Name</th>
@@ -14,9 +14,9 @@
                 <td>{{ extraction.name }}</td>
                 <td>{{ extraction.periodicity }}</td>
                 <td>{{ extraction.category }}
-                    <a href="extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
-                    <a href="extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
-                    <a href="xtraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+                    <a href="/extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
+                    <a href="/extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
+                    <a href="/extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
                 </td>
             </tr>
         {% endfor %}

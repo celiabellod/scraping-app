@@ -4,22 +4,31 @@
 class ResultController extends AbstractController
 {
 
-    public function newScraping(Extraction $extraction) {
+    public function  create() {
 
-        // $client = \Symfony\Component\Panther\Client::createChromeClient();
+        //recupere l'id de l'extraction via l'url
+        preg_match('/(\d+)/', $_SERVER['REQUEST_URI'], $matches);
+        unset($matches[0]);
 
-        // $client->request('GET', $extraction->getUrl());
+        //recupere l'objet extraction
+        $extractionManager = new ExtractionModel();
+        $extraction = $extractionManager->getOneExtraction($matches[1]);
 
-        // $crawler = $client->waitFor($extraction->getPrimaryContainer());
+        $client = \Symfony\Component\Panther\Client::createChromeClient();
+
+        $client->request('GET', $extraction->getUrl());
+
+        $crawler = $client->waitFor($extraction->getPrimaryContainer());
         
-        // $data = $crawler->filter($extraction->getSecondaryContainer() . ' ' . $datas->getDataPath())->text();
+        $data = $crawler->filter($extraction->getSecondaryContainer() . ' ' . $extraction->getDataPath())->text();
 
-        // $result = new Result([
-        //     'data' => $data,
-        // ]);
+        $result = new Result([
+            'data' => $data,
+            'extraction_id' => $extraction->getId()
+        ]);
 
-        // $manager = new ResultModel();
-        // $manager->add($result);
+        $manager = new ResultModel();
+        $manager->add($result);
         // //$screenshot = $client->takeScreenshot('screen.png');
     }
 

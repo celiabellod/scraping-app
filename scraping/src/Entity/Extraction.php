@@ -1,7 +1,7 @@
 <?php
 
 
-class Extraction extends AbstractModel
+class Extraction extends Datas
 {
 
     /**

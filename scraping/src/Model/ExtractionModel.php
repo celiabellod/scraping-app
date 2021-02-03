@@ -25,8 +25,7 @@ class ExtractionModel
 
     public function getOneExtraction($id)
     {
-        
-        $query = "SELECT * FROM extraction WHERE id = :id";
+        $query = "SELECT * FROM extraction e INNER JOIN datas d ON e.id = d.extraction_id WHERE e.id = :id";
         $req = $this->db->prepare($query);
         $arrayValue = [
             ":id" => $id,
@@ -34,7 +33,7 @@ class ExtractionModel
         $req->execute($arrayValue);
 
         $datas = $req->fetch(PDO::FETCH_ASSOC);
-
+        
         if(!empty($datas)){
             $extraction = new Extraction($datas);
             return $extraction;

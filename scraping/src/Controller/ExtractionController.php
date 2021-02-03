@@ -17,7 +17,7 @@ class ExtractionController extends AbstractController
     public function showOne($id) {
         $manager = new ExtractionModel();
         $extraction = $manager->getOneExtraction($id);
-        echo $this->twig->render('admin/oneExtraction.html.twig', [
+        echo $this->twig->render('admin/single-extraction.html.twig', [
             'extraction' => $extraction
         ]);
     }
@@ -25,7 +25,7 @@ class ExtractionController extends AbstractController
     /*
     * @return void
     */
-    public function createExtraction() {
+    public function create() {
         if(!empty($_POST)){
 
            $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
@@ -59,8 +59,6 @@ class ExtractionController extends AbstractController
 
             $manager = new ExtractionModel();
             $manager->add($extraction, $datas);
-            $result = new ResultController();
-            $result->newScraping($extraction);
           
             $this->showAll();
         } else {

@@ -13,6 +13,11 @@ class Result extends AbstractModel
    * @var String
    */
   private $data;
+
+   /**
+   * @var int
+   */
+  private $extraction_id;
   
 
   /**
@@ -50,4 +55,28 @@ class Result extends AbstractModel
       return $this;
   }
 
+
+  /**
+   * Get the value of extraction_id
+   *
+   * @return  int
+   */ 
+  public function getExtraction_id()
+  {
+    return $this->extraction_id;
+  }
+
+  /**
+   * Set the value of extraction_id
+   *
+   * @param  int  $extraction_id
+   *
+   * @return  self
+   */ 
+  public function setExtraction_id(int $extraction_id)
+  {
+    $this->extraction_id = $extraction_id;
+
+    return $this;
+  }
 }

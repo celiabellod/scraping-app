@@ -12,11 +12,14 @@ class ResultModel {
 
 
     public function add(Result $result) {
-        $query = "INSERT INTO `result` (`data`) VALUES (:data);";
+        $query = "INSERT INTO `result` (data, extraction_id) VALUES (:data, :extraction_id);";
 
         $req = $this->db->prepare($query);
 
-        $arrayValue = [":data" => $result->getData()];
+        $arrayValue = [
+            ":data" => $result->getData(),
+            ":extraction_id" => $result->getExtraction_id()
+        ];
 
         if($req->execute($arrayValue)){
             return 1;

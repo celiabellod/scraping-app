@@ -1,7 +1,7 @@
 <?php
 
 
-class Datas extends AbstractModel
+abstract class Datas extends AbstractModel
 {
 
     /**
