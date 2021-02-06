@@ -46,20 +46,12 @@ class Routing {
             }
         }
 
-        if(empty($matches)){
-            return $this->error404 = true;
-        }
-    }
-
-    /**
-     * Retourne true s'il y a une erreur 404
-     * @return boolean
-     */
-    public function isError404() {
-        if ($this->error404 == true) {
-            return true;
-        }
-        return false;
+        return [
+            'ErrorController',
+            'error404',
+            ''
+        ];
+    
     }
 
     /**

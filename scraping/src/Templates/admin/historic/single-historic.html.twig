@@ -1,7 +1,7 @@
 {% extends "admin/admin-base.html.twig" %}
-
 {% block adminMain %}
-    <p class="under-title">{{ extraction.name }}</p>
+    <a href="/extraction/{{ extraction.id }}" class="back-link">Retour</a>
+    <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
     <p class="info">Dowload extraction</p>
 
     <table class="tab">
@@ -22,7 +22,7 @@
      {% include 'parts/_pagination.html.twig' %}
 
     <div class="info-bottom">
-        <p>Reference : 1</p>
+        <p>Reference : {{ historic.id }}</p>
         <p>Delete</p>
     </div>
 {% endblock %}  

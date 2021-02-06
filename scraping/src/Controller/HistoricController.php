@@ -19,7 +19,7 @@ class HistoricController extends AbstractController
             'extraction_id' => $extraction->getId(),
         ]);
         $historicManager = new HistoricModel();
-        $historicManager->add($historic);
+        $historic = $historicManager->add($historic);
         
         $client = \Symfony\Component\Panther\Client::createChromeClient();
 
@@ -43,16 +43,43 @@ class HistoricController extends AbstractController
         }
 
         $extractionController = new ExtractionController();
-        $extractionController->showOne($extraction->getId());
+        //$extractionController->getOne($extraction->getId());
         // //$screenshot = $client->takeScreenshot('screen.png');
     }
 
-    public function showOne($id)
+    public function _getList(Extraction $extraction)
     {
         $manager = new HistoricModel();
-        $historic = $manager->getOneHistoric($id);
+        $historic = $manager->getListHistoric($extraction);
+        return $historic;
+    }
+
+    public function getOne()
+    {
+        //Get Historic
+        preg_match('/(\d+)$/', $_SERVER['REQUEST_URI'], $matches);
+        unset($matches[0]);
+        $historicId = $matches[1];
+
+        $manager = new HistoricModel();
+        $historic = $manager->getOneHistoric($historicId);
+
+        //Get Extraction
+        preg_match('/(\d+)/', $_SERVER['REQUEST_URI'], $matches);
+        unset($matches[0]);
+        $extractionId = $matches[1];
+        $extraction = new ExtractionModel();
+        $extraction = $extraction->getOneExtraction($extractionId);
+
+        //Get Result
         $resultController = new ResultController();
-        $resultController->showAll($historic);
+        $results = $resultController->_getList($historic);
+
+        echo $this->twig->render('admin/historic/single-historic.html.twig', [
+            'extraction' => $extraction,
+            'historic' => $historic,
+            'results' => $results,
+        ]);
     }
 
 }

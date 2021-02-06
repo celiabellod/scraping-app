@@ -1,23 +1,26 @@
 {% extends "admin/admin-base.html.twig" %}
 
 {% block adminMain %}
+     <a href="/dashboard" class="back-link">Retour</a>
     <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
     <p class="under-title">{{ extraction.periodicity }}</p>
-    <a class="info" href="/extraction/{{ extraction.id }}/result/new">+ Start extraction</p>
+    <a class="info" href="/extraction/{{ extraction.id }}/result/new">+ Start extraction</a>
 
     <table class="tab">
         <tr class="tab-head">
             <th>Date</th>
             <th>Reference</th>
         </tr>
-        <tr>
-            <td></td>
-            <td>
-                <a href="/extraction/{{ extraction.id }}/result/4"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
-                <a href="extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
-                <a href="extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
-            </td>
-        </tr>
+        {% for h in historic %}
+            <tr>
+                <td>{{ h.date }}</td>
+                <td>{{ h.id }}
+                    <a href="/extraction/{{ extraction.id }}/result/{{ h.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
+                    <a href="extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
+                    <a href="extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+                </td>
+            </tr>
+        {% endfor %}
     </table>
     {% include 'parts/_pagination.html.twig' %}
 

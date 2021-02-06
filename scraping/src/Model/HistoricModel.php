@@ -21,12 +21,40 @@ class HistoricModel
         ];
 
         if($req->execute($arrayValue)){
-            $reqId = $this->db->query('SELECT LAST_INSERT_ID() FROM historic');
-            $historicId = $reqId->fetch(PDO::FETCH_ASSOC);
-            return $this->getOneHistoric($historicId["LAST_INSERT_ID()"]);
+            $query = $this->db->query("SELECT * FROM historic WHERE id = LAST_INSERT_ID()");
+            $query->execute();
+            $datas = $query->fetch(PDO::FETCH_ASSOC);
+
+            if(!empty($datas)){
+                $historic = new Historic($datas);
+                return $historic;
+            } else {
+                return "error";
+            }
+            $req->closeCursor();
+            
         } else {
             return "error";
         }
+        $req->closeCursor();
+    }
+
+    public function getListHistoric(Extraction $extraction)
+    {
+        $historic = [];
+        $query = "SELECT * FROM historic WHERE extraction_id = :extraction_id";
+        $req = $this->db->prepare($query);
+
+        $arrayValue = [
+            ":extraction_id" => $extraction->getId(),
+        ];
+
+        $req->execute($arrayValue);
+
+        while ($datas = $req->fetch(PDO::FETCH_ASSOC)) {
+            $historic[] = new Historic($datas);
+        }
+        return $historic;
         $req->closeCursor();
     }
 
@@ -34,20 +62,15 @@ class HistoricModel
     public function getOneHistoric($id)
     {
         $query = "SELECT * FROM historic WHERE id = :id";
-
         $req = $this->db->prepare($query);
-
         $arrayValue = [
             ":id" => $id,
         ];
-
         $req->execute($arrayValue);
-
         $datas = $req->fetch(PDO::FETCH_ASSOC);
-        
         if(!empty($datas)){
-            $extraction = new Historic($datas);
-            return $extraction;
+            $historic = new Historic($datas);
+            return $historic;
         } else {
             return "error";
         }

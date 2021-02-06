@@ -30,16 +30,14 @@ class ResultModel {
     public function getListResult(Historic $historic)
     {
       $results = [];
-      $query = $this->db->query('SELECT * FROM result ORDER BY id DESC WHERE historic_id = :historic_id');
+      $query = 'SELECT * FROM result WHERE historic_id = :historic_id';
       $req = $this->db->prepare($query);
 
       $arrayValue = [
           ":historic_id" => $historic->getId(),
       ];
-
       $req->execute($arrayValue);
-
-      while ($datas = $query->fetch(PDO::FETCH_ASSOC)) {
+      while ($datas = $req->fetch(PDO::FETCH_ASSOC)) {
         $results[] = new Result($datas);
       }
       return $results;

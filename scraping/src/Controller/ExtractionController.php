@@ -55,7 +55,7 @@ class ExtractionController extends AbstractController
       /*
     * @return void
     */
-    public function showAll() 
+    public function getList() 
     {
         $manager = new ExtractionModel();
         $extractions = $manager->getListExtraction();
@@ -64,13 +64,17 @@ class ExtractionController extends AbstractController
         ]);
     }
 
-    public function showOne($id) 
+    public function getOne($id) 
     {
         $manager = new ExtractionModel();
         $extraction = $manager->getOneExtraction($id);
+        $historicController = new HistoricController();
+        $historic = $historicController->_getList($extraction);
         echo $this->twig->render('admin/single-extraction.html.twig', [
+            'historic' => $historic,
             'extraction' => $extraction
         ]);
+
     }
 
     public function update() 

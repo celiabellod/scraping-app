@@ -11,9 +11,6 @@ $params = [];
 $uri = (isset($_GET) && isset($_GET['p'])) ? $_GET['p'] : '';
 
 $routeManager = $routing->getControlleur($uri);
-if ($routing->isError404()) {
-    header("HTTP/1.0 404 Not Found");
-}
 
 $controller = new $routeManager[0];
 $method = [$controller, $routeManager[1]];
