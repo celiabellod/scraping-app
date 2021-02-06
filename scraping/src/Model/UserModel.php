@@ -9,11 +9,10 @@ class UserModel
         $this->db = $connexion->getdb();
     }
 
-    public function logInUser($email, $password) {
+    public function logInUser($email, $password) 
+    {
         $query = "SELECT * FROM user WHERE email = :email";
-    
         $req = $this->db->prepare($query);
-
         $arrayValue = [
             ":email" => $email,
         ];
@@ -25,7 +24,6 @@ class UserModel
         } else {
             return "error";
         }
-    
         $req->closeCursor();
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 
-class Result extends AbstractModel
+class Result extends AbstractEntity
 {
 
   /**
@@ -19,6 +19,10 @@ class Result extends AbstractModel
    */
   private $extraction_id;
   
+  /**
+   * @var int
+   */
+  private $historic_id;
 
   /**
    * Get /*
@@ -76,6 +80,30 @@ class Result extends AbstractModel
   public function setExtraction_id(int $extraction_id)
   {
     $this->extraction_id = $extraction_id;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of historic_id
+   *
+   * @return  int
+   */ 
+  public function getHistoric_id()
+  {
+    return $this->historic_id;
+  }
+
+  /**
+   * Set the value of historic_id
+   *
+   * @param  int  $historic_id
+   *
+   * @return  self
+   */ 
+  public function setHistoric_id(int $historic_id)
+  {
+    $this->historic_id = $historic_id;
 
     return $this;
   }

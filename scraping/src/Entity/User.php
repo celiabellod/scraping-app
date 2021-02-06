@@ -1,6 +1,6 @@
 <?php
 
-class User extends AbstractModel
+class User extends AbstractEntity
 {
     /*
     * @var int

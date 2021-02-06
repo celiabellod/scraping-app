@@ -5,7 +5,8 @@ abstract class AbstractController
 {
     public $twig;
 
-    public function __construct(){
+    public function __construct()
+    {
         $loader = new \Twig\Loader\FilesystemLoader('src/Templates/');
         $this->twig = new \Twig\Environment($loader);
         $function = new \Twig\TwigFunction('assets', function ($uri) {

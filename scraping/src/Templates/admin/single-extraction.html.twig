@@ -1,7 +1,6 @@
 {% extends "admin/admin-base.html.twig" %}
 
 {% block adminMain %}
-{{ parent() }}
     <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
     <p class="under-title">{{ extraction.periodicity }}</p>
     <a class="info" href="/extraction/{{ extraction.id }}/result/new">+ Start extraction</p>
@@ -14,7 +13,7 @@
         <tr>
             <td></td>
             <td>
-                <a href="extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
+                <a href="/extraction/{{ extraction.id }}/result/4"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
                 <a href="extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
                 <a href="extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
             </td>

@@ -5,7 +5,8 @@ class UserController extends AbstractController
     /*
     * @return Templates
     */
-    public function logIn() {
+    public function logIn() 
+    {
         if(!empty($_POST)){
             $fields = ['email', 'password'];
             foreach($fields as $field){
@@ -68,7 +69,8 @@ class UserController extends AbstractController
     /*
     * @return Templates
     */
-    public function signup() {
+    public function signup() 
+    {
         echo $this->twig->render('form/signup.html.twig', [
             'title' => 'SIGNUP',
             'info' => [
@@ -90,7 +92,8 @@ class UserController extends AbstractController
     * @param string $email
     * @return void
     */
-    public function logOut($email) {
+    public function logOut($email) 
+    {
         
     }
 

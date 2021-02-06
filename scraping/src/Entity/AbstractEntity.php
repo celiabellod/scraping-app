@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class AbstractModel
+abstract class AbstractEntity
 {
     public function __construct(array $datas)
     {

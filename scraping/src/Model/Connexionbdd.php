@@ -8,8 +8,10 @@ class Connexionbdd {
   private $dbname = "scraping";
   private $db = "";
 
-  public function __construct(){
-    try {
+  public function __construct()
+  {
+    try 
+    {
       $this->db = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (Exception $e) {
@@ -58,8 +60,7 @@ class Connexionbdd {
       `dataType` VARCHAR(100) NOT NULL ,
       `dataPath` VARCHAR(255) NOT NULL ,
       `dataName` VARCHAR(100) NOT NULL ,
-      `extraction_id` INT,
-      `historic_id` INT,      
+      `extraction_id` INT,   
       CONSTRAINT fk_datas_extraction_id FOREIGN KEY(`extraction_id`) REFERENCES extraction(`id`)
       ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY (`id`)) ENGINE = InnoDB;
@@ -80,7 +81,8 @@ class Connexionbdd {
     $this->db->query($query);
   }
 
-  public function getdb() {
+  public function getdb() 
+  {
     $db = $this->db;
     return $db;
   }

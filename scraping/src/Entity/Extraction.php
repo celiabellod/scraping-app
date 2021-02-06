@@ -1,7 +1,7 @@
 <?php
 
 
-class Extraction extends Datas
+class Extraction extends AbstractEntity
 {
 
     /**
@@ -43,6 +43,12 @@ class Extraction extends Datas
     * @var String
     */
     private $secondaryContainer;
+
+    /**
+     * @var Array
+     */
+    private $datas;
+
 
     /**
      * Get /*
@@ -236,4 +242,28 @@ class Extraction extends Datas
         return $this;
     }
 
+
+    /**
+     * Get the value of datas
+     *
+     * @return  Array
+     */ 
+    public function getDatas()
+    {
+        return $this->datas;
+    }
+
+    /**
+     * Set the value of datas
+     *
+     * @param  Array  $datas
+     *
+     * @return  self
+     */ 
+    public function setDatas(Array $datas)
+    {
+        $this->datas = $datas;
+
+        return $this;
+    }
 }

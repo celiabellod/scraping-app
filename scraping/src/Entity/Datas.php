@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class Datas extends AbstractModel
+class Datas extends AbstractEntity
 {
 
     /**
@@ -24,6 +24,11 @@ abstract class Datas extends AbstractModel
      * @var String
      */
     private $dataPath;
+
+    /**
+     * @var Extraction
+     */
+    private $extraction;
 
 
     /**
@@ -118,6 +123,30 @@ abstract class Datas extends AbstractModel
     public function setDataPath(String $dataPath)
     {
         $this->dataPath = $dataPath;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of extraction
+     *
+     * @return  Extraction
+     */ 
+    public function getExtraction()
+    {
+        return $this->extraction;
+    }
+
+    /**
+     * Set the value of extraction
+     *
+     * @param  Extraction  $extraction
+     *
+     * @return  self
+     */ 
+    public function setExtraction(Extraction $extraction)
+    {
+        $this->extraction = $extraction;
 
         return $this;
     }
