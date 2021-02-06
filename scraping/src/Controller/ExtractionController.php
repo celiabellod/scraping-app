@@ -68,13 +68,12 @@ class ExtractionController extends AbstractController
     {
         $manager = new ExtractionModel();
         $extraction = $manager->getOneExtraction($id);
-        $historicController = new HistoricController();
-        $historic = $historicController->_getList($extraction);
+        $manager = new HistoricModel();
+        $historic = $manager->getListHistoric($extraction);
         echo $this->twig->render('admin/single-extraction.html.twig', [
             'historic' => $historic,
             'extraction' => $extraction
         ]);
-
     }
 
     public function update() 

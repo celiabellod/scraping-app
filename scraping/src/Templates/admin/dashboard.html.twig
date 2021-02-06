@@ -1,27 +1,33 @@
 {% extends "admin/admin-base.html.twig" %}
 
 {% block adminMain %}
-    <h1 class="title is-2 main-content-title">My extractions</h1>
-    <a href="/extraction/new" class="info">+ Add an extraction</a>
-    <table class="tab">
-        <tr class="tab-head">
-            <th>Name</th>
-            <th>Periodicity</th>
-            <th>Category</th>
-        </tr>
-        {% for extraction in extractions %}
-            <tr>
-                <td>{{ extraction.name }}</td>
-                <td>{{ extraction.periodicity }}</td>
-                <td>{{ extraction.category }}
-                    <a href="/extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
-                    <a href="/extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
-                    <a href="/extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    {% include 'parts/_pagination.html.twig' %}
+    <div class="main-content is-center">
+        <div class="container">
+            <h1 class="title is-2 main-content-title">My extractions</h1>
+            <a href="/extraction/new" class="info">+ Add an extraction</a>
+            <table class="tab">
+                <tr class="tab-head">
+                    <th>Name</th>
+                    <th>Periodicity</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+                {% for extraction in extractions %}
+                    <tr>
+                        <td>{{ extraction.name }}</td>
+                        <td>{{ extraction.periodicity }}</td>
+                        <td>{{ extraction.category }}</td>
+                        <td class="utils">
+                            <a href="/extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
+                            <a href="/extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
+                            <a href="/extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% include 'parts/_pagination.html.twig' %}
+        </div>
+    </div>
 
 
 {% endblock %}

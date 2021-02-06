@@ -42,7 +42,7 @@ class HistoricModel
     public function getListHistoric(Extraction $extraction)
     {
         $historic = [];
-        $query = "SELECT * FROM historic WHERE extraction_id = :extraction_id";
+        $query = "SELECT * FROM historic WHERE extraction_id = :extraction_id ORDER BY id DESC";
         $req = $this->db->prepare($query);
 
         $arrayValue = [

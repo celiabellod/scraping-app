@@ -2,35 +2,33 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
-    color: $color-primary;
-    &-title {
-        margin-bottom: 0;
+    justify-content: space-between;
+    &.is-center {
+        justify-content: center;
     }
+    color: $color-primary;
     .back-link {
-        align-self: flex-start;
+        margin-top: 5rem;
+        width: 80%;
     }
     .container {
         display: flex;
         align-items: center;
         flex-direction: column;
-        justify-content: space-around;
         width: 80%;
-        height:100%;
     }
-    p.info{
-        margin: 0rem;
+    a.info{
         align-self: flex-end;
+        margin-top: 3rem;
     }
     .info-bottom {
         display: flex;
-        width:100%;
         justify-content: space-between;
+        width: 80%;
+        margin-bottom: 3rem;
         p:last-child{
             color: $color-secondary;
         }
     }
-    .under-title {
-        margin-top: -2rem;
-    }
+
 }

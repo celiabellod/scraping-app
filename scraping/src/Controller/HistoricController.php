@@ -43,16 +43,10 @@ class HistoricController extends AbstractController
         }
 
         $extractionController = new ExtractionController();
-        //$extractionController->getOne($extraction->getId());
+        header('Location:/extraction/'.$extraction->getId());
         // //$screenshot = $client->takeScreenshot('screen.png');
     }
 
-    public function _getList(Extraction $extraction)
-    {
-        $manager = new HistoricModel();
-        $historic = $manager->getListHistoric($extraction);
-        return $historic;
-    }
 
     public function getOne()
     {

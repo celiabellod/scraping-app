@@ -1,31 +1,37 @@
 {% extends "admin/admin-base.html.twig" %}
 
 {% block adminMain %}
-     <a href="/dashboard" class="back-link">Retour</a>
-    <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
-    <p class="under-title">{{ extraction.periodicity }}</p>
-    <a class="info" href="/extraction/{{ extraction.id }}/result/new">+ Start extraction</a>
+    <div class="main-content">
+        <a href="/dashboard" class="back-link">Retour</a>
+        <div class="container">
+            <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
+            <p class="under-title">{{ extraction.periodicity }}</p>
+            <a class="info" href="/extraction/{{ extraction.id }}/result/new">+ Start extraction</a>
 
-    <table class="tab">
-        <tr class="tab-head">
-            <th>Date</th>
-            <th>Reference</th>
-        </tr>
-        {% for h in historic %}
-            <tr>
-                <td>{{ h.date }}</td>
-                <td>{{ h.id }}
-                    <a href="/extraction/{{ extraction.id }}/result/{{ h.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
-                    <a href="extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
-                    <a href="extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    {% include 'parts/_pagination.html.twig' %}
-
-    <div class="info-bottom">
-        <p>Category : {{ extraction.category }}</p>
-        <p>Delete all historic</p>
+            <table class="tab">
+                <tr class="tab-head">
+                    <th>Date</th>
+                    <th>Reference</th>
+                    <th></th>
+                </tr>
+                {% for h in historic %}
+                    <tr>
+                        <td>{{ h.date }}</td>
+                        <td>{{ h.id }}</td>
+                        <td class="utils">
+                            <a href=""><img src="{{ assets('images/download.svg') }}" alt="" width="20"></a>
+                            <a href="/extraction/{{ extraction.id }}/result/{{ h.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
+                            <a href=""><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% include 'parts/_pagination.html.twig' %}
+        </div>
+        <div class="info-bottom">
+            <p>Category : {{ extraction.category }}</p>
+            <p>Delete all historic</p>
+        </div>
     </div>
+
 {% endblock %}

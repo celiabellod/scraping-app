@@ -138,6 +138,7 @@ body {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   width: 100%;
+  margin: 3rem 0;
 }
 .tab-head {
   text-align: left;
@@ -147,6 +148,9 @@ body {
 .tab th, .tab td {
   padding: 0.9rem 2rem;
   border-bottom: 1px solid #d1d0d0;
+}
+.tab .utils {
+  text-align: right;
 }
 
 .main-aside {
@@ -201,37 +205,34 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   color: #3E4E68;
 }
-.main-content-title {
-  margin-bottom: 0;
+.main-content.is-center {
+  justify-content: center;
 }
 .main-content .back-link {
-  align-self: flex-start;
+  margin-top: 5rem;
+  width: 80%;
 }
 .main-content .container {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-around;
   width: 80%;
-  height: 100%;
 }
-.main-content p.info {
-  margin: 0rem;
+.main-content a.info {
   align-self: flex-end;
+  margin-top: 3rem;
 }
 .main-content .info-bottom {
   display: flex;
-  width: 100%;
   justify-content: space-between;
+  width: 80%;
+  margin-bottom: 3rem;
 }
 .main-content .info-bottom p:last-child {
   color: #E62F7B;
-}
-.main-content .under-title {
-  margin-top: -2rem;
 }
 
 .grid {

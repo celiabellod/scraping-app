@@ -2,11 +2,7 @@
 {% block content %}
     <main class="grid grid-main">
        {% include 'parts/_aside.html.twig' %}
-        <div class="main-content">
-            <div class="container">
-                {% block adminMain %}{% endblock %}
-            </div>
-        </div>
+        {% block adminMain %}{% endblock %}
     <main>
 {% endblock %}
 

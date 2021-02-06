@@ -4,6 +4,7 @@
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     width: 100%;
+    margin: 3rem 0;
     &-head {
         text-align: left;
         background-color: $color-primary;
@@ -12,5 +13,8 @@
     th,td {
         padding: 0.9rem 2rem;
         border-bottom: 1px solid rgb(209, 208, 208);
+    }
+    .utils {
+        text-align: right;
     }
 }

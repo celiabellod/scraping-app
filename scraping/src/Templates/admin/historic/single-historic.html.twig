@@ -1,29 +1,32 @@
 {% extends "admin/admin-base.html.twig" %}
 {% block adminMain %}
-    <a href="/extraction/{{ extraction.id }}" class="back-link">Retour</a>
-    <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
-    <p class="info">Dowload extraction</p>
+    <div class="main-content">
+        <a href="/extraction/{{ extraction.id }}" class="back-link">Retour</a>
+        <div class="container">
+            <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
+            <a class="info">Dowload extraction</a>
 
-    <table class="tab">
-        <tr class="tab-head">
-            <th>Data</th>
-            <th>Name</th>
-            <th>Type</th>
-        </tr>
-        {% for result in results %}
-            <tr>
-                <td>{{ result.data }}</td>
-                <td>{{ extraction.periodicity }}</td>
-                <td>{{ extraction.category }}</td>
-            </tr>
-        {% endfor %}
-      
-    </table>
-     {% include 'parts/_pagination.html.twig' %}
-
-    <div class="info-bottom">
-        <p>Reference : {{ historic.id }}</p>
-        <p>Delete</p>
+            <table class="tab">
+                <tr class="tab-head">
+                    <th>Data</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                </tr>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.data }}</td>
+                        <td>{{ extraction.periodicity }}</td>
+                        <td>{{ extraction.category }}</td>
+                    </tr>
+                {% endfor %}
+            
+            </table>
+            {% include 'parts/_pagination.html.twig' %}
+        </div>
+        <div class="info-bottom">
+            <p>Reference : {{ historic.id }}</p>
+            <p>Delete</p>
+        </div>
     </div>
 {% endblock %}  
 
