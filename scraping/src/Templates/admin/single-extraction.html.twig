@@ -6,7 +6,7 @@
         <div class="container">
             <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
             <p class="under-title">{{ extraction.periodicity }}</p>
-            <a class="info" href="/extraction/{{ extraction.id }}/result/new">+ Start extraction</a>
+            <a class="info" href="/extraction/{{ extraction.id }}/historic/new">+ Start extraction</a>
 
             <table class="tab">
                 <tr class="tab-head">
@@ -20,8 +20,8 @@
                         <td>{{ h.id }}</td>
                         <td class="utils">
                             <a href=""><img src="{{ assets('images/download.svg') }}" alt="" width="20"></a>
-                            <a href="/extraction/{{ extraction.id }}/result/{{ h.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
-                            <a href=""><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+                            <a href="/extraction/{{ extraction.id }}/historic/{{ h.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
+                            <a href="/extraction/{{ extraction.id }}/historic/{{ h.id }}/delete"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -30,7 +30,7 @@
         </div>
         <div class="info-bottom">
             <p>Category : {{ extraction.category }}</p>
-            <p>Delete all historic</p>
+            <a href="/extraction/{{ extraction.id }}/historic/delete">Delete all historic</a>
         </div>
     </div>
 

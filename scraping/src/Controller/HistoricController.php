@@ -4,16 +4,12 @@
 class HistoricController extends AbstractController
 {
 
-    public function create() 
+    public function create($extractionId) 
     {
-        //recupere l'id de l'extraction via l'url
-        preg_match('/(\d+)/', $_SERVER['REQUEST_URI'], $matches);
-        unset($matches[0]);
-        $id = $matches[1];
 
         //recupere l'objet extraction
         $extractionManager = new ExtractionModel();
-        $extraction = $extractionManager->getOneExtraction($id);
+        $extraction = $extractionManager->getOneExtraction($extractionId);
 
         $historic = new Historic([
             'extraction_id' => $extraction->getId(),
@@ -48,24 +44,14 @@ class HistoricController extends AbstractController
     }
 
 
-    public function getOne()
+    public function getOne($extractionId,$historicId)
     {
-        //Get Historic
-        preg_match('/(\d+)$/', $_SERVER['REQUEST_URI'], $matches);
-        unset($matches[0]);
-        $historicId = $matches[1];
-
         $manager = new HistoricModel();
         $historic = $manager->getOneHistoric($historicId);
 
-        //Get Extraction
-        preg_match('/(\d+)/', $_SERVER['REQUEST_URI'], $matches);
-        unset($matches[0]);
-        $extractionId = $matches[1];
         $extraction = new ExtractionModel();
         $extraction = $extraction->getOneExtraction($extractionId);
 
-        //Get Result
         $resultController = new ResultController();
         $results = $resultController->_getList($historic);
 
@@ -74,6 +60,20 @@ class HistoricController extends AbstractController
             'historic' => $historic,
             'results' => $results,
         ]);
+    }
+
+    public function deleteOne($extractionId,$historicId)
+    {
+        $manager = new HistoricModel();
+        $manager->deleteOneHistoric($historicId);
+        header('Location:/extraction/'.$extractionId);
+    }
+
+    public function deleteAll($extractionId)
+    {
+        $manager = new HistoricModel();
+        $manager->deleteAllHistoric($extractionId);
+        header('Location:/extraction/'.$extractionId);
     }
 
 }

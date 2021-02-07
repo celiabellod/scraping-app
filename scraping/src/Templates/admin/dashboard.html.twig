@@ -20,7 +20,7 @@
                         <td class="utils">
                             <a href="/extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="20"></a>
                             <a href="/extraction/update/{{ extraction.id }}"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
-                            <a href="/extraction/delete/{{ extraction.id }}"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
+                            <a href="/extraction/{{ extraction.id }}/delete"><img src="{{ assets('images/delete.svg') }}" alt="" width="20"></a>
                         </td>
                     </tr>
                 {% endfor %}

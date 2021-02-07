@@ -14,7 +14,7 @@ $routeManager = $routing->getControlleur($uri);
 
 $controller = new $routeManager[0];
 $method = [$controller, $routeManager[1]];
-$params[] = $routeManager[2];
+$params = $routeManager[2];
 
 if(is_callable($method, false, $callable_name)){
     call_user_func_array($method, $params);

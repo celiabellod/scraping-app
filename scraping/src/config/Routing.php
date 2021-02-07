@@ -31,12 +31,17 @@ class Routing {
      * @return array|bool
      */
     public function getControlleur($uri) {
+        $params = [];
         foreach ($this->routes as $path => $info) {
             if(preg_match('/^'.(str_replace('/', '\/', trim($path, '/'))).'$/', $uri, $matches)){
-                if(isset($matches[1])){
-                    $params = $matches[1];
-                } else {
-                    $params = '';
+                unset($matches[0]);
+                if($matches){
+                    if($matches[1]){
+                        $params['extractionId'] = $matches[1];
+                    }
+                    if(isset($matches[2]) && !empty($matches[2])){
+                        $params['historicId'] = $matches[2];
+                    }
                 }
                 return [
                     $this->routes[$path]["controller"], 

@@ -39,14 +39,14 @@ class HistoricModel
         $req->closeCursor();
     }
 
-    public function getListHistoric(Extraction $extraction)
+    public function getListHistoric($id)
     {
         $historic = [];
         $query = "SELECT * FROM historic WHERE extraction_id = :extraction_id ORDER BY id DESC";
         $req = $this->db->prepare($query);
 
         $arrayValue = [
-            ":extraction_id" => $extraction->getId(),
+            ":extraction_id" => $id,
         ];
 
         $req->execute($arrayValue);
@@ -76,4 +76,39 @@ class HistoricModel
         }
         $req->closeCursor();
     }
+
+    public function deleteOneHistoric($historicId)
+    {
+        $query = "DELETE FROM historic WHERE id = :id;";
+        $req = $this->db->prepare($query);
+
+        $arrayValue = [
+            ":id" => $historicId,
+        ];
+
+        if($req->execute($arrayValue)){
+            return 1;
+        } else {
+            return 'error';
+        }
+        $req->closeCursor();
+    }
+
+    public function deleteAllHistoric($extractionId)
+    {
+        $query = "DELETE FROM historic WHERE extraction_id = :extraction_id;";
+        $req = $this->db->prepare($query);
+
+        $arrayValue = [
+            ":extraction_id" => $extractionId,
+        ];
+
+        if($req->execute($arrayValue)){
+            return 1;
+        } else {
+            return 'error';
+        }
+        $req->closeCursor();
+    }
+
 }

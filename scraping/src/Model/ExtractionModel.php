@@ -112,6 +112,23 @@ class ExtractionModel
         $extractionReq->closeCursor();
     }
 
+    public function deleteExtraction($id)
+    {
+        $query = "DELETE FROM extraction WHERE id = :id;";
+        $req = $this->db->prepare($query);
+
+        $arrayValue = [
+            ":id" => $id,
+        ];
+
+        if($req->execute($arrayValue)){
+            return 1;
+        } else {
+            return 'error';
+        }
+        $req->closeCursor();
+    }
+
 
 
 
