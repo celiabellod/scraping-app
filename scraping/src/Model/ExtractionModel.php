@@ -63,8 +63,53 @@ class ExtractionModel
           
     }
 
-    public function update(Extraction $extraction)
+    public function update(Extraction $extraction, Array $datas)
     {
+        $query = "UPDATE extraction
+                set url = :url, name = :name, type = :type, periodicity = :periodicity, category = :category,
+                primaryContainer = :primaryContainer, secondaryContainer = :secondaryContainer
+                WHERE id = :id;";
+
+        $req = $this->db->prepare($query);
+
+        $arrayValue = [
+            ":url" => $extraction->getUrl(),
+            ":name"  => $extraction->getName(),
+            ":type"  => $extraction->getType(),
+            ":periodicity"  => $extraction->getPeriodicity(),
+            ":category" => $extraction->getCategory(),
+            ":primaryContainer" => $extraction->getPrimaryContainer(),
+            ":secondaryContainer" => $extraction->getSecondaryContainer(),
+            ":id" => $extraction->getId(),
+        ];
+
+
+        if($req->execute($arrayValue)){
+        $req->closeCursor();
+        $errors = [];
+            foreach($datas as $data){
+                $query = "UPDATE datas set dataType = :dataType, dataPath = :dataPath, dataName = :dataName, extraction_id = :extraction_id
+                WHERE id = :id;";
+                $req = $this->db->prepare($query);
+                $arrayValue = [
+                    ":dataType" => $data->getDataType(),
+                    ":dataName"  => $data->getDataName(),
+                    ":dataPath"  => $data->getDataPath(),
+                    ":extraction_id" => $extraction->getId(),
+                    ':id' => $data->getId()
+                ];
+                if(!$req->execute($arrayValue)){
+                    $errors[] = 'Data n°' . $data->getId()   .'n\'a pas pu être enregistré.';
+                }
+            }
+            if(!empty($errors)){
+                return $errors;
+            }
+        } else {
+            return "error";
+        }
+        $req->closeCursor();
+
     
     
     }

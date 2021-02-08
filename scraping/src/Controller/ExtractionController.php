@@ -76,10 +76,59 @@ class ExtractionController extends AbstractController
         ]);
     }
 
-    public function update() 
+    public function update($extractionId) 
     {
 
-        
+        if(!empty($_POST)){
+
+            $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
+             foreach($fields as $field){
+                 $fieldVerif = $this->verifPost($field);
+                 if($fieldVerif == 'error'){
+                     //header('Location:src/Templates/pages/admin/new-extraction.php');
+                 }
+             }
+             if($_POST['secondaryContainer']){
+                 $secondaryContainer = $_POST['secondaryContainer'];
+             } else {
+                 $secondaryContainer = '';
+             }
+ 
+            $extraction = new Extraction([
+                'id' => $extractionId,
+                'url' => $_POST['url'],
+                'name' => $_POST['extractionName'],
+                'type' => $_POST['type'],
+                'periodicity' => $_POST['periodicity'],
+                'category' => $_POST['category'],
+                'primaryContainer' => $_POST['primaryContainer'],
+                'secondaryContainer' => $secondaryContainer,
+            ]);
+             
+            $datas = [];
+            foreach($_POST['dataId'] as $data){
+                $datas[] = new Datas([
+                    'id' => $data,
+                    'dataName' => $_POST['dataName'][$data],
+                    'dataType' => $_POST['dataType'][$data],
+                    'dataPath' => $_POST['dataPath'][$data],
+                    'extraction' => $extraction
+                ]);
+            }
+           
+            $manager = new ExtractionModel();
+            $manager->update($extraction, $datas);
+           
+            header('location:/dashboard');
+         } else {
+            $manager = new ExtractionModel();
+            $extraction = $manager->getOneExtraction($extractionId);
+            echo $this->twig->render('admin/update-extraction.html.twig', [
+                'extraction' => $extraction
+            ]);
+         }
+
+                
     }
 
     public function delete($extractionId)

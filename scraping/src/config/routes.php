@@ -8,6 +8,7 @@ $routing->initRoute("extraction/new", 'ExtractionController', "create");
 $routing->initRoute("dashboard", 'ExtractionController', "getList");
 $routing->initRoute("extraction/(\d+)", 'ExtractionController', "getOne");
 $routing->initRoute("extraction/(\d+)/delete", 'ExtractionController', "delete");
+$routing->initRoute("extraction/(\d+)/update", 'ExtractionController', "update");
 
 $routing->initRoute("extraction/(\d+)/historic/(\d+)", 'HistoricController', "getOne");
 $routing->initRoute("extraction/(\d+)/historic/(\d+)/delete", 'HistoricController', "deleteOne");

@@ -54,7 +54,7 @@ class Routing {
         return [
             'ErrorController',
             'error404',
-            ''
+            $params
         ];
     
     }
