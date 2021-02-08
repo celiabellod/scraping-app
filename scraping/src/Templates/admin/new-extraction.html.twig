@@ -42,14 +42,19 @@
                 </section>
                 <section class="extraction-section">
                     <h2 class="title is-3">Datas</h2>
-                    <input type='text' id='dataName' name='dataName' placeholder='Name *' class='form-input'/>
-                    <select name="dataType" id="dataType" class="form-select">
-                        <option value="">Type *</option>
-                        <option value="text">Text</option>
-                        <option value="number">Number</option>
-                        <option value="price">Price</option>
-                    </select>
-                    <input type='text' id='dataPath' name='dataPath' placeholder='Path *' class='form-input'/>
+                    <div class="datas">
+                        <input type='text' id='dataName' name='dataName' placeholder='Name *' class='form-input'/>
+                        <select name="dataType" id="dataType" class="form-select">
+                            <option value="">Type *</option>
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                            <option value="price">Price</option>
+                        </select>
+                        <input type='text' id='dataPath' name='dataPath' placeholder='Path *' class='form-input'/>
+                    </div>
+                    <div class="see-more">
+                       <button class="btn-more" type="button"><img src="{{ assets('images/plus.svg') }}" alt="" width="20"></button>
+                    </div>
                 </section>
                 <div class="flex-center">
                     <button type="submit" class="btn btn-secondary form-btn btn-extraction">Go !</button>

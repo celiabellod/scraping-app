@@ -7,12 +7,8 @@ abstract class AbstractController
 
     public function __construct()
     {
-        $loader = new \Twig\Loader\FilesystemLoader('src/Templates/');
-        $this->twig = new \Twig\Environment($loader);
-        $function = new \Twig\TwigFunction('assets', function ($uri) {
-            return (isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http').'://'.$_SERVER['SERVER_NAME'].(isset($_SERVER['SERVER_PORT']) ? ':'.$_SERVER['SERVER_PORT'] : '').str_replace('index.php', '', $_SERVER['SCRIPT_NAME']).'assets/'.$uri;
-        });
-        $this->twig->addFunction($function);
+       $twig = new Twig();
+       $this->twig = $twig->twig;
     }
 
     public function verifPost($data)

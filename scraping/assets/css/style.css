@@ -41,6 +41,13 @@ body {
   width: 25%;
 }
 
+.btn-more {
+  background: transparent;
+  border: none;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+
 .pagination {
   margin-bottom: 10rem;
   align-self: flex-end;
@@ -251,6 +258,18 @@ body {
 .extraction-section {
   display: flex;
   flex-direction: column;
+}
+.extraction-section .datas {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #cac8c8;
+  padding: 3rem;
+  margin-bottom: 2rem;
+}
+
+.see-more {
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=style.css.map */

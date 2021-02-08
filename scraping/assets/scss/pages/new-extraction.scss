@@ -5,5 +5,16 @@
     &-section {
         display: flex;
         flex-direction: column;
+        .datas {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgb(202, 200, 200);
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
     }
+}
+.see-more {
+    display: flex;
+    justify-content: center;
 }
