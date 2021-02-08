@@ -127,9 +127,7 @@ class ExtractionController extends AbstractController
             echo $this->twig->render('admin/update-extraction.html.twig', [
                 'extraction' => $extraction
             ]);
-         }
-
-                
+         }              
     }
 
     public function delete($extractionId)

@@ -1,9 +1,11 @@
-.grid {
-    display: grid;
-    &.grid-2 {
-        grid-template-columns: 50% 50%;
-    }
-    &.grid-main {
-        grid-template-columns: 25% auto;
+@media screen and (min-width: 960px) {
+    .grid {
+        display: grid;
+        &.grid-2 {
+            grid-template-columns: 50% 50%;
+        }
+        &.grid-main {
+            grid-template-columns: 25% auto;
+        }
     }
 }

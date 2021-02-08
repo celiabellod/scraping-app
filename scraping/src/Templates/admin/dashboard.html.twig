@@ -30,4 +30,34 @@
     </div>
 
 
+    <div class="main-content-mobile is-center">
+        <div class="container">
+            <h1 class="title is-2 main-content-title">My extractions</h1>
+            <a href="/extraction/new" class="info">+ Add an extraction</a>
+            <div class="tab">
+                {% for extraction in extractions %}
+                    <table class="tab-content">
+                        <tbody>   
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ extraction.name }}</td>
+                            <tr>
+                            <tr>
+                                <td>Periodicity</td>
+                                <td>{{ extraction.periodicity }}</td>
+                            <tr>
+                            <tr>
+                                <td>Category</td>
+                                <td>{{ extraction.category }}</td>
+                            <tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+            </div>
+            {% include 'parts/_pagination.html.twig' %}
+        </div>
+    </div>
+
+
+
 {% endblock %}

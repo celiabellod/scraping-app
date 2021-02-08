@@ -26,7 +26,6 @@ class Routing {
 
 
     /**
-     * 
      * @param string $url
      * @return array|bool
      */

@@ -1,9 +1,9 @@
 <div class="main-aside">
-    <div class="user">
+    <div class="aside-user">
         <svg  class="icon" width="7rem" height="7rem">
-            <use xlink:href=../../../../assets/images/svgsprite.svg#user></use>
+            <use xlink:href="{{ assets('images/svgsprite.svg#user') }}"></use>
         </svg>
-        <h2 class="user-name">Célia BELLOD</h2>
+        <h2 class="title is-4 user-name">Célia BELLOD</h2>
     </div>
     <div class="aside-content">
         <nav class="nav">
@@ -16,3 +16,15 @@
         </p>
     </div>
 </div>
+
+<nav class="nav-mobile">
+    <div class="nav-content">
+        <img src="{{ assets('images/menu.svg') }}" alt="" width="35">
+        <div class="nav-user">
+            <h2 class="title is-4 user-name">Célia BELLOD</h2>
+            <svg  class="icon" width="2.5rem" height="2.5rem">
+                <use xlink:href="{{ assets('images/svgsprite.svg#user') }}"></use>
+            </svg>
+        </div>
+    </div>
+</nav>

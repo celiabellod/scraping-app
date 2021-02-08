@@ -1,5 +1,6 @@
 <?php
 
+
 $routing->initRoute("", 'UserController', "logIn");
 $routing->initRoute("login", 'UserController', "logIn");
 $routing->initRoute("signup", 'UserController', "signup");

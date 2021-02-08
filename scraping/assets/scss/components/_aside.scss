@@ -1,49 +1,76 @@
 .main-aside {
-    background-color: $color-primary;
-    min-height: 100vh;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    .user {
-        padding-top: 4rem;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        padding-bottom: 2rem;
-        border-bottom: 3px solid $color-secondary;
-        width: 100%;
-        &-name {
-            font-family: $font-text;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
+    display: none;
+}
 
+.nav-mobile {
+    display: block;
+    padding: 2rem;
+    background-color: $color-primary;
+    height: 2rem;
+    .nav {
+        &-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        &-user {
+            display: flex;
+            align-items: center;
+            h2 {
+                margin: 0 1rem;
+            }
+        }
     }
-    .aside-content {
-        padding: 0rem 4.5rem;
+   
+}
+
+@media screen and (min-width: 960px) {
+    .main-aside {
+        background-color: $color-primary;
+        min-height: 100vh;
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        .nav {
+        color: #fff;
+        .aside-user {
+            padding-top: 4rem;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid $color-secondary;
+            width: 100%;    
+        }
+        .aside-content {
+            padding: 0rem 4.5rem;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            margin-top: 4rem;
-            &-link {
-                margin-top: 2rem;
-                color:#fff;
-                text-decoration: none;
+            justify-content: space-between;
+            .nav {
+                display: flex;
+                flex-direction: column;
+                margin-top: 4rem;
+                &-link {
+                    margin-top: 2rem;
+                    color:#fff;
+                    text-decoration: none;
+                }
+            }
+            p.logout {
+                margin-bottom: 2rem;
+                display: flex;
+                align-items:center;
+                img {
+                    margin-right: 0.8rem;
+                }
             }
         }
-        p.logout {
-            margin-bottom: 2rem;
-            display: flex;
-            align-items:center;
-            img {
-                margin-right: 0.8rem;
-            }
-        }
+        
     }
     
+    .nav-mobile {
+        display: none;
+    }
+
 }
