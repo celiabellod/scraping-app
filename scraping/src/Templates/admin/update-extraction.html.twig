@@ -43,7 +43,6 @@
                 <section class="extraction-section">
                     <h2 class="title is-3">Datas</h2>
                     {% for data in extraction.datas %}
-                    <input type="hidden" name='dataId[{{ data.id }}]' value='{{ data.id }}'>
                     <input type='text' id='dataName' name='dataName[{{ data.id }}]' value="{{ data.dataName }}" class='form-input'/>
                     <select name="dataType[{{ data.id }}]" id="dataType" class="form-select">
                         <option value="{{ data.dataType }}">{{ data.dataType }}</option>

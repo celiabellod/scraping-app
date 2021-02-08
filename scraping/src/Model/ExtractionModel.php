@@ -35,7 +35,8 @@ class ExtractionModel
     
         if($req->execute($arrayValue)){
             $req->closeCursor();
-
+            $errors = [];
+            
             $reqId = $this->db->query('SELECT LAST_INSERT_ID() FROM extraction');
             $extractionId = $reqId->fetch(PDO::FETCH_ASSOC);
 
@@ -48,13 +49,15 @@ class ExtractionModel
                     ":dataPath"  => $data->getDataPath(),
                     ":extraction_id" => $extractionId["LAST_INSERT_ID()"]
                 ];
-                
-                if($req->execute($arrayValue)){
-                    return 1;
-                } else {
-                    return 'error';
+
+                if(!$req->execute($arrayValue)){
+                    $errors[] = 'Data n°' . $data->getId()   .'n\'a pas pu être enregistré.';
                 }
-                $reqId->closeCursor();
+            }
+
+            $reqId->closeCursor();
+            if(!empty($errors)){
+                return $errors;
             }
         } else {
             return "error";

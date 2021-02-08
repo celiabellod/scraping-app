@@ -21,10 +21,10 @@
                         </select>
                     </div>
                     <div class="form-container-half">
-                        <select name="type" id="type" class="form-select">
+                        <select name="type" id="type" class="form-select type-select">
                             <option value="">Type *</option>
-                            <option value="text">Simple</option>
-                            <option value="number">Multiplicty</option>
+                            <option value="simple">Simple</option>
+                            <option value="multiplicity">Multiplicity</option>
                         </select>
                         <select name="category" id="category" class="form-select">
                             <option value="">Category *</option>
@@ -43,14 +43,14 @@
                 <section class="extraction-section">
                     <h2 class="title is-3">Datas</h2>
                     <div class="datas">
-                        <input type='text' id='dataName' name='dataName' placeholder='Name *' class='form-input'/>
-                        <select name="dataType" id="dataType" class="form-select">
+                        <input type='text' id='dataName' name='dataName[1]' placeholder='Name *' class='form-input'/>
+                        <select name="dataType[1]" id="dataType" class="form-select">
                             <option value="">Type *</option>
                             <option value="text">Text</option>
                             <option value="number">Number</option>
                             <option value="price">Price</option>
                         </select>
-                        <input type='text' id='dataPath' name='dataPath' placeholder='Path *' class='form-input'/>
+                        <input type='text' id='dataPath' name='dataPath[1]' placeholder='Path *' class='form-input'/>
                     </div>
                     <div class="see-more">
                        <button class="btn-more" type="button"><img src="{{ assets('images/plus.svg') }}" alt="" width="20"></button>

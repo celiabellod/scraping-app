@@ -33,14 +33,15 @@ class ExtractionController extends AbstractController
                 'secondaryContainer' => $secondaryContainer,
             ]);
             
-//foreach datas
             $datas = [];
-            $datas[] = new Datas([
-                'dataName' => $_POST['dataName'],
-                'dataType' => $_POST['dataType'],
-                'dataPath' => $_POST['dataPath'],
-                'extraction' => $extraction
-            ]);
+            foreach($_POST['dataName'] as $data => $value){
+                $datas[] = new Datas([
+                    'dataName' => $_POST['dataName'][$data],
+                    'dataType' => $_POST['dataType'][$data],
+                    'dataPath' => $_POST['dataPath'][$data],
+                    'extraction' => $extraction
+                ]);
+            }
 
             $manager = new ExtractionModel();
             $manager->add($extraction, $datas);
@@ -106,7 +107,7 @@ class ExtractionController extends AbstractController
             ]);
              
             $datas = [];
-            foreach($_POST['dataId'] as $data){
+            foreach($_POST['dataName'] as $data => $value){
                 $datas[] = new Datas([
                     'id' => $data,
                     'dataName' => $_POST['dataName'][$data],
