@@ -3,7 +3,7 @@
         <svg  class="icon" width="7rem" height="7rem">
             <use xlink:href="{{ assets('images/svgsprite.svg#user') }}"></use>
         </svg>
-        <h2 class="title is-4 user-name">Célia BELLOD</h2>
+        <h2 class="title is-4 user-name">{{user.firstname | capitalize }} {{user.lastname | upper}}</h2>
     </div>
     <div class="aside-content">
         <nav class="nav">

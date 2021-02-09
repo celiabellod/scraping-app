@@ -14,9 +14,9 @@ class Routing {
      * @param string $controller
      * @param string $method
      */
-    public function initRoute($path, $controller, $method) {
+    public function initRoute($path, $controller, $method, $autorization = null) {
 
-        $this->routes[$path] = ["controller" => $controller, "method" => $method];
+        $this->routes[$path] = ["controller" => $controller, "method" => $method, "autorization" => $autorization];
     }
 
 
@@ -37,22 +37,28 @@ class Routing {
                         $params['historicId'] = $matches[2];
                     }
                 }
-                return [
-                    $this->routes[$path]["controller"], 
-                    $this->routes[$path]["method"], 
-                    $params
-                ];
+                if($this->routes[$path]["autorization"] == "admin"){
+                    if(isset($_SESSION['user']) && !empty($_SESSION['user'])){
+                        return [
+                            $this->routes[$path]["controller"], 
+                            $this->routes[$path]["method"], 
+                            $params
+                        ];
+                    } else {
+                        header('Location:/login');
+                    }
+                } else {
+                    return [
+                        $this->routes[$path]["controller"], 
+                        $this->routes[$path]["method"], 
+                        $params
+                    ];
+                }
+               
             }
-            // if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])) {
-            //     $user = $_SESSION['user'];
-            // }
         }
 
-        return [
-            'ErrorController',
-            'error404',
-            $params
-        ];
+        header('Location:/404');
     
     }
 
@@ -64,5 +70,9 @@ class Routing {
     public function getRoutes()
     {
         return $this->routes;
+    }
+
+    public function get404() {
+
     }
 }
