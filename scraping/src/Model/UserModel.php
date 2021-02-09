@@ -18,7 +18,8 @@ class UserModel
         ];
         $req->execute($arrayValue);
         $datas = $req->fetch(PDO::FETCH_ASSOC);
-        if(!empty($datas)){
+        //password hash
+        if(!empty($datas) && $password == $datas['password']){
             $user = new User($datas);
             return $user;
         } else {

@@ -8,11 +8,6 @@ class Routing {
     private $routes = [];
 
     /**
-     * @var boolean 
-     */
-    private $error404 = false;
-
-    /**
      * 
      * @param string $routeName
      * @param string $url
@@ -33,7 +28,7 @@ class Routing {
         $params = [];
         foreach ($this->routes as $path => $info) {
             if(preg_match('/^'.(str_replace('/', '\/', trim($path, '/'))).'$/', $uri, $matches)){
-                unset($matches[0]);
+                unset($matches[0]); 
                 if($matches){
                     if($matches[1]){
                         $params['extractionId'] = $matches[1];
@@ -48,6 +43,9 @@ class Routing {
                     $params
                 ];
             }
+            // if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])) {
+            //     $user = $_SESSION['user'];
+            // }
         }
 
         return [

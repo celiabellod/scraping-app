@@ -16,52 +16,17 @@ class UserController extends AbstractController
                 }
             }
             $manager = new UserModel();
-            $isUser = $manager->logInUser($_POST['email'], $_POST['password']);
-            if($isUser != 'error'){
-                $extractionController = new ExtractionController;
-                $extractionController->showAll();
+            $user = $manager->logInUser($_POST['email'], $_POST['password']);
+            if($user != 'error'){
+                $_SESSION['user'] = serialize($user);
+                header('Location: /dashboard');
             } else {
-                echo $this->twig->render('form/login.html.twig', [
-                    'title' => 'LOGIN',
-                    'info' => [
-                            'title' => 'Sign Up',
-                            'link' => 'signup'
-                    ],
-                    'inputs' => [
-                        1 => [
-                            'type' => 'email',
-                            'name' => 'email',
-                            'placeholder' => 'E-mail'
-                        ],
-                        2 => [
-                            'type' => 'password',
-                            'name' => 'password',
-                            'placeholder' => 'Password'
-                        ]
-                    ]
-                ]);
+                $this->renderLogin();
+                //error
             }
             
         } else {
-            echo $this->twig->render('form/login.html.twig', [
-                'title' => 'LOGIN',
-                'info' => [
-                            'title' => 'Sign Up',
-                            'link' => 'signup'
-                ],
-                'inputs' => [
-                    1 => [
-                        'type' => 'email',
-                        'name' => 'email',
-                        'placeholder' => 'E-mail'
-                    ],
-                    2 => [
-                        'type' => 'password',
-                        'name' => 'password',
-                        'placeholder' => 'Password'
-                    ]
-                ]
-            ]);
+            $this->renderLogin();
         }
 
     }
@@ -95,6 +60,29 @@ class UserController extends AbstractController
     public function logOut($email) 
     {
         
+    }
+
+
+    public function renderLogin() {
+        echo $this->twig->render('form/login.html.twig', [
+            'title' => 'LOGIN',
+            'info' => [
+                        'title' => 'Sign Up',
+                        'link' => 'signup'
+            ],
+            'inputs' => [
+                1 => [
+                    'type' => 'email',
+                    'name' => 'email',
+                    'placeholder' => 'E-mail'
+                ],
+                2 => [
+                    'type' => 'password',
+                    'name' => 'password',
+                    'placeholder' => 'Password'
+                ]
+            ]
+        ]);
     }
 
 }

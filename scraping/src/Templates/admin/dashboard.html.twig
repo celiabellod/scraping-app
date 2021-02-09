@@ -1,6 +1,7 @@
 {% extends "admin/admin-base.html.twig" %}
 
 {% block adminMain %}
+
     <div class="main-content is-center">
         <div class="container">
             <h1 class="title is-2 main-content-title">My extractions</h1>
@@ -40,7 +41,7 @@
                         <tbody>   
                             <tr>
                                 <td>Name</td>
-                                <td>{{ extraction.name }}</td>
+                                <td>{{ extraction.name }}{{ user.id }}</td>
                             <tr>
                             <tr>
                                 <td>Periodicity</td>

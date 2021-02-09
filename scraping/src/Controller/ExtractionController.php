@@ -60,8 +60,10 @@ class ExtractionController extends AbstractController
     {
         $manager = new ExtractionModel();
         $extractions = $manager->getListExtraction();
+        $user = unserialize($_SESSION['user']);
         echo $this->twig->render('admin/dashboard.html.twig', [
             'extractions' => $extractions,
+            'user' => $user
         ]);
     }
 

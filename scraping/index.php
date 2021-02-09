@@ -11,7 +11,6 @@ $params = [];
 $uri = (isset($_GET) && isset($_GET['p'])) ? $_GET['p'] : '';
 
 $routeManager = $routing->getControlleur($uri);
-
 $controller = new $routeManager[0];
 $method = [$controller, $routeManager[1]];
 $params = $routeManager[2];
