@@ -1,0 +1,21 @@
+{% extends "admin/admin-base.html.twig" %}
+
+{% block adminMain %}
+
+    <div class="main-content is-center">
+        <div class="container">
+            <h1 class="title is-2 main-content-title">My account</h1>
+            <form action="" method="post" class="form-extraction">
+             
+                    <input type='text' id='firstname' name='firstname' value="{{ user.firstname }}" class='form-input'/>
+                    <input type='text' id='lastname' name='lastname' value="{{ user.lastname }}" class='form-input'/>
+
+                    <input type='text' id='email' name='email' value="{{ user.email }}" class='form-input'/>
+
+            </form>
+            <a href="">Change password</a>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -13,6 +13,7 @@ services:
     links:
       - mysql
 
+
   adminer:
     image: adminer
     environment: 
@@ -21,6 +22,12 @@ services:
       - 8001:8080
     links:
       - mysql
+
+  mailcatcher:
+    image: jeanberu/mailcatcher
+    ports:
+      - 1025:1025
+      - 8002:1080
   
   mysql:
     image: mysql

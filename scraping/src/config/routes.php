@@ -5,6 +5,7 @@ $routing->initRoute("", 'UserController', "logIn");
 $routing->initRoute("login", 'UserController', "logIn");
 $routing->initRoute("signup", 'UserController', "signup");
 $routing->initRoute("404", 'ErrorController', "error404");
+$routing->initRoute("my-account", 'UserController', "update");
 
 $routing->initRoute("extraction/new", 'ExtractionController', "create", "admin");
 $routing->initRoute("dashboard", 'ExtractionController', "getList", "admin");

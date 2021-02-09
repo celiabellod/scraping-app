@@ -2,6 +2,11 @@
 
 class UserController extends AbstractController 
 {
+    /**
+     * @var MailService
+     */
+    private $mail;
+
     /*
     * @return Templates
     */
@@ -36,20 +41,27 @@ class UserController extends AbstractController
     */
     public function signup() 
     {
-        echo $this->twig->render('form/signup.html.twig', [
-            'title' => 'SIGNUP',
-            'info' => [
-                        'title' => 'Already an account ? Login',
-                        'link' => 'login'
-            ],
-            'inputs' => [
-                1 => [
-                    'type' => 'email',
-                    'name' => 'email',
-                    'placeholder' => 'E-mail'
-                ],
-            ]
-        ]);
+        $user = unserialize($_SESSION['user']);
+        $this->mail = new MailService($user);
+        $subject = 'test';
+        $message = 'hello world';
+        $this->mail->send($subject, $message);
+
+
+        // echo $this->twig->render('form/signup.html.twig', [
+        //     'title' => 'SIGNUP',
+        //     'info' => [
+        //                 'title' => 'Already an account ? Login',
+        //                 'link' => 'login'
+        //     ],
+        //     'inputs' => [
+        //         1 => [
+        //             'type' => 'email',
+        //             'name' => 'email',
+        //             'placeholder' => 'E-mail'
+        //         ],
+        //     ]
+        // ]);
     }
 
 
@@ -63,7 +75,8 @@ class UserController extends AbstractController
     }
 
 
-    public function renderLogin() {
+    public function renderLogin() 
+    {
         echo $this->twig->render('form/login.html.twig', [
             'title' => 'LOGIN',
             'info' => [
@@ -85,4 +98,36 @@ class UserController extends AbstractController
         ]);
     }
 
+    public function update()
+    { 
+        $user = unserialize($_SESSION['user']);
+        echo $this->twig->render('admin/my-account.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+
+    /**
+     * Get the value of mail
+     *
+     * @return  MailService
+     */ 
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set the value of mail
+     *
+     * @param  MailService  $mail
+     *
+     * @return  self
+     */ 
+    public function setMail(MailService $mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
 }
