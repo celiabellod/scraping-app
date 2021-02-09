@@ -50,6 +50,12 @@ class Extraction extends AbstractEntity
     private $datas;
 
 
+     /**
+     * @var User
+     */
+    private $user;
+
+
     /**
      * Get /*
      *
@@ -263,6 +269,30 @@ class Extraction extends AbstractEntity
     public function setDatas(Array $datas)
     {
         $this->datas = $datas;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of user
+     *
+     * @return  User
+     */ 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set the value of user
+     *
+     * @param  User  $user
+     *
+     * @return  self
+     */ 
+    public function setUser(User $user)
+    {
+        $this->user = $user;
 
         return $this;
     }

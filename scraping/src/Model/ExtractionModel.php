@@ -17,8 +17,8 @@ class ExtractionModel
     public function add(Extraction $extraction, Array $datas)
     {
         $query = "INSERT INTO extraction
-                    (`url`, `name`, `type`, `periodicity`, `category` ,`primaryContainer`,`secondaryContainer`) 
-                    VALUES (:url, :name, :type, :periodicity, :category, :primaryContainer, :secondaryContainer);
+                    (`url`, `name`, `type`, `periodicity`, `category` ,`primaryContainer`,`secondaryContainer`, `user_id`) 
+                    VALUES (:url, :name, :type, :periodicity, :category, :primaryContainer, :secondaryContainer, :user_id);
                 ";
                 
         $req = $this->db->prepare($query);
@@ -31,6 +31,7 @@ class ExtractionModel
             ":category" => $extraction->getCategory(),
             ":primaryContainer" => $extraction->getPrimaryContainer(),
             ":secondaryContainer" => $extraction->getSecondaryContainer(),
+            ":user_id" => $extraction->getUser()->getId(),
         ];
     
         if($req->execute($arrayValue)){
@@ -39,6 +40,7 @@ class ExtractionModel
             
             $reqId = $this->db->query('SELECT LAST_INSERT_ID() FROM extraction');
             $extractionId = $reqId->fetch(PDO::FETCH_ASSOC);
+
 
             foreach($datas as $data){
                 $query = "INSERT INTO `datas`(`dataType`, `dataPath`,`dataName`, `extraction_id`) VALUES (:dataType, :dataPath, :dataName, :extraction_id);";
@@ -70,7 +72,7 @@ class ExtractionModel
     {
         $query = "UPDATE extraction
                 set url = :url, name = :name, type = :type, periodicity = :periodicity, category = :category,
-                primaryContainer = :primaryContainer, secondaryContainer = :secondaryContainer
+                primaryContainer = :primaryContainer, secondaryContainer = :secondaryContainer, user_id = :user_id
                 WHERE id = :id;";
 
         $req = $this->db->prepare($query);
@@ -84,6 +86,8 @@ class ExtractionModel
             ":primaryContainer" => $extraction->getPrimaryContainer(),
             ":secondaryContainer" => $extraction->getSecondaryContainer(),
             ":id" => $extraction->getId(),
+            ":user_id" => $extraction->getUser()->getId(),
+
         ];
 
 

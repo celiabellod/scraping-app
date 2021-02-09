@@ -43,14 +43,14 @@
                 <section class="extraction-section">
                     <h2 class="title is-3">Datas</h2>
                     {% for data in extraction.datas %}
-                    <input type='text' id='dataName' name='dataName[{{ data.id }}]' value="{{ data.dataName }}" class='form-input'/>
-                    <select name="dataType[{{ data.id }}]" id="dataType" class="form-select">
-                        <option value="{{ data.dataType }}">{{ data.dataType }}</option>
-                        <option value="text">Text</option>
-                        <option value="number">Number</option>
-                        <option value="price">Price</option>
-                    </select>
-                    <input type='text' id='dataPath' name='dataPath[{{ data.id }}]' value="{{ data.dataPath }}" class='form-input' />
+                        <input type='text' id='dataName' name='dataName[{{ data.id }}]' value="{{ data.dataName }}" class='form-input'/>
+                        <select name="dataType[{{ data.id }}]" id="dataType" class="form-select">
+                            <option value="{{ data.dataType }}">{{ data.dataType }}</option>
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                            <option value="price">Price</option>
+                        </select>
+                        <input type='text' id='dataPath' name='dataPath[{{ data.id }}]' value="{{ data.dataPath }}" class='form-input' />
                     {% endfor %}
                 </section>
                 <div class="flex-center">

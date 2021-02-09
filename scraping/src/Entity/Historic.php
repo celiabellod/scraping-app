@@ -15,9 +15,9 @@ class Historic
     private $date;
 
     /**
-   * @var int
+   * @var Extraction
    */
-    private $extraction_id;
+    private $extraction;
     
 
     public function __construct(array $datas)
@@ -86,28 +86,30 @@ class Historic
         return $this->date;
     }
 
+  
+
+
     /**
-     * Get the value of extraction_id
+     * Get the value of extraction
      *
-     * @return  int
+     * @return  Extraction
      */ 
-    public function getExtraction_id()
+    public function getExtraction()
     {
-        return $this->extraction_id;
+        return $this->extraction;
     }
 
     /**
-     * Set the value of extraction_id
+     * Set the value of extraction
      *
-     * @param  int  $extraction_id
+     * @param  Extraction  $extraction
      *
      * @return  self
      */ 
-    public function setExtraction_id(int $extraction_id)
+    public function setExtraction(Extraction $extraction)
     {
-        $this->extraction_id = $extraction_id;
+        $this->extraction = $extraction;
 
         return $this;
     }
-
 }

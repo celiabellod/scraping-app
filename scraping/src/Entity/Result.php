@@ -15,14 +15,14 @@ class Result extends AbstractEntity
   private $data;
 
    /**
-   * @var int
+   * @var Extraction
    */
-  private $extraction_id;
+  private $extraction;
   
   /**
-   * @var int
+   * @var Historic
    */
-  private $historic_id;
+  private $historic;
 
   /**
    * Get /*
@@ -60,50 +60,51 @@ class Result extends AbstractEntity
   }
 
 
+
   /**
-   * Get the value of extraction_id
+   * Get the value of extraction
    *
-   * @return  int
+   * @return  Extraction
    */ 
-  public function getExtraction_id()
+  public function getExtraction()
   {
-    return $this->extraction_id;
+    return $this->extraction;
   }
 
   /**
-   * Set the value of extraction_id
+   * Set the value of extraction
    *
-   * @param  int  $extraction_id
+   * @param  Extraction  $extraction
    *
    * @return  self
    */ 
-  public function setExtraction_id(int $extraction_id)
+  public function setExtraction(Extraction $extraction)
   {
-    $this->extraction_id = $extraction_id;
+    $this->extraction = $extraction;
 
     return $this;
   }
 
   /**
-   * Get the value of historic_id
+   * Get the value of historic
    *
-   * @return  int
+   * @return  Historic
    */ 
-  public function getHistoric_id()
+  public function getHistoric()
   {
-    return $this->historic_id;
+    return $this->historic;
   }
 
   /**
-   * Set the value of historic_id
+   * Set the value of historic
    *
-   * @param  int  $historic_id
+   * @param  Historic  $historic
    *
    * @return  self
    */ 
-  public function setHistoric_id(int $historic_id)
+  public function setHistoric(Historic $historic)
   {
-    $this->historic_id = $historic_id;
+    $this->historic = $historic;
 
     return $this;
   }

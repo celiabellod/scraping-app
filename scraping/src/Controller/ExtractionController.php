@@ -31,6 +31,7 @@ class ExtractionController extends AbstractController
                 'category' => $_POST['category'],
                 'primaryContainer' => $_POST['primaryContainer'],
                 'secondaryContainer' => $secondaryContainer,
+                'user' => unserialize($_SESSION['user'])
             ]);
             
             $datas = [];
@@ -46,7 +47,7 @@ class ExtractionController extends AbstractController
             $manager = new ExtractionModel();
             $manager->add($extraction, $datas);
           
-            header('location:/dashboard');
+            //header('location:/dashboard');
         } else {
             echo $this->twig->render('admin/new-extraction.html.twig');
         }
@@ -106,6 +107,7 @@ class ExtractionController extends AbstractController
                 'category' => $_POST['category'],
                 'primaryContainer' => $_POST['primaryContainer'],
                 'secondaryContainer' => $secondaryContainer,
+                'user' => unserialize($_SESSION['user'])
             ]);
              
             $datas = [];
@@ -127,7 +129,7 @@ class ExtractionController extends AbstractController
             $manager = new ExtractionModel();
             $extraction = $manager->getOneExtraction($extractionId);
             echo $this->twig->render('admin/update-extraction.html.twig', [
-                'extraction' => $extraction
+                'extraction' => $extraction,
             ]);
          }              
     }
