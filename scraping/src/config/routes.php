@@ -3,6 +3,7 @@
 
 $routing->initRoute("", 'UserController', "logIn");
 $routing->initRoute("login", 'UserController', "logIn");
+$routing->initRoute("logout", 'UserController', "logout");
 $routing->initRoute("signup", 'UserController', "signup");
 $routing->initRoute("404", 'ErrorController', "error404");
 $routing->initRoute("my-account", 'UserController', "update");

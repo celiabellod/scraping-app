@@ -74,16 +74,20 @@ class UserModel
                     $arrayValue = [
                         ":email" => $email,
                     ];
-                    if(!$query->execute($arrayValue)){
+                    $req = $req->execute($arrayValue);
+                    $datas = $req->fetch(PDO::FETCH_ASSOC);
+                    if(!$req){
                         return 'error';
                     }
                 } else {
                     return "error";
                 }
             } 
-            if($password == password_verify($datas['password'], PASSWORD_ARGON2I)){
+            if(password_verify($password, $datas['password'])){
                 $user = new User($datas);
                 return $user;
+            } else {
+                return 'error';
             }
         } else {
             return "error";

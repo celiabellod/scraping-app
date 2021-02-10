@@ -103,9 +103,10 @@ class UserController extends AbstractController
                 }
             }
 
-            $uuid = ($this->verifPost($_GET['client'])) ? $_GET['client'] : '';
+            $uuid = (isset($_GET['client']) && $this->verifPost($_GET['client'])) ? $_GET['client'] : '';
             $manager = new UserModel();
             $user = $manager->logInUser($_POST['email'], $_POST['password'], $uuid);
+            var_dump($user);
             if($user != 'error'){
                 $_SESSION['user'] = serialize($user);
                 header('Location: /dashboard');
@@ -123,13 +124,11 @@ class UserController extends AbstractController
 
 
 
-    /*
-    * @param string $email
-    * @return void
-    */
-    public function logOut($email) 
+   
+    public function logOut() 
     {
-        
+        unset($_SESSION['user']);
+        header('Location:/login');
     }
 
 

@@ -28,6 +28,7 @@ class Routing {
         $params = [];
         foreach ($this->routes as $path => $info) {
             if(preg_match('/^'.(str_replace('/', '\/', trim($path, '/'))).'$/', $uri, $matches)){
+                $match = true;
                 unset($matches[0]); 
                 if($matches){
                     if($matches[1]){
@@ -57,8 +58,9 @@ class Routing {
                
             }
         }
-
-        header('Location:/404');
+        if(!$match){
+            header('Location:/404');
+        }
     
     }
 
