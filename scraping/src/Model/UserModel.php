@@ -27,10 +27,8 @@ class UserModel
         $query = "INSERT INTO user (`uuid`,`firstname`, `lastname`, `email`, `password`) VALUES (uuid(), :firstname, :lastname, :email, :password)";
         $req = $this->db->prepare($query);
 
-        $options = [
-            'cost' => 12,
-        ];
-        $password = password_hash($user->getPassword(), PASSWORD_BCRYPT, $options);
+
+        $password = password_hash($user->getPassword(), PASSWORD_ARGON2I);
 
         $arrayValue = [
             ':firstname' => $user->getFirstname(),
@@ -51,19 +49,42 @@ class UserModel
         $req->closeCursor();
     }
 
-    public function logInUser($email, $password) 
+    public function logInUser($email, $password, $uuid) 
     {
         $query = "SELECT * FROM user WHERE email = :email";
+        $query .= (!empty($uuid)) ? " && uuid = :uuid" : '';
+        
         $req = $this->db->prepare($query);
-        $arrayValue = [
-            ":email" => $email,
-        ];
+        if(!empty($uuid)){
+            $arrayValue = [
+                ":email" => $email,
+                ":uuid" => $uuid
+            ];
+        } else {
+            $arrayValue = [
+                ":email" => $email,
+            ];
+        }
         $req->execute($arrayValue);
         $datas = $req->fetch(PDO::FETCH_ASSOC);
-        //password hash
-        if(!empty($datas) && $password == $datas['password']){
-            $user = new User($datas);
-            return $user;
+        if(!empty($datas)){
+            if($datas['emailVerif'] == 0){
+                if(!empty($uuid)){
+                    $query = $this->db->prepare("UPDATE user set uuid = uuid(), emailVerif = 1 WHERE email = :email");
+                    $arrayValue = [
+                        ":email" => $email,
+                    ];
+                    if(!$query->execute($arrayValue)){
+                        return 'error';
+                    }
+                } else {
+                    return "error";
+                }
+            } 
+            if($password == password_verify($datas['password'], PASSWORD_ARGON2I)){
+                $user = new User($datas);
+                return $user;
+            }
         } else {
             return "error";
         }

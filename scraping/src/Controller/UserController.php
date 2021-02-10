@@ -47,8 +47,7 @@ class UserController extends AbstractController
                 $message = 'Le mot de passe et la confirmation du mot de passe, ne correspondent pas. Merci de recommencer';
             }
 
-            $_SESSION['message'] = $user;
-            //header('Location: /signup');
+            $_SESSION['message'] = $message;
         }
 
         echo $this->twig->render('form/signup.html.twig', [
@@ -97,18 +96,16 @@ class UserController extends AbstractController
     {
         if(!empty($_POST)){
             $fields = ['email', 'password'];
-            //verifier si l'uiid correspond a une entrée, 
-            // que l'uuid correspond a un email
-            // que le password est bon
-            //generer un nouveau uuid
             foreach($fields as $field){
-                $fieldVerif = $this->verifPost($_POST['$field']);
+                $fieldVerif = $this->verifPost($_POST[$field]);
                 if($fieldVerif == 'error'){
                     //error
                 }
             }
+
+            $uuid = ($this->verifPost($_GET['client'])) ? $_GET['client'] : '';
             $manager = new UserModel();
-            $user = $manager->logInUser($_POST['email'], $_POST['password']);
+            $user = $manager->logInUser($_POST['email'], $_POST['password'], $uuid);
             if($user != 'error'){
                 $_SESSION['user'] = serialize($user);
                 header('Location: /dashboard');
@@ -116,6 +113,7 @@ class UserController extends AbstractController
                 $this->renderLogin();
                 //error
             }
+          
             
         } else {
             $this->renderLogin();

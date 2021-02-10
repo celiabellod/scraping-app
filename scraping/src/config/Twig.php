@@ -2,7 +2,9 @@
 
 class Twig{
 
-    
+    /**
+     * @var Twig 
+     */
     public $twig;
 
     public function __construct()
