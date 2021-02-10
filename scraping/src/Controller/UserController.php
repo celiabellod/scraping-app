@@ -2,10 +2,93 @@
 
 class UserController extends AbstractController 
 {
+
     /**
      * @var MailService
      */
     private $mail;
+
+    public function signup()
+    {
+
+        if(!empty($_POST)){
+
+            $fields = ['firstname', 'lastname', 'password', 'passwordConfirm', 'email'];
+            foreach($fields as $field){
+                if(!$this->verifPost($_POST[$field])){
+                    //error
+                    header('Location:/signup');
+                }
+            }
+            if($_POST['passwordConfirm'] == $_POST['password']){
+
+                $user = new User([
+                    'firstname' => $_POST['firstname'],
+                    'lastname' => $_POST['lastname'],
+                    'email' => $_POST['email'],
+                    'password' => $_POST['password'],
+                ]);
+                $manager = new UserModel();
+                $user = $manager->createUser($user);
+                
+                
+                if(is_object($user)){
+                    $this->mail = new MailService();
+                    $to = $_POST['email'];
+                    $subject = 'Inscription à la platform de Scraping';
+                    
+                    $message = '<p>Merci de créer votre compte en vous rendant sur ce lien : <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
+                    $this->mail->send($to, $subject, $message);
+                    $message = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter';                         
+                } else {
+                    $message = $user;
+                }
+            } else {
+                $message = 'Le mot de passe et la confirmation du mot de passe, ne correspondent pas. Merci de recommencer';
+            }
+
+            $_SESSION['message'] = $user;
+            //header('Location: /signup');
+        }
+
+        echo $this->twig->render('form/signup.html.twig', [
+            'title' => 'Create my account',
+            'info' => [
+                'title' => 'Already an account ? Login',
+                'link' => 'login'
+            ],
+            'inputs' => [
+                1 => [
+                    'type' => 'text',
+                    'name' => 'firstname',
+                    'placeholder' => 'Firstname'
+                ],
+                2 => [
+                    'type' => 'text',
+                    'name' => 'lastname',
+                    'placeholder' => 'Lastname'
+                ],
+                3 => [
+                    'type' => 'email',
+                    'name' => 'email',
+                    'placeholder' => 'Email *'
+                ],
+                4 => [
+                    'type' => 'password',
+                    'name' => 'password',
+                    'placeholder' => 'Password *'
+                ],
+                5 => [
+                    'type' => 'password',
+                    'name' => 'passwordConfirm',
+                    'placeholder' => 'Password confirm *'
+                ],
+            ]
+        ]);
+
+
+    }
+
 
     /*
     * @return Templates
@@ -14,8 +97,12 @@ class UserController extends AbstractController
     {
         if(!empty($_POST)){
             $fields = ['email', 'password'];
+            //verifier si l'uiid correspond a une entrée, 
+            // que l'uuid correspond a un email
+            // que le password est bon
+            //generer un nouveau uuid
             foreach($fields as $field){
-                $fieldVerif = $this->verifPost($field);
+                $fieldVerif = $this->verifPost($_POST['$field']);
                 if($fieldVerif == 'error'){
                     //error
                 }
@@ -36,33 +123,6 @@ class UserController extends AbstractController
 
     }
 
-    /*
-    * @return Templates
-    */
-    public function signup() 
-    {
-        $user = unserialize($_SESSION['user']);
-        $this->mail = new MailService($user);
-        $subject = 'test';
-        $message = 'hello world';
-        $this->mail->send($subject, $message);
-
-
-        // echo $this->twig->render('form/signup.html.twig', [
-        //     'title' => 'SIGNUP',
-        //     'info' => [
-        //                 'title' => 'Already an account ? Login',
-        //                 'link' => 'login'
-        //     ],
-        //     'inputs' => [
-        //         1 => [
-        //             'type' => 'email',
-        //             'name' => 'email',
-        //             'placeholder' => 'E-mail'
-        //         ],
-        //     ]
-        // ]);
-    }
 
 
     /*

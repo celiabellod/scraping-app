@@ -3,12 +3,6 @@
 
 class MailService
 {
-    /**
-     * @var User
-     */
-    private $user;
-
-
      /**
      * @var Mailer
      */
@@ -21,22 +15,20 @@ class MailService
     private $email;
 
 
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
         $transport = new \Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport('mailcatcher', 1025);
         $this->mailer = new \Symfony\Component\Mailer\Mailer($transport);
         $this->email = new Symfony\Component\Mime\Email();
     }
     
-    public function send($message, $subject)
+    public function send($to, $subject,$message)
     {
         $email = $this->email
             ->from('noreply@scraping.com')
-            ->to($this->user->getEmail())
+            ->to($to)
             ->subject($subject)
-            ->text($message)
-            //->html('<h1>Lorem ipsum</h1> <p>...</p>')
+            ->html($message)
         ;
 
         $this->mailer->send($email);

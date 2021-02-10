@@ -11,7 +11,7 @@
             {% if (title == 'Create my account') %}
                 <div class="form-container-half">
                 {% for input in inputs %}
-                    {% if loop.index == 2 %}
+                    {% if loop.index == 3 %}
                         </div>
                     {% endif %}
                     <input type='{{ input.type }}' id='{{ input.name }}' name='{{ input.name }}' placeholder='{{ input.placeholder }}' class='form-input'/>

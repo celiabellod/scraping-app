@@ -12,7 +12,7 @@ class ExtractionController extends AbstractController
 
            $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
             foreach($fields as $field){
-                $fieldVerif = $this->verifPost($field);
+                $fieldVerif = $this->verifPost($_POST['$field']);
                 if($fieldVerif == 'error'){
                     //header('Location:src/Templates/pages/admin/new-extraction.php');
                 }
@@ -87,7 +87,7 @@ class ExtractionController extends AbstractController
 
             $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
              foreach($fields as $field){
-                 $fieldVerif = $this->verifPost($field);
+                 $fieldVerif = $this->verifPost($_POST['$field']);
                  if($fieldVerif == 'error'){
                      //header('Location:src/Templates/pages/admin/new-extraction.php');
                  }

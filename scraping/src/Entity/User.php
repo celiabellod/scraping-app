@@ -10,6 +10,11 @@ class User extends AbstractEntity
     /*
     * @var string
     */
+    private $uuid;
+
+    /*
+    * @var string
+    */
     private $firstname;
 
     /*
@@ -149,4 +154,28 @@ class User extends AbstractEntity
         return $this;
     }
 
+
+    /**
+     * Get /*
+     *
+     * @return  string
+     */ 
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Set /*
+     *
+     * @param  string  $uuid  /*
+     *
+     * @return  self
+     */ 
+    public function setUuid(string $uuid)
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
 }

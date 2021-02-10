@@ -30,10 +30,12 @@ class Connexionbdd {
   private function createTable() {
     $query= "CREATE TABLE IF NOT EXISTS `user` (
       `id` INT NOT NULL AUTO_INCREMENT ,
+      `uuid` VARCHAR(50) NOT NULL,
       `firstname` VARCHAR(50) NOT NULL ,
       `lastname` VARCHAR(50) NOT NULL ,
       `email` VARCHAR(50) NOT NULL ,
-      `password` VARCHAR(255) NOT NULL , 
+      `password` VARCHAR(255) NOT NULL ,
+      `emailVerif` BOOLEAN NOT NULL default 0,
       PRIMARY KEY (`id`)) ENGINE = InnoDB;
       )";
       $this->db->query($query);
