@@ -1,4 +1,8 @@
 <?php
+namespace App\src\Controller;
+
+use App\src\Controller\AbstractController;
+use App\src\Entity\Extraction;
 
 class ExtractionController extends AbstractController
 {
@@ -59,9 +63,9 @@ class ExtractionController extends AbstractController
     */
     public function getList() 
     {
-        $manager = new ExtractionModel();
-        $extractions = $manager->getListExtraction();
-        $user = unserialize($_SESSION['user']);
+        $manager = new Extraction();
+        $extractions = $manager->findAll();
+        $user = $_SESSION['user'];
         echo $this->twig->render('admin/dashboard.html.twig', [
             'extractions' => $extractions,
             'user' => $user
@@ -122,7 +126,7 @@ class ExtractionController extends AbstractController
             }
            
             $manager = new ExtractionModel();
-            $manager->update($extraction, $datas);
+            $manager->updateExtraction($extraction, $datas);
            
             header('location:/dashboard');
          } else {

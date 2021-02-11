@@ -1,5 +1,9 @@
 <?php
+namespace App\src\Services;
 
+use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mime\Email;
 
 class MailService
 {
@@ -17,9 +21,9 @@ class MailService
 
     public function __construct()
     {
-        $transport = new \Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport('mailcatcher', 1025);
-        $this->mailer = new \Symfony\Component\Mailer\Mailer($transport);
-        $this->email = new Symfony\Component\Mime\Email();
+        $transport = new EsmtpTransport('mailcatcher', 1025);
+        $this->mailer = new Mailer($transport);
+        $this->email = new Email();
     }
     
     public function send($to, $subject,$message)

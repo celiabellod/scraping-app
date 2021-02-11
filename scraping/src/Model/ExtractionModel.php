@@ -1,14 +1,7 @@
 <?php
 
-class ExtractionModel
+class ExtractionModel extends AbstractModel
 {
-    private $db;
-
-    public function __construct()
-    {
-        $connexion = new Connexionbdd;
-        $this->db = $connexion->getdb();
-    }
 
     /**
      * @param Extraction $extraction
@@ -65,10 +58,9 @@ class ExtractionModel
             return "error";
         }
         $req->closeCursor();
-          
     }
 
-    public function update(Extraction $extraction, Array $datas)
+    public function updateExtraction(Extraction $extraction, Array $datas)
     {
         $query = "UPDATE extraction
                 set url = :url, name = :name, type = :type, periodicity = :periodicity, category = :category,

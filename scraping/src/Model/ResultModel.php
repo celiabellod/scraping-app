@@ -1,14 +1,6 @@
 <?php
 
-class ResultModel {
-
-    private $db;
-
-    public function __construct()
-    {
-        $connexion = new Connexionbdd;
-        $this->db = $connexion->getdb();
-    }
+class ResultModel extends AbstractModel{
 
     public function add(Result $result)
     {
@@ -16,8 +8,8 @@ class ResultModel {
         $req = $this->db->prepare($query);
         $arrayValue = [
             ":data" => $result->getData(),
-            ":extraction_id" => $result->getExtraction_id(),
-            ":historic_id" => $result->getHistoric_id()
+            ":extraction_id" => $result->getExtraction(),
+            ":historic_id" => $result->getHistoric()
         ];
         if($req->execute($arrayValue)){
             return 1;

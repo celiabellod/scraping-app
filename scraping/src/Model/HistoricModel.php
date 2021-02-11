@@ -1,15 +1,8 @@
 <?php
 
 
-class HistoricModel
+class HistoricModel extends AbstractModel
 {
-    private $db;
-
-    public function __construct()
-    {
-        $connexion = new Connexionbdd;
-        $this->db = $connexion->getdb();
-    }
 
     public function add(Historic $historic)
     {  
@@ -17,7 +10,7 @@ class HistoricModel
         $req = $this->db->prepare($query);
         $arrayValue = [
             ":date" => $historic->getDate(),
-            ":extraction_id" => $historic->getExtraction_id()
+            ":extraction_id" => $historic->getExtraction()
         ];
 
         if($req->execute($arrayValue)){

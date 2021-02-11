@@ -1,38 +1,46 @@
 <?php
+namespace App\src\Entity;
 
-class User extends AbstractEntity
+use App\src\Model\Model;
+
+class User extends Model
 {
     /*
     * @var int
     */
-    private $id;
+    protected $id;
 
     /*
     * @var string
     */
-    private $uuid;
+    protected $uuid;
 
     /*
     * @var string
     */
-    private $firstname;
+    protected $firstname;
 
     /*
     * @var string
     */
-    private $lastname;
+    protected $lastname;
 
     /*
     * @var string
     */
-    private $email;
+    protected $email;
 
     /*
     * @var string
     */
-    private $password;
-
+    protected $password;
   
+    public function __construct()
+    {
+        $this->createTable();
+        $this->table = 'user';
+    }
+
     /**
      * Get /*
      *
@@ -56,7 +64,6 @@ class User extends AbstractEntity
 
         return $this;
     }
-
 
     /**
      * Get /*
@@ -178,4 +185,5 @@ class User extends AbstractEntity
 
         return $this;
     }
+
 }

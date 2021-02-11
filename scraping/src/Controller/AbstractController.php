@@ -1,5 +1,7 @@
 <?php
+namespace App\src\Controller;
 
+use App\src\config\Twig;
 
 abstract class AbstractController 
 {
@@ -19,7 +21,7 @@ abstract class AbstractController
        $twig = new Twig();
        $this->twig = $twig->twig;
        if(isset($_SESSION['user'])){
-            $this->user = unserialize($_SESSION['user']);
+            $this->user = $_SESSION['user'];
         }
     }
 

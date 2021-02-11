@@ -1,7 +1,9 @@
 <?php
+namespace App\src\Entity;
 
+use App\src\Model\Model;
 
-class Extraction extends AbstractEntity
+class Extraction extends Model
 {
 
     /**
@@ -56,6 +58,11 @@ class Extraction extends AbstractEntity
     private $user;
 
 
+    public function __construct()
+    {
+        $this->table = 'extraction';
+    }
+    
     /**
      * Get /*
      *

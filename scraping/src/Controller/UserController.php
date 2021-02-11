@@ -1,6 +1,11 @@
 <?php
+namespace App\src\Controller;
 
-class UserController extends AbstractController 
+use App\src\Entity\User;
+use App\src\Controller\AbstractController;
+use App\src\Services\MailService;
+
+class UserController extends AbstractController
 {
 
     /**
@@ -22,32 +27,33 @@ class UserController extends AbstractController
             }
             if($_POST['passwordConfirm'] == $_POST['password']){
 
-                $user = new User([
-                    'firstname' => $_POST['firstname'],
-                    'lastname' => $_POST['lastname'],
-                    'email' => $_POST['email'],
-                    'password' => $_POST['password'],
-                ]);
-                $manager = new UserModel();
-                $user = $manager->createUser($user);
+                $manager = new User();                
+                $user = $manager
+                        ->setFirstname($_POST['firstname'])
+                        ->setLastname($_POST['lastname'])
+                        ->setEmail($_POST['email'])
+                        ->setPassword(password_hash($_POST['password'], PASSWORD_ARGON2I));
+             
+                $manager->create($user);
+                $user = $manager->findBy(['email' => $_POST['email']]);
+                $user = $manager->hydrate($user[0]);
                 
                 
                 if(is_object($user)){
                     $this->mail = new MailService();
                     $to = $_POST['email'];
                     $subject = 'Inscription à la platform de Scraping';
-                    
                     $message = '<p>Merci de créer votre compte en vous rendant sur ce lien : <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
                     $this->mail->send($to, $subject, $message);
-                    $message = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter';                         
+                    $response = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter';                         
                 } else {
-                    $message = $user;
+                    $response = $user;
                 }
             } else {
-                $message = 'Le mot de passe et la confirmation du mot de passe, ne correspondent pas. Merci de recommencer';
+                $response = 'Le mot de passe et la confirmation du mot de passe, ne correspondent pas. Merci de recommencer';
             }
 
-            $_SESSION['message'] = $message;
+            $_SESSION['response'] = $response;
         }
 
         echo $this->twig->render('form/signup.html.twig', [
@@ -102,28 +108,28 @@ class UserController extends AbstractController
                     //error
                 }
             }
+            $manager = new User();
 
-            $uuid = (isset($_GET['client']) && $this->verifPost($_GET['client'])) ? $_GET['client'] : '';
-            $manager = new UserModel();
-            $user = $manager->logInUser($_POST['email'], $_POST['password'], $uuid);
-            var_dump($user);
-            if($user != 'error'){
-                $_SESSION['user'] = serialize($user);
+            $array = [
+                'email' => $_POST['email'],
+            ];
+            $uuid = (isset($_GET['client']) && $this->verifPost($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
+            $user = $manager->findBy($array);
+            $user = $manager->hydrate($user[0]);
+            if(is_object($user) && password_verify($_POST['password'], $user->getPassword())){
+                //update chane emaill
+                $_SESSION['user'] = $user;
                 header('Location: /dashboard');
             } else {
-                $this->renderLogin();
+                var_dump($user);
+                //$this->renderLogin();
                 //error
             }
-          
-            
         } else {
             $this->renderLogin();
         }
 
     }
-
-
-
    
     public function logOut() 
     {
@@ -157,12 +163,11 @@ class UserController extends AbstractController
 
     public function update()
     { 
-        $user = unserialize($_SESSION['user']);
+        $user = $_SESSION['user'];
         echo $this->twig->render('admin/my-account.html.twig', [
             'user' => $user
         ]);
     }
-
 
     /**
      * Get the value of mail
