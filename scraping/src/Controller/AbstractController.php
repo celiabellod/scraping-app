@@ -3,8 +3,9 @@ namespace App\src\Controller;
 
 use App\src\config\Twig;
 use App\src\Entity\User;
+use FormValidator;
 
-abstract class AbstractController 
+abstract class AbstractController extends FormValidator
 {
     /**
      * @var Twig
@@ -26,15 +27,6 @@ abstract class AbstractController
             $user = $manager->find($_SESSION['user']);
             $user = $manager->hydrate($user);
             $this->user = $user;
-        }
-    }
-
-    public function verificationField($data)
-    {
-        if(isset($data) && !empty($data)) {
-            return true;
-        } else {
-            return false;
         }
     }
 }

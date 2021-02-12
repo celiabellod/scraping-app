@@ -6,6 +6,7 @@ use App\src\Entity\User;
 use App\src\Controller\AbstractController;
 use App\src\Services\MailService;
 use App\src\Services\FormBuilder;
+use FormValidator;
 
 class UserController extends AbstractController
 {
@@ -79,10 +80,12 @@ class UserController extends AbstractController
 
         if(!empty($_POST)){
             $fields = ['email', 'password'];
-            foreach($fields as $field){
-                $fieldVerif = $this->verificationField($_POST[$field]);
-                if(!$this->verificationField($_POST[$field])){
-                    $response = 'Merci de remplir les champs requis correctement.';
+            foreach($fields as $index => $field){
+                $verification = $this->postVerification($field);
+                if($verification){
+                    $fields[$index] = $verification;
+                } else {
+                    $response = $verification;
                 }
             }
 
