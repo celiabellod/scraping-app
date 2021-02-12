@@ -1,35 +1,43 @@
 <?php
 
+namespace App\src\Entity;
 
-class Datas extends AbstractEntity
+use App\src\Model\Model;
+
+class Datas extends Model
 {
 
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var String
      */
-    private $dataName;
+    protected $dataName;
 
     /**
      * @var String
      */
-    private $dataType;
+    protected $dataType;
 
 
     /**
      * @var String
      */
-    private $dataPath;
+    protected $dataPath;
 
     /**
      * @var Extraction
      */
-    private $extraction;
+    protected $extraction;
 
+
+    public function __construct()
+    {
+      $this->table = 'datas';
+    }
 
     /**
      * Get the value of id

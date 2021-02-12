@@ -9,53 +9,53 @@ class Extraction extends Model
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
     * @var String
     */
-    private $url;
+    protected $url;
 
     /**
     * @var String
     */
-    private $name;
+    protected $name;
 
     /**
     * @var String
     */
-    private $type;
+    protected $type;
 
     /**
     * @var String
     */
-    private $periodicity;
+    protected $periodicity;
 
     /**
     * @var String
     */
-    private $category;
+    protected $category;
 
     /**
     * @var String
     */
-    private $primaryContainer;
+    protected $primaryContainer;
 
     /**
     * @var String
     */
-    private $secondaryContainer;
+    protected $secondaryContainer;
 
     /**
      * @var Array
      */
-    private $datas;
+    protected $datas;
 
 
      /**
      * @var User
      */
-    private $user;
+    protected $user;
 
 
     public function __construct()

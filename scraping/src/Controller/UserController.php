@@ -83,20 +83,26 @@ class UserController extends AbstractController
             ];
             $uuid = (isset($_GET['client']) && $this->verificationField($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
 
+
             $manager = new User();
             $user = $manager->findBy($array);
             $user = $manager->hydrate($user[0]);
-            if(is_object($user) && password_verify($_POST['password'], $user->getPassword())){
-                $user = $user->setEmailVerif(1);
-                $updateUser = $manager->update($user->getId(), $user);
-                if($updateUser) {
-                    $_SESSION['user'] = $user;
+            if(is_object($user) && password_verify($_POST['password'], $user->getPassword()) && (!empty($uuid) || $user->getEmailVerif())){
+                if(!empty($uuid)){
+                    $user = $user->setEmailVerif(1);
+                    $login = $manager->update($user->getId(), $user);
+                } else {
+                    $login = true;
+                }
+                if($login) {
+                    $_SESSION['user'] = $user->getID();
                     header('Location: /dashboard');
                 }
             } else {
                 $response = 'Les mots de passe ne correspondent pas.';
             }
         }
+
         $form = new FormBuilder();
         $form->setTitle('LOGIN');
         $form->setInfo(['title' => 'Sign Up', 'link' => 'signup']);
@@ -107,6 +113,7 @@ class UserController extends AbstractController
             'form' => $form,
             'response' => $response
         ]);
+
     }
    
     public function logOut() 
@@ -120,7 +127,7 @@ class UserController extends AbstractController
     { 
         $user = $_SESSION['user'];
         echo $this->twig->render('admin/my-account.html.twig', [
-            'user' => $user
+            'user' => $this->user
         ]);
     }
 }

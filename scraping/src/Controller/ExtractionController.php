@@ -3,6 +3,8 @@ namespace App\src\Controller;
 
 use App\src\Controller\AbstractController;
 use App\src\Entity\Extraction;
+use App\src\Entity\Historic;
+use App\src\Entity\Datas;
 
 class ExtractionController extends AbstractController
 {
@@ -13,71 +15,68 @@ class ExtractionController extends AbstractController
     */
     public function create() {
         if(!empty($_POST)){
-
            $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
-            foreach($fields as $field){
-                $fieldVerif = $this->verifPost($_POST['$field']);
-                if($fieldVerif == 'error'){
-                    //header('Location:src/Templates/pages/admin/new-extraction.php');
+           foreach($fields as $field){
+                if(!$this->verificationField($_POST[$field])){
+                    $response = 'Merci de remplir les champs requis correctement.';
                 }
             }
+
             if($_POST['secondaryContainer']){
                 $secondaryContainer = $_POST['secondaryContainer'];
             } else {
                 $secondaryContainer = '';
             }
+            $manager = new Extraction();                
+            $extraction = $manager
+                    ->setName($_POST[$fields[0]])
+                    ->setUrl($_POST[$fields[1]])
+                    ->setPeriodicity($_POST[$fields[2]])
+                    ->setType($_POST[$fields[3]])
+                    ->setCategory($_POST[$fields[4]])
+                    ->setPrimaryContainer($_POST[$fields[5]])
+                    ->setSecondaryContainer($secondaryContainer)
+                    ->setUser($this->user)
+            ;
+            $manager->create($extraction);
+            $lastExtraction = $manager->findLast();
+            $extraction = $manager->hydrate($lastExtraction);
 
-            $extraction = new Extraction([
-                'url' => $_POST['url'],
-                'name' => $_POST['extractionName'],
-                'type' => $_POST['type'],
-                'periodicity' => $_POST['periodicity'],
-                'category' => $_POST['category'],
-                'primaryContainer' => $_POST['primaryContainer'],
-                'secondaryContainer' => $secondaryContainer,
-                'user' => unserialize($_SESSION['user'])
-            ]);
-            
-            $datas = [];
+            $dataManager = new Datas();
             foreach($_POST['dataName'] as $data => $value){
-                $datas[] = new Datas([
-                    'dataName' => $_POST['dataName'][$data],
-                    'dataType' => $_POST['dataType'][$data],
-                    'dataPath' => $_POST['dataPath'][$data],
-                    'extraction' => $extraction
-                ]);
+                $datas = $dataManager
+                        ->setDataName($_POST[$fields[6]][$data])
+                        ->setDataType($_POST[$fields[7]][$data])
+                        ->setDataPath($_POST[$fields[8]][$data])
+                        ->setExtraction($extraction)
+                ;
+                $dataManager->create($datas);
             }
-
-            $manager = new ExtractionModel();
-            $manager->add($extraction, $datas);
-          
-            //header('location:/dashboard');
+            $datas = $dataManager->findBy(['extraction_id' => $extraction->getId()]);
+            $extraction->setDatas($datas);
+            header('location:/dashboard');
         } else {
             echo $this->twig->render('admin/new-extraction.html.twig');
         }
     
     }
 
-      /*
-    * @return void
-    */
     public function getList() 
     {
         $manager = new Extraction();
         $extractions = $manager->findAll();
-        $user = $_SESSION['user'];
         echo $this->twig->render('admin/dashboard.html.twig', [
             'extractions' => $extractions,
-            'user' => $user
+            'user' => $this->user
         ]);
     }
 
     public function getOne($extractionId) 
     {
-        $manager = new ExtractionModel();
-        $extraction = $manager->getOneExtraction($extractionId);
-        $manager = new HistoricModel();
-        $historic = $manager->getListHistoric($extractionId);
+        $manager = new Extraction();
+        $extraction = $manager->find($extractionId);
+        $historicManager = new Historic();
+        $historic = $historicManager->findBy(['extraction_id' => $extractionId]);
         echo $this->twig->render('admin/single-extraction.html.twig', [
             'historic' => $historic,
             'extraction' => $extraction
@@ -86,62 +85,64 @@ class ExtractionController extends AbstractController
 
     public function update($extractionId) 
     {
+        $manager = new Extraction();
+        $dataManager = new Datas();
 
         if(!empty($_POST)){
-
             $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
-             foreach($fields as $field){
-                 $fieldVerif = $this->verifPost($_POST['$field']);
-                 if($fieldVerif == 'error'){
-                     //header('Location:src/Templates/pages/admin/new-extraction.php');
-                 }
-             }
-             if($_POST['secondaryContainer']){
-                 $secondaryContainer = $_POST['secondaryContainer'];
-             } else {
-                 $secondaryContainer = '';
-             }
- 
-            $extraction = new Extraction([
-                'id' => $extractionId,
-                'url' => $_POST['url'],
-                'name' => $_POST['extractionName'],
-                'type' => $_POST['type'],
-                'periodicity' => $_POST['periodicity'],
-                'category' => $_POST['category'],
-                'primaryContainer' => $_POST['primaryContainer'],
-                'secondaryContainer' => $secondaryContainer,
-                'user' => unserialize($_SESSION['user'])
-            ]);
-             
-            $datas = [];
-            foreach($_POST['dataName'] as $data => $value){
-                $datas[] = new Datas([
-                    'id' => $data,
-                    'dataName' => $_POST['dataName'][$data],
-                    'dataType' => $_POST['dataType'][$data],
-                    'dataPath' => $_POST['dataPath'][$data],
-                    'extraction' => $extraction
-                ]);
+            foreach($fields as $field){
+                if(!$this->verificationField($_POST[$field])){
+                    $response = 'Merci de remplir les champs requis correctement.';
+                }
             }
            
-            $manager = new ExtractionModel();
-            $manager->updateExtraction($extraction, $datas);
-           
+            if($_POST['secondaryContainer']){
+                $secondaryContainer = $_POST['secondaryContainer'];
+            } else {
+                $secondaryContainer = '';
+            }
+             
+            $extraction = $manager
+                    ->setName($_POST[$fields[0]])
+                    ->setUrl($_POST[$fields[1]])
+                    ->setPeriodicity($_POST[$fields[2]])
+                    ->setType($_POST[$fields[3]])
+                    ->setCategory($_POST[$fields[4]])
+                    ->setPrimaryContainer($_POST[$fields[5]])
+                    ->setSecondaryContainer($secondaryContainer)
+                    ->setUser($this->user)
+            ;
+
+            if($manager->update($extractionId, $extraction)) {
+                foreach($_POST['dataName'] as $dataId => $value){
+                    $datas = $dataManager
+                        ->setDataName($_POST[$fields[6]][$dataId])
+                        ->setDataType($_POST[$fields[7]][$dataId])
+                        ->setDataPath($_POST[$fields[8]][$dataId])
+                        ->setExtraction($extraction)
+                    ;
+                    $dataManager->update($dataId, $datas);
+                }
+                $datas = $dataManager->findBy(['extraction_id' => $extraction->getId()]);
+                $extraction->setDatas($datas);
+            };
             header('location:/dashboard');
-         } else {
-            $manager = new ExtractionModel();
-            $extraction = $manager->getOneExtraction($extractionId);
-            echo $this->twig->render('admin/update-extraction.html.twig', [
-                'extraction' => $extraction,
-            ]);
-         }              
+         }
+
+        $extraction = $manager->find($extractionId);
+        $extraction = $manager->hydrate($extraction);
+        $datas = $dataManager->findBy(['extraction_id' => $extraction->getId()]);
+        $extraction->setDatas($datas);
+
+        echo $this->twig->render('admin/update-extraction.html.twig', [
+            'extraction' => $extraction,
+        ]);
     }
 
     public function delete($extractionId)
     {
-        $manager = new ExtractionModel();
-        $manager->deleteExtraction($extractionId);
+        $manager = new Extraction();
+        $manager->delete($extractionId);
         header('Location:/dashboard');
     }
     

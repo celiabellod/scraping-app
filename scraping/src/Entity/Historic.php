@@ -1,7 +1,10 @@
 <?php
 
+namespace App\src\Entity;
 
-class Historic
+use App\src\Model\Model;
+
+class Historic extends Model
 {
 
     /**
@@ -18,26 +21,13 @@ class Historic
    * @var Extraction
    */
     private $extraction;
-    
 
-    public function __construct(array $datas)
+    public function __construct()
     {
-        $this->hydrate($datas);
+        $this->table = 'historic';
         $this->date = $this->setDate();
     }
   
-  
-    public function hydrate(array $datas) 
-    {
-        foreach ($datas as $key => $value){
-          $method = 'set'.ucfirst($key);
-              
-          if (method_exists($this, $method)) {
-            $this->$method($value);
-          }
-        }
-    }
-
     /**
      * Get /*
      *
@@ -81,7 +71,7 @@ class Historic
      */ 
     public function setDate()
     {
-        $this->date =  new DateTime('NOW');
+        $this->date =  new \DateTime('NOW');
         $this->date = $this->date->format('Y-m-d H:i');
         return $this->date;
     }

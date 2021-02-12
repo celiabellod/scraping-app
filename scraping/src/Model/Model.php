@@ -35,6 +35,10 @@ class Model extends Db
         $valeurs = [];
         foreach($model as $champ => $valeur){
             if($valeur !== null && $champ != 'db' && $champ != 'table'){
+                if(is_object($valeur)){
+                    $champ = $champ.'_id';
+                    $valeur = $valeur->getID();
+                }
                 $champs[] = $champ;
                 $inter[] = "?";
                 $valeurs[] = $valeur;
@@ -75,6 +79,16 @@ class Model extends Db
     public function find(int $id)
     {
         return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
+    }
+
+
+    /**
+     * @param int $id id
+     * @return array
+     */
+    public function findLast()
+    {
+        return $this->requete("SELECT * FROM {$this->table} WHERE id = LAST_INSERT_ID()")->fetch();
     }
 
 

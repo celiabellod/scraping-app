@@ -4,12 +4,13 @@ namespace App\src\config;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\TwigFunction;
+
 class Twig{
 
     /**
      * @var Twig 
      */
-    public $twig;
+    private $twig;
 
     public function __construct()
     {
@@ -21,4 +22,27 @@ class Twig{
         $this->twig->addFunction($function);
     }
 
+    /**
+     * Get the value of twig
+     *
+     * @return  Twig
+     */ 
+    public function getTwig()
+    {
+        return $this->twig;
+    }
+
+    /**
+     * Set the value of twig
+     *
+     * @param  Twig  $twig
+     *
+     * @return  self
+     */ 
+    public function setTwig(Twig $twig)
+    {
+        $this->twig = $twig;
+
+        return $this;
+    }
 }

@@ -1,7 +1,10 @@
 <?php
 
+namespace App\src\Entity;
 
-class Result extends AbstractEntity
+use App\src\Model\Model;
+
+class Result extends Model
 {
 
   /**
@@ -24,6 +27,12 @@ class Result extends AbstractEntity
    */
   private $historic;
 
+
+  public function __construct()
+  {
+      $this->table = 'result';
+  }
+  
   /**
    * Get /*
    *
