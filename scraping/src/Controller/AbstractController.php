@@ -25,9 +25,9 @@ abstract class AbstractController
         }
     }
 
-    public function verifPost($data)
+    public function verificationField($data)
     {
-        if(isset($data) || !empty($data)) {
+        if(isset($data) && !empty($data)) {
             return true;
         } else {
             return false;

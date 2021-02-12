@@ -24,8 +24,7 @@ class Model extends Db
     }
 
      /**
-     * Insertion d'un enregistrement suivant un tableau de données
-     * @param Model $model Objet à créer
+     * @param Model $model Objet
      * @return bool
      */
     public function create(Model $model)
@@ -34,7 +33,6 @@ class Model extends Db
         $champs = [];
         $inter = [];
         $valeurs = [];
-
         foreach($model as $champ => $valeur){
             if($valeur !== null && $champ != 'db' && $champ != 'table'){
                 $champs[] = $champ;
@@ -42,20 +40,15 @@ class Model extends Db
                 $valeurs[] = $valeur;
             }
         }
-
-        // On transforme le tableau "champs" en une chaine de caractères
         $liste_champs = implode(', ', $champs);
         $liste_inter = implode(', ', $inter);
-
-        // On exécute la requête
         return $this->requete('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES('.$liste_inter.')', $valeurs);
     }
 
 
      /**
-     * Mise à jour d'un enregistrement suivant un tableau de données
-     * @param int $id id de l'enregistrement à modifier
-     * @param Model $model Objet à modifier
+     * @param int $id id
+     * @param Model $model Objet
      * @return bool
      */
     public function update(int $id, Model $model)
@@ -63,63 +56,48 @@ class Model extends Db
         $champs = [];
         $valeurs = [];
 
-        // On boucle pour éclater le tableau
         foreach($model as $champ => $valeur){
-            // UPDATE annonces SET titre = ?, description = ?, actif = ? WHERE id= ?
             if($valeur !== null && $champ != 'db' && $champ != 'table'){
                 $champs[] = "$champ = ?";
                 $valeurs[] = $valeur;
             }
         }
         $valeurs[] = $id;
-
-        // On transforme le tableau "champs" en une chaine de caractères
         $liste_champs = implode(', ', $champs);
-
-        // On exécute la requête
         return $this->requete('UPDATE '.$this->table.' SET '. $liste_champs.' WHERE id = ?', $valeurs);
     }
 
 
     /**
-     * Sélection d'un enregistrement suivant son id
-     * @param int $id id de l'enregistrement
-     * @return array Tableau contenant l'enregistrement trouvé
+     * @param int $id id
+     * @return array
      */
     public function find(int $id)
     {
-        // On exécute la requête
         return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
     }
 
 
     /**
-     * Sélection de plusieurs enregistrements suivant un tableau de critères
-     * @param array $criteres Tableau de critères
-     * @return array Tableau des enregistrements trouvés
+     * @param array $attributs
+     * @return array
      */
-    public function findBy(array $criteres)
+    public function findBy(array $attributs)
     {
         $champs = [];
         $valeurs = [];
-
-        // On boucle pour "éclater le tableau"
-        foreach($criteres as $champ => $valeur){
+        foreach($attributs as $champ => $valeur){
             $champs[] = "$champ = ?";
             $valeurs[]= $valeur;
         }
-
-        // On transforme le tableau en chaîne de caractères séparée par des AND
         $liste_champs = implode(' AND ', $champs);
 
-        // On exécute la requête
         return $this->requete("SELECT * FROM {$this->table} WHERE $liste_champs", $valeurs)->fetchAll();
     }
 
 
     /**
-     * Sélection de tous les enregistrements d'une table
-     * @return array Tableau des enregistrements trouvés
+     * @return array
      */
     public function findAll()
     {
@@ -129,8 +107,7 @@ class Model extends Db
 
 
     /**
-     * Suppression d'un enregistrement
-     * @param int $id id de l'enregistrement à supprimer
+     * @param int $id id
      * @return bool 
      */
     public function delete(int $id){
@@ -138,22 +115,18 @@ class Model extends Db
     }
 
     /**
-     * Méthode qui exécutera les requêtes
-     * @param string $sql Requête SQL à exécuter
-     * @param array $attributes Attributs à ajouter à la requête 
-     * @return PDOStatement|false 
+     * @param string $sql
+     * @param array $attributs
+     * @return query
      */
     public function requete(string $sql, array $attributs = null)
     {
         $this->db = Db::getInstance();
-        // On vérifie si on a des attributs
         if($attributs !== null){
-            // Requête préparée
             $query = $this->db->prepare($sql);
             $query->execute($attributs);
             return $query;
         }else{
-            // Requête simple
             return $this->db->query($sql);
         }
     }

@@ -34,6 +34,11 @@ class User extends Model
     * @var string
     */
     protected $password;
+
+    /*
+    * @var bool
+    */
+    protected $emailVerif = 0;
   
     public function __construct()
     {
@@ -186,4 +191,28 @@ class User extends Model
         return $this;
     }
 
+
+    /**
+     * Get /*
+     *
+     * @return  bool
+     */ 
+    public function getEmailVerif()
+    {
+        return $this->emailVerif;
+    }
+
+    /**
+     * Set /*
+     *
+     * @param  bool $emailVerif  /*
+     *
+     * @return  self
+     */ 
+    public function setEmailVerif(Bool $emailVerif)
+    {
+        $this->emailVerif = $emailVerif;
+
+        return $this;
+    }
 }
