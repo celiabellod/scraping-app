@@ -9,6 +9,16 @@ use App\src\Services\FormBuilder;
 
 class UserController extends AbstractController
 {
+    private $manager;
+    private $mail;
+
+    public function __construct() 
+    {
+        parent::__construct();
+        $this->manager = new User();
+        $this->mail = new MailService();
+    }
+
 
     public function signup()
     {
@@ -22,25 +32,23 @@ class UserController extends AbstractController
                     $response = 'Merci de remplir les champs requis correctement.';
                 }
             }
-            if($_POST[$fields[2]] === $_POST[$fields[3]]){
-                $manager = new User();                
-                $user = $manager
+            if($_POST[$fields[2]] === $_POST[$fields[3]]){                
+                $user = $this->manager
                         ->setFirstname($_POST[$fields[0]])
                         ->setLastname($_POST[$fields[1]])
                         ->setEmail($_POST[$fields[4]])
                         ->setPassword(password_hash($_POST[$fields[2]], PASSWORD_ARGON2I));
 
-                $manager->create($user);
-                $user = $manager->findBy(['email' => $_POST[$fields[4]]]);
-                $user = $manager->hydrate($user[0]);
+                $this->manager->create($user);
+                $user = $this->manager->findBy(['email' => $_POST[$fields[4]]]);
+                $user = $this->manager->hydrate($user[0]);
                 
                 
                 if(is_object($user)){
-                    $mail = new MailService();
                     $to = $_POST[$fields[4]];
                     $subject = 'Inscription à la platform de Scraping';
                     $message = '<p>Merci de vous connecter en vous rendant sur ce lien : <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
-                    $mail->send($to, $subject, $message);
+                    $this->mail->send($to, $subject, $message);
                     $response = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.';                         
                 } else {
                     $response = $user;
@@ -83,14 +91,12 @@ class UserController extends AbstractController
             ];
             $uuid = (isset($_GET['client']) && $this->verificationField($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
 
-
-            $manager = new User();
-            $user = $manager->findBy($array);
-            $user = $manager->hydrate($user[0]);
+            $user = $this->manager->findBy($array);
+            $user = $this->manager->hydrate($user[0]);
             if(is_object($user) && password_verify($_POST['password'], $user->getPassword()) && (!empty($uuid) || $user->getEmailVerif())){
                 if(!empty($uuid)){
                     $user = $user->setEmailVerif(1);
-                    $login = $manager->update($user->getId(), $user);
+                    $login = $this->manager->update($user->getId(), $user);
                 } else {
                     $login = true;
                 }

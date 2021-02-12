@@ -10,17 +10,17 @@ class Historic extends Model
     /**
     * @var int
     */
-    private $id;
+    protected $id;
 
     /**
     * @var Date
     */
-    private $date;
+    protected $date;
 
     /**
    * @var Extraction
    */
-    private $extraction;
+    protected $extraction;
 
     public function __construct()
     {

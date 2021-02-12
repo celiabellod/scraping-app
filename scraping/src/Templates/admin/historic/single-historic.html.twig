@@ -3,7 +3,8 @@
     <div class="main-content">
         <a href="/extraction/{{ extraction.id }}" class="back-link">Retour</a>
         <div class="container">
-            <h1 class="title is-2 main-content-title">{{ extraction.name }}</h1>
+            <h1 class="title is-2 main-content-title">{{ historic.date | date("Y/m/d")}}</h1>
+            <p class="under-title">{{ extraction.name }}</p>
             <a class="info">Dowload extraction</a>
 
             <table class="tab">
@@ -15,8 +16,8 @@
                 {% for result in results %}
                     <tr>
                         <td>{{ result.data }}</td>
-                        <td>{{ extraction.periodicity }}</td>
-                        <td>{{ extraction.category }}</td>
+                        <td>{{ result.datas.dataName }}</td>
+                        <td>{{ result.datas.dataType }}</td>
                     </tr>
                 {% endfor %}
             

@@ -62,6 +62,10 @@ class Model extends Db
 
         foreach($model as $champ => $valeur){
             if($valeur !== null && $champ != 'db' && $champ != 'table'){
+                if(is_object($valeur)){
+                    $champ = $champ.'_id';
+                    $valeur = $valeur->getID();
+                }
                 $champs[] = "$champ = ?";
                 $valeurs[] = $valeur;
             }
@@ -106,7 +110,7 @@ class Model extends Db
         }
         $liste_champs = implode(' AND ', $champs);
 
-        return $this->requete("SELECT * FROM {$this->table} WHERE $liste_champs", $valeurs)->fetchAll();
+        return $this->requete("SELECT * FROM {$this->table} WHERE $liste_champs ORDER BY id DESC", $valeurs)->fetchAll();
     }
 
 
@@ -126,6 +130,12 @@ class Model extends Db
      */
     public function delete(int $id){
         return $this->requete("DELETE FROM {$this->table} WHERE id = ?", [$id]);
+    }
+
+
+    public function deleteAllHistoric($extractionId)
+    {
+        return $this->requete("DELETE FROM {$this->table} WHERE extraction_id= ?", [$extractionId]);
     }
 
     /**
@@ -201,9 +211,9 @@ class Model extends Db
           $query= "CREATE TABLE IF NOT EXISTS `result` (
             `id` INT NOT NULL AUTO_INCREMENT ,
             `data` TEXT NOT NULL ,
-            `extraction_id` INT NOT NULL,
+            `datas_id` INT NOT NULL,
             `historic_id` INT NOT NULL ,     
-            CONSTRAINT fk_result_extraction_id FOREIGN KEY(`extraction_id`) REFERENCES extraction(`id`)
+            CONSTRAINT fk_result_extraction_id FOREIGN KEY(`datas_id`) REFERENCES datas(`id`)
             ON UPDATE CASCADE ON DELETE CASCADE,
             CONSTRAINT fk_result_historic_id FOREIGN KEY(`historic_id`) REFERENCES historic(`id`)
             ON UPDATE CASCADE ON DELETE CASCADE,

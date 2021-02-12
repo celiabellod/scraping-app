@@ -10,22 +10,22 @@ class Result extends Model
   /**
    * @var int
    */
-  private $id;
+  protected $id;
 
   /**
    * @var String
    */
-  private $data;
-
-   /**
-   * @var Extraction
-   */
-  private $extraction;
+  protected $data;
   
   /**
    * @var Historic
    */
-  private $historic;
+  protected $historic;
+
+  /**
+   * @var Datas
+   */
+  protected $datas;
 
 
   public function __construct()
@@ -68,32 +68,6 @@ class Result extends Model
       return $this;
   }
 
-
-
-  /**
-   * Get the value of extraction
-   *
-   * @return  Extraction
-   */ 
-  public function getExtraction()
-  {
-    return $this->extraction;
-  }
-
-  /**
-   * Set the value of extraction
-   *
-   * @param  Extraction  $extraction
-   *
-   * @return  self
-   */ 
-  public function setExtraction(Extraction $extraction)
-  {
-    $this->extraction = $extraction;
-
-    return $this;
-  }
-
   /**
    * Get the value of historic
    *
@@ -114,6 +88,30 @@ class Result extends Model
   public function setHistoric(Historic $historic)
   {
     $this->historic = $historic;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of datas
+   *
+   * @return  Datas
+   */ 
+  public function getDatas()
+  {
+    return $this->datas;
+  }
+
+  /**
+   * Set the value of datas
+   *
+   * @param  Datas  $datas
+   *
+   * @return  self
+   */ 
+  public function setDatas(Datas $datas)
+  {
+    $this->datas = $datas;
 
     return $this;
   }
