@@ -5,7 +5,7 @@
         </svg>
     </div>
     <div class="form-right">
-        <form method="post" class="form-container">
+        <form method="post" class="form-container" onsubmit="return valideConnect();">
             <h1 class="form-title title is-1">{{ form.title }}</h1>
             <p>{{ response }}</p>
 
@@ -15,11 +15,11 @@
                     {% if loop.index == 3 %}
                         </div>
                     {% endif %}
-                    <input type='{{ input.type }}' id='{{ input.name }}' name='{{ input.name }}' placeholder='{{ input.placeholder }}' class='form-input'/>
+                    {{ input|raw }}
                 {% endfor %}
             {% else %}
                 {% for input in form.input %}
-                    <input type='{{ input.type }}' id='{{ input.name }}' name='{{ input.name }}' placeholder='{{ input.placeholder }}' class='form-input'/>
+                    {{ input|raw }}
                 {% endfor %}
             {% endif %}
 
@@ -28,35 +28,3 @@
         </form>
     </div>
 </main>
-
-{#
-<main class="form grid grid-2">
-    <div class="form-left">
-        <svg  class="icon" width="15rem" height="15rem">
-            <use xlink:href=../../../../assets/images/svgsprite.svg#user></use>
-        </svg>
-    </div>
-    <div class="form-right">
-        <form method="post" class="form-container">
-            <h1 class="form-title title is-1">{{ title }}</h1>
-
-            {% if (title == 'Create my account') %}
-                <div class="form-container-half">
-                {% for input in inputs %}
-                    {% if loop.index == 3 %}
-                        </div>
-                    {% endif %}
-                    <input type='{{ input.type }}' id='{{ input.name }}' name='{{ input.name }}' placeholder='{{ input.placeholder }}' class='form-input'/>
-                {% endfor %}
-            {% else %}
-                {% for input in inputs %}
-                    <input type='{{ input.type }}' id='{{ input.name }}' name='{{ input.name }}' placeholder='{{ input.placeholder }}' class='form-input'/>
-                {% endfor %}
-            {% endif %}
-
-            <button type="submit" class="btn btn-secondary form-btn">Go !</button>
-            <a href="{{ info.link }}" class="form-info">{{ info.title }}</a>
-        </form>
-       
-    </div>
-</main> #}

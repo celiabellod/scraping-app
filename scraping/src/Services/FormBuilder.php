@@ -24,11 +24,28 @@ class FormBuilder
 
     public function add($type, $name, $placeholder) 
     {
-        $this->input[] = [
-            'type' => $type,
-            'name' => $name,
-            'placeholder' => $placeholder
-        ];
+        $input = "<input type='".$type."' id='".$type."' name='".$name."' placeholder='".$placeholder."' class='form-input'";
+        switch ($type) {
+            case 'email':
+                $input .=  "pattern='^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'
+                            placeholder='noreply@noreply.com'
+                            maxlength='50'
+                            required";
+                break;
+            case 'password':
+                $input .=  "pattern='^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{12,20}$'
+                            minlength='12'
+                            maxlength='20'
+                            required";
+                break;
+            case 'lastname' || 'firstname':
+                $input .=  "pattern='^[A-Za-zÀ-ÿ ]+$'
+                            maxlength='20'
+                            required";
+                break;
+        }
+        $input .= "/>";
+        $this->input[] = $input;
     }
 
     /**

@@ -69,9 +69,9 @@ class UserController extends AbstractController
         $form = new FormBuilder();
         $form->setTitle('Create my account');
         $form->setInfo(['title' => 'Already an account ? Login', 'link' => 'login']);
-        $form->add('text', 'firstname', 'Firstname');
-        $form->add('text','lastname','Lastname');
-        $form->add('text','email','Email *');
+        $form->add('text', 'firstname', 'Firstname *');
+        $form->add('text','lastname','Lastname *');
+        $form->add('email','email','Email *');
         $form->add('password','password', 'Password *');
         $form->add('password','passwordConfirm', 'Password confirm *');
 
@@ -132,7 +132,7 @@ class UserController extends AbstractController
         $form = new FormBuilder();
         $form->setTitle('LOGIN');
         $form->setInfo(['title' => 'Sign Up', 'link' => 'signup']);
-        $form->add('text','email','Email *');
+        $form->add('email','email','Email *');
         $form->add('password','password', 'Password *');
 
         echo $this->twig->render('form/login.html.twig', [

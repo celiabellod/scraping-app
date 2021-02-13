@@ -98,6 +98,9 @@ body {
   align-self: center;
   margin-top: 2rem;
 }
+.form-right .form-container .form-btn:disabled {
+  opacity: 0.5;
+}
 
 .form-container-half {
   display: flex;

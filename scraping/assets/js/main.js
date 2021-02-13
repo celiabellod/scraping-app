@@ -35,3 +35,52 @@ if(btnMore){
     });
 }
 
+
+const passwordConfirm = document.querySelector('#passwordConfirm');
+const password = document.querySelector('#password');
+
+if(passwordConfirm){
+    var btn = document.querySelector('.form-btn');
+    btn.setAttribute("disabled", "");
+    passwordConfirm.addEventListener('input', (e)=> {
+        if(password.value == passwordConfirm.value){
+            btn.removeAttribute("disabled");
+        }
+    });
+}
+
+
+
+function valideConnect() {
+    const email = document.querySelector('#email');
+    if (passwordConfirm) {
+        const firstname = document.querySelector('#firstname')
+        const lastname = document.querySelector('#lastname')
+        return signUpVerif(firstname, lastname, email, password, passwordConfirm)
+    } else {
+        return loginVerif(email, password)
+    }
+}
+
+
+function loginVerif(email, password) {
+    if (password.value != "" && email.value != "") {
+        return true
+    } else {
+        return error(email, password)
+    }
+}
+
+function signUpVerif(firstname, lastname, email, password, passwordConfirm) {
+    if (firstname.value != "" && lastname.value != "" && password.value != "" && email.value != "" && passwordConfirm.value != "") {
+        return true
+    } else {
+        return error()
+    }
+}
+
+function error() {
+    let response = document.querySelector('.form-title + p')
+    response.innerHTML = 'Tous les champs doivent être remplis !'
+    return false
+}
