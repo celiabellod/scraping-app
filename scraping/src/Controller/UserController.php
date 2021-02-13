@@ -29,33 +29,40 @@ class UserController extends AbstractController
             $errors = [];
             $fields = ['firstname', 'lastname', 'password', 'passwordConfirm', 'email'];
             foreach($fields as $field){
-                if(!$this->verificationField($_POST[$field])){
-                    $response = 'Merci de remplir les champs requis correctement.';
+                $verif = $this->verificationField($field);
+                if($verif === false){
+                    $response = 'Merci de remplir les champs requis.';
+                    break;
+                } else { 
+                    $response .= $verif;
                 }
             }
-            if($_POST[$fields[2]] === $_POST[$fields[3]]){                
-                $user = $this->manager
-                        ->setFirstname($_POST[$fields[0]])
-                        ->setLastname($_POST[$fields[1]])
-                        ->setEmail($_POST[$fields[4]])
-                        ->setPassword(password_hash($_POST[$fields[2]], PASSWORD_ARGON2I));
 
-                $this->manager->create($user);
-                $user = $this->manager->findBy(['email' => $_POST[$fields[4]]]);
-                $user = $this->manager->hydrate($user[0]);
-                
-                
-                if(is_object($user)){
-                    $to = $_POST[$fields[4]];
-                    $subject = 'Inscription à la platform de Scraping';
-                    $message = '<p>Merci de vous connecter en vous rendant sur ce lien : <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
-                    $this->mail->send($to, $subject, $message);
-                    $response = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.';                         
+            if(empty($response)) {
+                if($_POST[$fields[2]] === $_POST[$fields[3]]){                
+                    $user = $this->manager
+                            ->setFirstname($_POST[$fields[0]])
+                            ->setLastname($_POST[$fields[1]])
+                            ->setEmail($_POST[$fields[4]])
+                            ->setPassword(password_hash($_POST[$fields[2]], PASSWORD_ARGON2I));
+
+                    $this->manager->create($user);
+                    $user = $this->manager->findBy(['email' => $_POST[$fields[4]]]);
+                    $user = $this->manager->hydrate($user[0]);
+                    
+                    
+                    if(is_object($user)){
+                        $to = $_POST[$fields[4]];
+                        $subject = 'Inscription à la platform de Scraping';
+                        $message = '<p>Merci de vous connecter en vous rendant sur ce lien : <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
+                        $this->mail->send($to, $subject, $message);
+                        $response = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.';                         
+                    } else {
+                        $response = $user;
+                    }
                 } else {
-                    $response = $user;
+                    $response = 'Les mot de passe ne correspondent pas. Merci de recommencer';
                 }
-            } else {
-                $response = 'Les mot de passe ne correspondent pas. Merci de recommencer';
             }
         }
 
@@ -80,37 +87,47 @@ class UserController extends AbstractController
 
         if(!empty($_POST)){
             $fields = ['email', 'password'];
-            foreach($fields as $index => $field){
-                $verification = $this->postVerification($field);
-                if($verification){
-                    $fields[$index] = $verification;
-                } else {
-                    $response = $verification;
+            foreach($fields as $field){
+                $verif = $this->verificationField($field);
+                if($verif === false){
+                    $response = 'Merci de remplir les champs requis.';
+                    break;
+                } else { 
+                    $response .= $verif;
                 }
             }
 
-            $array = [
-                'email' => $_POST[$fields[0]],
-            ];
-            $uuid = (isset($_GET['client']) && $this->verificationField($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
-
-            $user = $this->manager->findBy($array);
-            $user = $this->manager->hydrate($user[0]);
-            if(is_object($user) && password_verify($_POST['password'], $user->getPassword()) && (!empty($uuid) || $user->getEmailVerif())){
-                if(!empty($uuid)){
-                    $user = $user->setEmailVerif(1);
-                    $login = $this->manager->update($user->getId(), $user);
+            if(empty($response)) {
+                $array = [
+                    'email' => $_POST[$fields[0]],
+                ];
+                $uuid = (isset($_GET['client']) && $this->verificationField($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
+    
+                $user = $this->manager->findBy($array);
+                if($user){
+                    $user = $this->manager->hydrate($user[0]);
+                    if(is_object($user) && password_verify($_POST['password'], $user->getPassword()) && (!empty($uuid) || $user->getEmailVerif())){
+                        if(!empty($uuid)){
+                            $user = $user->setEmailVerif(1);
+                            $login = $this->manager->update($user->getId(), $user);
+                        } else {
+                            $login = true;
+                        }
+                        if($login) {
+                            $_SESSION['user'] = $user->getID();
+                            //header('Location: /dashboard');
+                        }
+                    } else {
+                        $response = 'Le mot de passe n\'est pas bon';
+                    }
                 } else {
-                    $login = true;
+                    $response = 'Votre email n\'existe pas, merci de vous inscrire.';
                 }
-                if($login) {
-                    $_SESSION['user'] = $user->getID();
-                    header('Location: /dashboard');
-                }
-            } else {
-                $response = 'Les mots de passe ne correspondent pas.';
             }
+          
         }
+
+           
 
         $form = new FormBuilder();
         $form->setTitle('LOGIN');

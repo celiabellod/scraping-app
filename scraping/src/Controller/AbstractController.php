@@ -3,7 +3,7 @@ namespace App\src\Controller;
 
 use App\src\config\Twig;
 use App\src\Entity\User;
-use FormValidator;
+use App\src\Services\FormValidator;
 
 abstract class AbstractController extends FormValidator
 {
