@@ -1,7 +1,7 @@
 {% extends "admin/admin-base.html.twig" %}
 
 {% block adminMain %}
-    <div class="main-content is-center">
+    <div class="main-content desktop is-center">
         <div class="container">
             <h1 class="title is-2 main-content-title">My extractions</h1>
             <a href="/extraction/new" class="info">+ Add an extraction</a>
@@ -30,12 +30,17 @@
     </div>
 
 
-    <div class="main-content-mobile is-center">
+    <div class="main-content mobile is-center">
         <div class="container">
             <h1 class="title is-2 main-content-title">My extractions</h1>
-            <a href="/extraction/new" class="info">+ Add an extraction</a>
+            <p class="info"><a href="/extraction/new">+ Add an extraction</a></p>
             <div class="tab">
                 {% for extraction in extractions %}
+                    <div class="utils">
+                        <a href="/extraction/{{ extraction.id }}"><img src="{{ assets('images/see.svg') }}" alt="" width="30"></a>
+                        <a href="/extraction/{{ extraction.id }}/update"><img src="{{ assets('images/edit.svg') }}" alt="" width="30"></a>
+                        <a href="/extraction/{{ extraction.id }}/delete"><img src="{{ assets('images/delete.svg') }}" alt="" width="30"></a>
+                    </div>
                     <table class="tab-content">
                         <tbody>   
                             <tr>

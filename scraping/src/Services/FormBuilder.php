@@ -38,7 +38,7 @@ class FormBuilder
                             maxlength='20'
                             required";
                 break;
-            case 'lastname' || 'firstname':
+            case 'text':
                 $input .=  "pattern='^[A-Za-zÀ-ÿ ]+$'
                             maxlength='20'
                             required";

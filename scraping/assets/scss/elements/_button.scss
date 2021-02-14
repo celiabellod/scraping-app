@@ -7,9 +7,9 @@
     &.btn-secondary {
         background-color: $color-secondary;
         color: #fff;
-    }
+    } 
     &.btn-extraction {
-        width: 25%;
+        width: 80%;
     }
 }
 
@@ -18,4 +18,12 @@
     border: none;
     margin-bottom: 3rem;
     cursor: pointer;
+}
+
+@media screen and (min-width: 960px) {
+    .btn {
+        &.btn-extraction {
+            width: 25%;
+        }
+    }
 }

@@ -29,7 +29,7 @@ class UserController extends AbstractController
             $errors = [];
             $fields = ['firstname', 'lastname', 'password', 'passwordConfirm', 'email'];
             foreach($fields as $field){
-                $verif = $this->verificationField($field);
+                $verif = $this->userVerif($field);
                 if($verif === false){
                     $response = 'Merci de remplir les champs requis.';
                     break;
@@ -88,7 +88,7 @@ class UserController extends AbstractController
         if(!empty($_POST)){
             $fields = ['email', 'password'];
             foreach($fields as $field){
-                $verif = $this->verificationField($field);
+                $verif = $this->userVerif($field);
                 if($verif === false){
                     $response = 'Merci de remplir les champs requis.';
                     break;
@@ -101,7 +101,7 @@ class UserController extends AbstractController
                 $array = [
                     'email' => $_POST[$fields[0]],
                 ];
-                $uuid = (isset($_GET['client']) && $this->verificationField($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
+                $uuid = (isset($_GET['client']) && !empty($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
     
                 $user = $this->manager->findBy($array);
                 if($user){
@@ -115,7 +115,7 @@ class UserController extends AbstractController
                         }
                         if($login) {
                             $_SESSION['user'] = $user->getID();
-                            //header('Location: /dashboard');
+                            header('Location: /dashboard');
                         }
                     } else {
                         $response = 'Le mot de passe n\'est pas bon';

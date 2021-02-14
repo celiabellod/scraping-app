@@ -6,23 +6,35 @@ class FormValidator {
     public $errors;
 
     public function valid_donnees($field){
-        $donnees = trim($_POST[$field]);
-        $donnees = stripslashes($donnees);
-        $donnees = htmlspecialchars($donnees);
-        return $donnees;
-    }
-
-    public function specialChars($field){
-        if(filter_var($field,FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_ENCODE_HIGH)){
-            return false;
+        if(is_array($_POST[$field])){
+            foreach($_POST[$field] as $i => $data){
+                $donnees = trim($data);
+                $donnees = stripslashes($donnees);
+                $donnees = htmlspecialchars($donnees);
+                $_POST[$field][$i] = $donnees;
+            }
+        } else {
+            $donnees = trim($_POST[$field]);
+            $donnees = stripslashes($donnees);
+            $donnees = htmlspecialchars($donnees);
+            $_POST[$field] = $donnees;
         }
     }
 
     public function verificationField($field)
     {
+        $this->valid_donnees($field);
+        if(!isset($_POST[$field]) OR empty($_POST[$field])){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function UserVerif($field)
+    {
         $this->errors = '';
-        $data = $this->valid_donnees($field);
-        if(!isset($_POST[$field]) OR empty($_POST[$field]) OR !$this->specialChars($_POST[$field])){
+        if(!$this->verificationField($field)){
             return false;
         } else {
             switch ($field) {
@@ -37,14 +49,11 @@ class FormValidator {
                     break;
             }     
         }
-        if(empty($this->errors)){
-            $_POST[$field] = $data;
-        }
         return $this->errors;
     }
 
     public function emailVerif($field){
-        if(!filter_var($field, FILTER_VALIDATE_EMAIL)){
+        if(!filter_var($field, FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_EMAIL)){
             $this->errors = "You must enter a valid email. ";
         }
     }

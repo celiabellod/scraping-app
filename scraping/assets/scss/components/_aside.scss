@@ -57,9 +57,11 @@
                     text-decoration: none;
                 }
             }
-            p.logout {
+            a.logout {
                 margin-bottom: 2rem;
                 display: flex;
+                color:#fff;
+                text-decoration: none;
                 align-items:center;
                 img {
                     margin-right: 0.8rem;
@@ -74,3 +76,4 @@
     }
 
 }
+

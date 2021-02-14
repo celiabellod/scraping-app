@@ -8,3 +8,12 @@ body {
     display: flex;
     justify-content: center;
 }
+
+a {
+    color: $color-primary;
+    text-decoration: none;
+    &:hover {
+        transition: 0.15s;
+        color:$color-secondary;
+    }
+}

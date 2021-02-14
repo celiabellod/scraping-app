@@ -25,11 +25,11 @@ class ExtractionController extends AbstractController
         if(!empty($_POST)){
            $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
            foreach($fields as $field){
-                if(!$this->verificationField($_POST[$field])){
+                if(!$this->verificationField($field)){
                     $response = 'Merci de remplir les champs requis correctement.';
                 }
             }
-            if($_POST['secondaryContainer']){
+            if($this->verificationField('secondaryContainer')){
                 $secondaryContainer = $_POST['secondaryContainer'];
             } else {
                 $secondaryContainer = '';

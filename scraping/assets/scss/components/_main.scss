@@ -18,13 +18,9 @@
         width: 80%;
     }
     a.info{
+        align-self: flex-end;
+        margin-top: 3rem;
         margin-bottom: 3rem;
-        color: currentColor;
-        text-decoration: none;
-        &:hover {
-            color: $color-secondary;
-            transition: 0.2s;
-        }
     }
     .info-bottom {
         display: flex;
@@ -37,11 +33,13 @@
     }
 }
 
-@media screen and (min-width: 960px) {
-    .main-content {
-        a.info{
-            align-self: flex-end;
-            margin-top: 3rem;
+@media screen and (max-width: 960px) {
+    .main-content-mobile {
+        h1.title {
+            margin-top: 4rem;
+        }
+        p.info{
+           text-align: center;
         }
     }
 }
