@@ -26,15 +26,16 @@ class UserController extends AbstractController
         $response = '';
 
         if(!empty($_POST)){ 
-            $errors = [];
             $fields = ['firstname', 'lastname', 'password', 'passwordConfirm', 'email'];
-            foreach($fields as $field){
-                $verif = $this->userVerif($field);
-                if($verif === false){
-                    $response = 'Merci de remplir les champs requis.';
-                    break;
-                } else { 
-                    $response .= $verif;
+            if($fields[2] === $fields[3]){
+                foreach($fields as $field){
+                    $verif = $this->userVerif($field);
+                    if($verif === false){
+                        $response = 'Please fill in the required fields.';
+                        break;
+                    } else { 
+                        $response .= $verif;
+                    }
                 }
             }
 
@@ -53,15 +54,15 @@ class UserController extends AbstractController
                     
                     if(is_object($user)){
                         $to = $_POST[$fields[4]];
-                        $subject = 'Inscription à la platform de Scraping';
-                        $message = '<p>Merci de vous connecter en vous rendant sur ce lien : <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
+                        $subject = 'Registration to the Scraping platform';
+                        $message = '<p>Please log in by going to this link: <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
                         $this->mail->send($to, $subject, $message);
-                        $response = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.';                         
+                        $response = 'A link has been sent to you on '. $to.'. Please click on this link to log in.';                         
                     } else {
                         $response = $user;
                     }
                 } else {
-                    $response = 'Les mot de passe ne correspondent pas. Merci de recommencer';
+                    $response = 'The passwords do not match. Please start again.';
                 }
             }
         }
@@ -90,7 +91,7 @@ class UserController extends AbstractController
             foreach($fields as $field){
                 $verif = $this->userVerif($field);
                 if($verif === false){
-                    $response = 'Merci de remplir les champs requis.';
+                    $response = 'Please fill in the required fields.';
                     break;
                 } else { 
                     $response .= $verif;
@@ -101,10 +102,14 @@ class UserController extends AbstractController
                 $array = [
                     'email' => $_POST[$fields[0]],
                 ];
-                $uuid = (isset($_GET['client']) && !empty($_GET['client'])) ? $array['uuid'] = $_GET['client'] : '';
+                
+                if(isset($_GET['client']) && !empty($_GET['client'])){
+                    $array['uuid'] = $_GET['client'];
+                    $uuid = $_GET['client'];
+                }
     
                 $user = $this->manager->findBy($array);
-                if($user){
+                if(is_array($user)){
                     $user = $this->manager->hydrate($user[0]);
                     if(is_object($user) && password_verify($_POST['password'], $user->getPassword()) && (!empty($uuid) || $user->getEmailVerif())){
                         if(!empty($uuid)){
@@ -118,10 +123,10 @@ class UserController extends AbstractController
                             header('Location: /dashboard');
                         }
                     } else {
-                        $response = 'Le mot de passe n\'est pas bon';
+                        $response = 'The password is not correct';
                     }
                 } else {
-                    $response = 'Votre email n\'existe pas, merci de vous inscrire.';
+                    $response = 'Your email does not exist, please subscribe.';
                 }
             }
           
@@ -136,7 +141,7 @@ class UserController extends AbstractController
 
         echo $this->twig->render('form/login.html.twig', [
             'form' => $form,
-            'response' => $response
+            'response' => $response ?? $_SESSION['response']
         ]);
 
     }
@@ -150,7 +155,7 @@ class UserController extends AbstractController
             foreach($fields as $field){
                 $verif = $this->userVerif($field);
                 if($verif === false){
-                    $response = 'Merci de remplir les champs requis.';
+                    $response = 'Please fill in the required fields.';
                     break;
                 } else { 
                     $response .= $verif;
@@ -166,15 +171,14 @@ class UserController extends AbstractController
 
                     if($this->manager->update($this->user->getID(), $this->user)){
                         $_SESSION['user'] = $this->user;
-                        $response = 'Vos informations ont bien été mise à jour.';                    
+                        $response = 'Your information has been updated.';                    
                     } else {
-                        $response = 'Un problème est survenu, merci de recommencer ultérieurement.';
+                        $response = 'Something went wrong, please try again later.';
                     }
                 }
             }
-          
         } else if(isset($_GET['password'])){
-            $response = $this->sentEmailForPasswordChange($this->user->getEmail());
+            $response = $this->sentEmailForPasswordChange($this->user);
         }
 
         echo $this->twig->render('admin/my-account.html.twig', [
@@ -200,7 +204,41 @@ class UserController extends AbstractController
 
     public function changePassword()
     { 
-        $user = $_SESSION['user'];
+        $response = '';
+
+        if(!empty($_POST)){
+            $fields = ['newPassword', 'confirmPassword'];
+            if($fields[0] === $fields[1]){
+                foreach($fields as $field){
+                    $verif = $this->userVerif($field);
+                    if($verif === false){
+                        $response = 'Please fill in the required fields.';
+                        break;
+                    } else { 
+                        $response .= $verif;
+                    }
+                }
+            }
+
+            if(empty($response)) {
+    
+                if(isset($_GET['client']) && !empty($_GET['client'])){
+                    $user = $this->manager->findBy(['uuid' => $_GET['client']]);
+                    if(is_array($user)){
+                        $user = $this->manager->hydrate($user[0]);
+                        $user->setPassword(password_hash($_POST[$fields[0]], PASSWORD_ARGON2I));
+                        if($this->manager->update($user->getID(), $user)){
+                            $response = 'Your password has been updated.';  
+                            $_SESSION['response'] = $response;
+                            header('Location:/login');
+                        } else {
+                            $response = 'Something went wrong, please try again later.';
+                        }
+                    }
+                }
+            }
+        }
+
 
         $form = new FormBuilder();
         $form->setTitle('Change password');
@@ -219,13 +257,11 @@ class UserController extends AbstractController
         header('Location:/login');
     }
 
-    private function sentEmailForPasswordChange($email) {
-        $to = $email;
+    private function sentEmailForPasswordChange(User $user) {
+        $to = $this->user->getEmail();
         $subject = 'Change password';
-        $message = '<p>Follow this link for update your password : <a href="https://'.$_SERVER['HTTP_HOST'].'/change-password">Change password here<a></p>';
+        $message = '<p>Follow this link for update your password : <a href="http://'.$_SERVER['HTTP_HOST'].'/change-password?client='.$user->getUuid().'">Change password here<a></p>';
         $this->mail->send($to, $subject, $message);
-        return 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.'; 
-        
-       
+        return 'A link has been sent to you on '. $to. '. Please click on this link to login.'; 
     }
 }

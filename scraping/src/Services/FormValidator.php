@@ -41,7 +41,7 @@ class FormValidator {
                 case 'email':
                     $this->emailVerif($_POST[$field]);
                     break;
-                case 'password':
+                case 'password' || 'newPassword' || 'confirmPassword':
                     $this->passwordVerif($_POST[$field]);
                     break;
                 case 'lastname' || 'firstname':
