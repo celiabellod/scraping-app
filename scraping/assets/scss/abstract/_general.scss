@@ -2,11 +2,24 @@ body {
     margin: 0;
     font-family: $font-text;
     font-size: $font-size-text;
+    color: $color-primary;
 }
 
 .flex-center {
     display: flex;
     justify-content: center;
+}
+
+.has-text-secondary {
+    color: $color-secondary;
+    &:hover {
+        transition: 0.15s;
+        color:$color-primary;
+    }
+}
+
+.has-text-center {
+    text-align: center;
 }
 
 a {

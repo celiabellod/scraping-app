@@ -25,7 +25,7 @@ class UserController extends AbstractController
     {
         $response = '';
 
-        if(!empty($_POST)){
+        if(!empty($_POST)){ 
             $errors = [];
             $fields = ['firstname', 'lastname', 'password', 'passwordConfirm', 'email'];
             foreach($fields as $field){
@@ -127,7 +127,6 @@ class UserController extends AbstractController
           
         }
 
-           
 
         $form = new FormBuilder();
         $form->setTitle('LOGIN');
@@ -142,18 +141,65 @@ class UserController extends AbstractController
 
     }
    
+    public function update()
+    { 
+
+        //verif des champs
+        if(isset($_POST['password']) && $_POST['password'] === 'changePassword'){
+            $this->sentEmailForPasswordChange($_POST['email']);
+        }
+
+        //else compare data
+            //if change 
+                // change un database and display message ok
+            //go dashboard
+        $user = $_SESSION['user'];
+        echo $this->twig->render('admin/my-account.html.twig', [
+            'user' => $this->user
+        ]);
+    }
+
+    public function recoveryAccount() {
+
+        //verif si l'email est bien présente
+        $this->sentEmailForPasswordChange($_POST['email']);
+
+        $form = new FormBuilder();
+        $form->setTitle('Recovery my account');
+        $form->add('email','email', 'Email *');
+
+        echo $this->twig->render('form/recovery-account.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+
+    public function changePassword()
+    { 
+        $user = $_SESSION['user'];
+
+        $form = new FormBuilder();
+        $form->setTitle('Change password');
+        $form->add('password','newPassword', 'New password *');
+        $form->add('password','confirmPassword', 'Confirm password *');
+
+        echo $this->twig->render('form/change-password.html.twig', [
+            'user' => $this->user,
+            'form' => $form,
+        ]);
+    }
+
     public function logOut() 
     {
         unset($_SESSION['user']);
         header('Location:/login');
     }
 
-
-    public function update()
-    { 
-        $user = $_SESSION['user'];
-        echo $this->twig->render('admin/my-account.html.twig', [
-            'user' => $this->user
-        ]);
+    private function sentEmailForPasswordChange($email) {
+        $to = $email;
+        $subject = 'Change password';
+        $message = '<p>Follow this link for update your password : <a href="https://'.$_SERVER['HTTP_HOST'].'/change-password">Change password here<a></p>';
+        $this->mail->send($to, $subject, $message);
+        $response = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.';  
     }
 }

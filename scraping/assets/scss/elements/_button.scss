@@ -4,12 +4,24 @@
     border-radius: 10px;
     font-size: $font-size-text;
     font-family: $font-text;
+    cursor: pointer;
+    align-self: center;
+    margin-top:2rem;
+    &:disabled {
+        opacity: 0.5;
+    }
     &.btn-secondary {
         background-color: $color-secondary;
         color: #fff;
     } 
-    &.btn-extraction {
-        width: 80%;
+    &.is-small {
+        width: 20%;
+    }
+    &.is-large {
+        width:40% !important;
+    }
+    &.btn-account {
+        margin-top: 6rem;
     }
 }
 
@@ -18,6 +30,15 @@
     border: none;
     margin-bottom: 3rem;
     cursor: pointer;
+}
+
+.btn-link {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: $font-text;
+    font-size: $font-size-text;
+    color: $color-primary;
 }
 
 @media screen and (min-width: 960px) {

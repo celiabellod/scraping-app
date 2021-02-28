@@ -1,7 +1,7 @@
 <main class="form grid grid-2">
     <div class="form-left">
-        <svg  class="icon login">
-            <use xlink:href=../../../../assets/images/svgsprite.svg#user></use>
+        <svg  class="icon is-white is-large">
+            <use xlink:href="{{ assets('images/svgsprite.svg#user') }}"></use>
         </svg>
     </div>
     <div class="form-right">
@@ -23,7 +23,11 @@
                 {% endfor %}
             {% endif %}
 
-            <button type="submit" class="btn btn-secondary form-btn">Go !</button>
+            {% if (form.title == 'LOGIN') %}
+                <a class="has-text-center" href="/recovery-account">Mot de passe oublié ?</a>
+            {% endif %}
+
+            <button type="submit" class="btn btn-secondary is-large">Go !</button>
             <a href="{{ form.info.link }}" class="form-info">{{ form.info.title }}</a>
         </form>
     </div>

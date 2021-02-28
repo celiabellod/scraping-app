@@ -1,0 +1,13 @@
+.my-account {
+    .main-content-title {
+        display: flex;
+        align-items:flex-end;
+        svg {
+            margin-right: 2rem;
+        }
+    }
+    .info-bottom.single {
+        text-align: right;
+        display: block;
+    }
+}

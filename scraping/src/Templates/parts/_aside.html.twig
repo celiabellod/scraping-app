@@ -1,6 +1,7 @@
 <div class="main-aside">
     <div class="aside-user">
-        <svg  class="icon" width="7rem" height="7rem">
+        <a href="/my-account" class="edit-link"><img src="{{ assets('images/edit.svg') }}" alt="" width="20"></a>
+        <svg  class="icon is-white is-medium">
             <use xlink:href="{{ assets('images/svgsprite.svg#user') }}"></use>
         </svg>
         <h2 class="title is-4 user-name">{{user.firstname | capitalize }} {{user.lastname | upper}}</h2>
@@ -11,7 +12,7 @@
             <a href="/extraction/new" class="nav-link">Add an extraction</a>
         </nav>
         <a href="/logout" class="logout">
-            <img src="../../../../assets/images/enter.svg" alt="" width="20">
+            <img src="{{ assets('images/enter.svg') }}" alt="" width="20">
             Log out
         </a>
     </div>
