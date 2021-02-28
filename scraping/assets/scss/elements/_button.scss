@@ -32,14 +32,6 @@
     cursor: pointer;
 }
 
-.btn-link {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: $font-text;
-    font-size: $font-size-text;
-    color: $color-primary;
-}
 
 @media screen and (min-width: 960px) {
     .btn {

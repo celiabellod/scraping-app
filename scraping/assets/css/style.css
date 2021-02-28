@@ -86,15 +86,6 @@ a:hover {
   cursor: pointer;
 }
 
-.btn-link {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.1rem;
-  color: #3E4E68;
-}
-
 @media screen and (min-width: 960px) {
   .btn.btn-extraction {
     width: 25%;
@@ -414,6 +405,13 @@ a:hover {
     text-align: center;
   }
 }
+.response {
+  padding: 2rem;
+  margin-bottom: -4rem;
+  text-align: center;
+  color: #E62F7B;
+}
+
 @media screen and (min-width: 960px) {
   .grid {
     display: grid;

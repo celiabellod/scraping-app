@@ -3,6 +3,7 @@
 {% block adminMain %}
 
     <div class="main-content my-account">
+        {% include 'parts/_message.html.twig' %}
         <a href="/dashboard" class="back-link">Retour</a>
         <h1 class="title is-2 main-content-title">
             <svg class="icon is-secondary is-medium">
@@ -22,7 +23,7 @@
                     </div>
                 </div>
               
-                <button type="submit" class="btn-link" name="password" value="changePassword"><img src="{{ assets('images/lock.svg') }}" alt="" width="20">Change my password</button>
+                <a href="/my-account?password"><img src="{{ assets('images/lock.svg') }}" alt="" width="20">Change my password</button>
                 <div class="flex-center">
                     <button type="submit" class="btn btn-secondary btn-account is-small">Thanks !</button>
                 </div>

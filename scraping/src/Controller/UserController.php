@@ -143,19 +143,43 @@ class UserController extends AbstractController
    
     public function update()
     { 
+        $response = '';
 
-        //verif des champs
-        if(isset($_POST['password']) && $_POST['password'] === 'changePassword'){
-            $this->sentEmailForPasswordChange($_POST['email']);
+        if(!empty($_POST)){
+            $fields = ['firstname', 'lastname', 'email'];
+            foreach($fields as $field){
+                $verif = $this->userVerif($field);
+                if($verif === false){
+                    $response = 'Merci de remplir les champs requis.';
+                    break;
+                } else { 
+                    $response .= $verif;
+                }
+            }
+            
+            if(empty($response)) {
+                if($this->user->getFirstname() != $_POST[$fields[0]] || $this->user->getLastname() != $_POST[$fields[1]] || $this->user->getEmail() != $_POST[$fields[2]]){
+                    $this->user->setFirstname($_POST[$fields[0]])
+                                ->setLastname($_POST[$fields[1]])
+                                ->setEmail($_POST[$fields[2]]) 
+                    ;
+
+                    if($this->manager->update($this->user->getID(), $this->user)){
+                        $_SESSION['user'] = $this->user;
+                        $response = 'Vos informations ont bien été mise à jour.';                    
+                    } else {
+                        $response = 'Un problème est survenu, merci de recommencer ultérieurement.';
+                    }
+                }
+            }
+          
+        } else if(isset($_GET['password'])){
+            $response = $this->sentEmailForPasswordChange($this->user->getEmail());
         }
 
-        //else compare data
-            //if change 
-                // change un database and display message ok
-            //go dashboard
-        $user = $_SESSION['user'];
         echo $this->twig->render('admin/my-account.html.twig', [
-            'user' => $this->user
+            'user' => $this->user,
+            'response' => $response
         ]);
     }
 
@@ -200,6 +224,8 @@ class UserController extends AbstractController
         $subject = 'Change password';
         $message = '<p>Follow this link for update your password : <a href="https://'.$_SERVER['HTTP_HOST'].'/change-password">Change password here<a></p>';
         $this->mail->send($to, $subject, $message);
-        $response = 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.';  
+        return 'Un lien vous à été envoyé sur '.$to.'. Merci de cliquer sur ce lien pour vous connecter.'; 
+        
+       
     }
 }

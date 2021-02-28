@@ -61,7 +61,9 @@ class ExtractionController extends AbstractController
             $extraction->setDatas($datas);
             header('location:/dashboard');
         } else {
-            echo $this->twig->render('admin/new-extraction.html.twig');
+            echo $this->twig->render('admin/new-extraction.html.twig', [
+                'user' => $this->user
+            ]);
         }
     
     }
