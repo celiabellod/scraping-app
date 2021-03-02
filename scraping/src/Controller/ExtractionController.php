@@ -1,10 +1,10 @@
 <?php
-namespace App\src\Controller;
+namespace App\Controller;
 
-use App\src\Controller\AbstractController;
-use App\src\Entity\Extraction;
-use App\src\Entity\Historic;
-use App\src\Entity\Datas;
+use App\Controller\AbstractController;
+use App\Entity\Extraction;
+use App\Entity\Historic;
+use App\Entity\Datas;
 
 class ExtractionController extends AbstractController
 {

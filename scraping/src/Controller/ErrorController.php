@@ -1,7 +1,7 @@
 <?php
-namespace App\src\Controller;
+namespace App\Controller;
 
-use App\src\Controller\AbstractController;
+use App\Controller\AbstractController;
 
 class ErrorController extends AbstractController{
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\src\Controller;
+namespace App\Controller;
 
-use App\src\Entity\User;
-use App\src\Controller\AbstractController;
-use App\src\Services\MailService;
-use App\src\Services\FormBuilder;
+use App\Entity\User;
+use App\Controller\AbstractController;
+use App\Services\MailService;
+use App\Services\FormBuilder;
 use FormValidator;
 
 class UserController extends AbstractController

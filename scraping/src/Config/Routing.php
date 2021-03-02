@@ -1,5 +1,5 @@
 <?php
-namespace App\src\config;
+namespace App\Config;
 
 class Routing {
 

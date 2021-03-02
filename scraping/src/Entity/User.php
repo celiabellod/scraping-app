@@ -1,7 +1,7 @@
 <?php
-namespace App\src\Entity;
+namespace App\Entity;
 
-use App\src\Model\Model;
+use App\Model\Model;
 
 class User extends Model
 {

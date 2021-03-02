@@ -1,9 +1,9 @@
 <?php
-namespace App\src\Controller;
+namespace App\Controller;
 
-use App\src\config\Twig;
-use App\src\Entity\User;
-use App\src\Services\FormValidator;
+use App\Config\Twig;
+use App\Entity\User;
+use App\Services\FormValidator;
 
 abstract class AbstractController extends FormValidator
 {

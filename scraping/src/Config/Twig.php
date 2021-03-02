@@ -1,5 +1,5 @@
 <?php
-namespace App\src\config;
+namespace App\Config;
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;

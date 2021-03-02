@@ -1,7 +1,7 @@
 <?php
-namespace App\src\Model;
+namespace App\Model;
 
-use App\src\Model\Db;
+use App\Model\Db;
 
 class Model extends Db
 {
@@ -46,7 +46,7 @@ class Model extends Db
         }
         $liste_champs = implode(', ', $champs);
         $liste_inter = implode(', ', $inter);
-        return $this->requete('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES('.$liste_inter.')', $valeurs);
+        return $this->request('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES('.$liste_inter.')', $valeurs);
     }
 
 
@@ -72,7 +72,7 @@ class Model extends Db
         }
         $valeurs[] = $id;
         $liste_champs = implode(', ', $champs);
-        return $this->requete('UPDATE '.$this->table.' SET '. $liste_champs.' WHERE id = ?', $valeurs);
+        return $this->request('UPDATE '.$this->table.' SET '. $liste_champs.' WHERE id = ?', $valeurs);
     }
 
 
@@ -82,7 +82,7 @@ class Model extends Db
      */
     public function find(int $id)
     {
-        return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
+        return $this->request("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
     }
 
 
@@ -92,7 +92,7 @@ class Model extends Db
      */
     public function findLast()
     {
-        return $this->requete("SELECT * FROM {$this->table} WHERE id = LAST_INSERT_ID()")->fetch();
+        return $this->request("SELECT * FROM {$this->table} WHERE id = LAST_INSERT_ID()")->fetch();
     }
 
 
@@ -110,7 +110,7 @@ class Model extends Db
         }
         $liste_champs = implode(' AND ', $champs);
 
-        return $this->requete("SELECT * FROM {$this->table} WHERE $liste_champs ORDER BY id DESC", $valeurs)->fetchAll();
+        return $this->request("SELECT * FROM {$this->table} WHERE $liste_champs ORDER BY id DESC", $valeurs)->fetchAll();
     }
 
 
@@ -119,7 +119,7 @@ class Model extends Db
      */
     public function findAll()
     {
-        $query = $this->requete('SELECT * FROM '.$this->table);
+        $query = $this->request('SELECT * FROM '.$this->table);
         return $query->fetchAll();
     }
 
@@ -129,13 +129,13 @@ class Model extends Db
      * @return bool 
      */
     public function delete(int $id){
-        return $this->requete("DELETE FROM {$this->table} WHERE id = ?", [$id]);
+        return $this->request("DELETE FROM {$this->table} WHERE id = ?", [$id]);
     }
 
 
     public function deleteAllHistoric($extractionId)
     {
-        return $this->requete("DELETE FROM {$this->table} WHERE extraction_id= ?", [$extractionId]);
+        return $this->request("DELETE FROM {$this->table} WHERE extraction_id= ?", [$extractionId]);
     }
 
     /**
@@ -143,7 +143,7 @@ class Model extends Db
      * @param array $attributs
      * @return query
      */
-    public function requete(string $sql, array $attributs = null)
+    public function request(string $sql, array $attributs = null)
     {
         $this->db = Db::getInstance();
         if($attributs !== null){
@@ -167,7 +167,7 @@ class Model extends Db
           `emailVerif` BOOLEAN NOT NULL default 0,
           PRIMARY KEY (`id`)) ENGINE = InnoDB;
           )";
-          $this->requete($query);
+          $this->request($query);
       
       
           $query= "CREATE TABLE IF NOT EXISTS `extraction` (
@@ -184,7 +184,7 @@ class Model extends Db
             ON UPDATE CASCADE ON DELETE CASCADE,
             PRIMARY KEY (`id`)) ENGINE = InnoDB;
           )";
-          $this->requete($query);
+          $this->request($query);
       
           $query= "CREATE TABLE IF NOT EXISTS `historic` (
             `id` INT NOT NULL AUTO_INCREMENT ,
@@ -194,7 +194,7 @@ class Model extends Db
             ON UPDATE CASCADE ON DELETE CASCADE,
             PRIMARY KEY (`id`)) ENGINE = InnoDB;
           )";
-          $this->requete($query);
+          $this->request($query);
       
           $query= "CREATE TABLE IF NOT EXISTS `datas` (
             `id` INT NOT NULL AUTO_INCREMENT ,
@@ -206,7 +206,7 @@ class Model extends Db
             ON UPDATE CASCADE ON DELETE CASCADE,
             PRIMARY KEY (`id`)) ENGINE = InnoDB;
           )";
-          $this->requete($query);
+          $this->request($query);
       
           $query= "CREATE TABLE IF NOT EXISTS `result` (
             `id` INT NOT NULL AUTO_INCREMENT ,
@@ -219,7 +219,7 @@ class Model extends Db
             ON UPDATE CASCADE ON DELETE CASCADE,
             PRIMARY KEY (`id`)) ENGINE = InnoDB;
           )";
-          $this->requete($query);
+          $this->request($query);
       }
 
 

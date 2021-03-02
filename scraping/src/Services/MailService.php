@@ -1,5 +1,5 @@
 <?php
-namespace App\src\Services;
+namespace App\Services;
 
 use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 use Symfony\Component\Mailer\Mailer;

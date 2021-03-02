@@ -1,8 +1,8 @@
 <?php
 
-namespace App\src\Entity;
+namespace App\Entity;
 
-use App\src\Model\Model;
+use App\Model\Model;
 
 class Historic extends Model
 {
