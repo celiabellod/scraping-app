@@ -21,10 +21,13 @@
                         </select>
                     </div>
                     <div class="form-container-half">
-                        <select name="type" id="type" class="form-select">
-                            <option value="{{ extraction.type }}">{{ extraction.type }}</option>
-                            <option value="text">Simple</option>
-                            <option value="number">Multiplicty</option>
+                        <select name="type" id="type" class="form-select type-select">
+                            <option value="{{ extraction.type }}">{{ extraction.type | capitalize }}</option>
+                            {% if extraction.type == 'simple' %}
+                                <option value="multiplicity">Multiplicity</option>
+                            {% else %}
+                                <option value="simple">Simple</option>
+                            {% endif %}
                         </select>
                         <select name="category" id="category" class="form-select">
                             <option value="{{ extraction.category }}">{{ extraction.category }}</option>
@@ -43,15 +46,20 @@
                 <section class="extraction-section">
                     <h2 class="title is-3">Datas</h2>
                     {% for data in extraction.datas %}
-                        <input type='text' id='dataName' name='dataName[{{ data.id }}]' value="{{ data.dataName }}" class='form-input'/>
-                        <select name="dataType[{{ data.id }}]" id="dataType" class="form-select">
-                            <option value="{{ data.dataType }}">{{ data.dataType }}</option>
-                            <option value="text">Text</option>
-                            <option value="number">Number</option>
-                            <option value="price">Price</option>
-                        </select>
-                        <input type='text' id='dataPath' name='dataPath[{{ data.id }}]' value="{{ data.dataPath }}" class='form-input' />
+                        <div class="datas">
+                            <input type='text' id='dataName' name='dataName[{{ data.id }}]' value="{{ data.dataName }}" class='form-input'/>
+                            <select name="dataType[{{ data.id }}]" id="dataType" class="form-select">
+                                <option value="{{ data.dataType }}">{{ data.dataType }}</option>
+                                <option value="text">Text</option>
+                                <option value="number">Number</option>
+                                <option value="price">Price</option>
+                            </select>
+                            <input type='text' id='dataPath' name='dataPath[{{ data.id }}]' value="{{ data.dataPath }}" class='form-input' />
+                        </div>
                     {% endfor %}
+                    <div class="see-more">
+                       <button class="btn-more" type="button"><img src="{{ assets('images/plus.svg') }}" alt="" width="20"></button>
+                    </div>
                 </section>
                 <div class="flex-center">
                     <button type="submit" class="btn btn-secondary is-small">Go !</button>

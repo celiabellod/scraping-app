@@ -22,6 +22,7 @@ class ExtractionController extends AbstractController
     }
 
     public function create() {
+
         if(!empty($_POST)){
            $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
            foreach($fields as $field){
@@ -90,12 +91,23 @@ class ExtractionController extends AbstractController
 
     public function update($extractionId) 
     {
-
         if(!empty($_POST)){
-            $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
+
+            $fields = [
+                'extractionName', 
+                'url', 
+                'periodicity', 
+                'type', 
+                'category', 
+                'primaryContainer', 
+                'dataName', 
+                'dataType', 
+                'dataPath'
+            ];
+
             foreach($fields as $field){
-                if(!$this->verificationField($_POST[$field])){
-                    $response = 'Merci de remplir les champs requis correctement.';
+                if(!$this->verificationField($field)){
+                    $response = 'Please fill in the fields correctly.';
                 }
             }
            
@@ -131,7 +143,7 @@ class ExtractionController extends AbstractController
                 $extraction->setDatas($datas);
             };
             header('location:/dashboard');
-         }
+        }
 
         $extraction = $this->manager->find($extractionId);
         $extraction = $this->manager->hydrate($extraction);
