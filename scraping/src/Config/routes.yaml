@@ -1,0 +1,90 @@
+/:
+    controller: 'UserController'
+    method: 'logIn'
+    autorization: null
+login:
+    controller: 'UserController'
+    method: 'logIn'
+    autorization: null
+logout:
+    controller: 'UserController'
+    method: 'logout'
+    autorization: null
+signup:
+    controller: 'UserController'
+    method: 'signup'
+    autorization: null
+recovery-account:
+    controller: 'UserController'
+    method: 'recoveryAccount'
+    autorization: null
+change-password:
+    controller: 'UserController'
+    method: 'changePassword'
+    autorization: null
+404:
+    controller: 'ErrorController'
+    method: 'error404'
+    autorization: null
+extraction/new:
+    controller: 'ExtractionController'
+    method: 'create'
+    autorization: 'admin'
+dashboard:
+    controller: 'ExtractionController'
+    method: 'getList'
+    autorization: admin'
+extraction/(\d+):
+    controller: 'ExtractionController'
+    method: 'getOne'
+    autorization: admin'
+extraction/(\d+)/delete:
+    controller: 'ExtractionController'
+    method: 'delete'
+    autorization: admin'
+extraction/(\d+)/update:
+    controller: 'ExtractionController'
+    method: 'update'
+    autorization: admin'
+my-account:
+    controller: 'UserController'
+    method: 'update'
+    autorization: admin'
+extraction/(\d+)/historic/(\d+):
+    controller: 'HistoricController'
+    method: 'getOne'
+    autorization: 'admin'
+extraction/(\d+)/historic/(\d+)/delete:
+    controller: 'HistoricController'
+    method: 'deleteOne'
+    autorization: admin'
+extraction/(\d+)/historic/delete:
+    controller: 'HistoricController'
+    method: 'deleteAll'
+    autorization: admin'
+extraction/(\d+)/historic/new:
+    controller: 'HistoricController'
+    method: 'create'
+    autorization: admin'
+
+    
+
+# $routing->initRoute("", 'UserController', "logIn");
+# $routing->initRoute("login", 'UserController', "logIn");
+# $routing->initRoute("logout", 'UserController', "logout");
+# $routing->initRoute("signup", 'UserController', "signup");
+# $routing->initRoute("404", 'ErrorController', "error404");
+# $routing->initRoute("change-password", 'UserController', "changePassword");
+# $routing->initRoute("recovery-account", 'UserController', "recoveryAccount");
+
+# $routing->initRoute("extraction/new", 'ExtractionController', "create", "admin");
+# $routing->initRoute("dashboard", 'ExtractionController', "getList", "admin");
+# $routing->initRoute("extraction/(\d+)", 'ExtractionController', "getOne", "admin");
+# $routing->initRoute("extraction/(\d+)/delete", 'ExtractionController', "delete", "admin");
+# $routing->initRoute("extraction/(\d+)/update", 'ExtractionController', "update", "admin");
+# $routing->initRoute("my-account", 'UserController', "update" , "admin");
+
+# $routing->initRoute("extraction/(\d+)/historic/(\d+)", 'HistoricController', "getOne", "admin");
+# $routing->initRoute("extraction/(\d+)/historic/(\d+)/delete", 'HistoricController', "deleteOne", "admin");
+# $routing->initRoute("extraction/(\d+)/historic/delete", 'HistoricController', "deleteAll", "admin");
+# $routing->initRoute("extraction/(\d+)/historic/new", 'HistoricController', "create", "admin");

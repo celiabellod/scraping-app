@@ -1,12 +1,10 @@
 <?php
 session_start();
-require_once 'Autoloader.php';
-use App\Autoloader;
+require __DIR__.'/vendor/autoload.php';
+
 use App\Config\Routing;
 
-Autoloader::register();
 $routing = new Routing();
-require __DIR__.'/src/Config/routes.php';
 $params = [];
 
 $uri = (isset($_GET) && isset($_GET['p'])) ? $_GET['p'] : '';

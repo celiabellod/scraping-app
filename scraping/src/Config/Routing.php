@@ -1,6 +1,8 @@
 <?php
 namespace App\Config;
 
+use Symfony\Component\Yaml\Yaml;
+
 class Routing {
 
     /**
@@ -8,16 +10,8 @@ class Routing {
      */
     private $routes = [];
 
-    /**
-     * 
-     * @param string $routeName
-     * @param string $url
-     * @param string $controller
-     * @param string $method
-     */
-    public function initRoute($path, $controller, $method, $autorization = null) {
-
-        $this->routes[$path] = ["controller" => $controller, "method" => $method, "autorization" => $autorization];
+    public function __construct(){
+        $this->routes = Yaml::parseFile(__DIR__.'/routes.yaml');
     }
 
 
