@@ -7,7 +7,6 @@
     <div class="form-right">
         <form method="post" class="form-container" onsubmit="return valideConnect();">
             <h1 class="form-title title is-1">{{ form.title }}</h1>
-            <p>{{ response }}</p>
 
             {% if (form.title == 'Create my account') %}
                 <div class="form-container-half">
@@ -29,6 +28,7 @@
 
             <button type="submit" class="btn btn-secondary is-large">Go !</button>
             <a href="{{ form.info.link }}" class="form-info">{{ form.info.title }}</a>
+            {% include 'parts/_message.html.twig' %}
         </form>
     </div>
 </main>

@@ -189,8 +189,25 @@ class UserController extends AbstractController
 
     public function recoveryAccount() {
 
-        //verif si l'email est bien présente
-        $this->sentEmailForPasswordChange($_POST['email']);
+        if(!empty($_POST)){
+            $response = '';
+            $verif = $this->userVerif('email');
+            if($verif === false){
+                $response = 'Please fill in the required fields.';
+            } else { 
+                $response = $verif;
+            }
+            if(empty($response)) {
+                $user = $this->manager->findBy(['email' => $_POST['email']]);
+                if(is_array($user)){
+                    $user = $this->manager->hydrate($user[0]);
+                    $this->sentEmailForPasswordChange($user);
+                    $response = 'An email has sent to you, follow instructions in this email for recovery your account.';
+                } else {
+                    $response = 'Your email doesn\'t exit in our system, please sign up.';
+                }
+            }
+        }
 
         $form = new FormBuilder();
         $form->setTitle('Recovery my account');
@@ -198,6 +215,7 @@ class UserController extends AbstractController
 
         echo $this->twig->render('form/recovery-account.html.twig', [
             'form' => $form,
+            'response' => $response
         ]);
     }
 
@@ -258,7 +276,7 @@ class UserController extends AbstractController
     }
 
     private function sentEmailForPasswordChange(User $user) {
-        $to = $this->user->getEmail();
+        $to = $user->getEmail();
         $subject = 'Change password';
         $message = '<p>Follow this link for update your password : <a href="http://'.$_SERVER['HTTP_HOST'].'/change-password?client='.$user->getUuid().'">Change password here<a></p>';
         $this->mail->send($to, $subject, $message);
