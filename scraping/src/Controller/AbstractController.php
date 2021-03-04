@@ -5,7 +5,7 @@ use App\Config\Twig;
 use App\Entity\User;
 use App\Services\FormValidator;
 
-abstract class AbstractController extends FormValidator
+abstract class AbstractController
 {
     /**
      * @var Twig
@@ -13,6 +13,11 @@ abstract class AbstractController extends FormValidator
     protected $twig;
 
      /**
+     * @var FormValidator
+     */
+    protected $formValidator;
+
+    /**
      * @var User
      */
     protected $user;
@@ -21,6 +26,8 @@ abstract class AbstractController extends FormValidator
     {
        $twig = new Twig();
        $this->twig = $twig->getTwig();
+
+       $this->formValidator = new FormValidator();
 
        if(isset($_SESSION['user'])){
             $manager = new User();

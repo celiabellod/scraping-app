@@ -31,34 +31,31 @@ class HistoricController extends AbstractController
         $datas = $this->datasManager->findBy(['extraction_id' => $extraction->getId()]);
 
         $extraction->setDatas($datas);
-        echo'<pre>';
-        var_dump($extraction->getDatas());
-        echo'<pre>';
-
         $historic = $this->manager->setExtraction($extraction);
-        $this->manager->create($historic);
-        $historic = $this->manager->findLast();
-        $historic = $this->manager->hydrate($historic);
-        
-        $client = \Symfony\Component\Panther\Client::createChromeClient();
-
-        $client->request('GET', $extraction->getUrl());
-
-        $crawler = $client->waitFor($extraction->getPrimaryContainer());
-        foreach($extraction->getDatas() as $data){
-            $datas = $this->datasManager->hydrate($data);
-            if($extraction->getSecondaryContainer()){
-                $data = $crawler->filter($extraction->getSecondaryContainer() . ' ' . $datas->getDataPath())->text();
-            } else {
-                $data = $crawler->filter($datas->getDataPath())->text();
+        if($this->manager->create($historic)) {
+            $historic = $this->manager->findLast();
+            $historic = $this->manager->hydrate($historic);
+            
+            $client = \Symfony\Component\Panther\Client::createChromeClient();
+    
+            $client->request('GET', $extraction->getUrl());
+    
+            $crawler = $client->waitFor($extraction->getPrimaryContainer());
+            foreach($extraction->getDatas() as $data){
+                $datas = $this->datasManager->hydrate($data);
+                if($extraction->getSecondaryContainer()){
+                    $data = $crawler->filter($extraction->getSecondaryContainer() . ' ' . $datas->getDataPath())->text();
+                } else {
+                    $data = $crawler->filter($datas->getDataPath())->text();
+                }
+    
+                $result = $this->resultManager
+                        ->setData($data)
+                        ->setDatas($datas)
+                        ->setHistoric($historic)
+                ;
+                $this->resultManager->create($result);
             }
-
-            $result = $this->resultManager
-                    ->setData($data)
-                    ->setDatas($datas)
-                    ->setHistoric($historic)
-            ;
-            $this->resultManager->create($result);
         }
 
         header('Location:/extraction/'.$extraction->getId());
@@ -76,9 +73,6 @@ class HistoricController extends AbstractController
         $results = [];
         foreach($this->resultManager->findBy(['historic_id' => $historic->getId()]) as $result){
             $datas = $this->datasManager->find($result['datas_id']);
-            // $datas = $this->datasManager->hydrate($datas);
-            // $result = $this->resultManager->hydrate($result);
-            // $result = $this->resultManager->setDatas($datas);
             $result['datas'] = $datas;
             $results[] = $result;
         }

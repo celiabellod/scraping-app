@@ -24,17 +24,31 @@ class ExtractionController extends AbstractController
     public function create() {
 
         if(!empty($_POST)){
-           $fields = ['extractionName', 'url', 'periodicity', 'type', 'category', 'primaryContainer', 'dataName', 'dataType', 'dataPath'];
+
+           $fields = [
+               'extractionName', 
+               'url', 
+               'periodicity', 
+               'type', 
+               'category', 
+               'primaryContainer', 
+               'dataName', 
+               'dataType', 
+               'dataPath'
+            ];
+
            foreach($fields as $field){
-                if(!$this->verificationField($field)){
-                    $response = 'Merci de remplir les champs requis correctement.';
+                if(!$this->formValidator->verificationField($_POST[$field])){
+                    $response = 'Please fill in the fields correctly.';
                 }
             }
-            if($this->verificationField('secondaryContainer')){
+
+            if($this->formValidator->verificationField('secondaryContainer')){
                 $secondaryContainer = $_POST['secondaryContainer'];
             } else {
                 $secondaryContainer = '';
             }           
+
             $extraction = $this->manager
                     ->setName($_POST[$fields[0]])
                     ->setUrl($_POST[$fields[1]])
@@ -61,9 +75,12 @@ class ExtractionController extends AbstractController
             $datas = $this->datasManager->findBy(['extraction_id' => $extraction->getId()]);
             $extraction->setDatas($datas);
             header('location:/dashboard');
+
         } else {
+
             echo $this->twig->render('admin/new-extraction.html.twig', [
-                'user' => $this->user
+                'user' => $this->user,
+                'response' => $response ?? ''
             ]);
         }
     
@@ -106,7 +123,7 @@ class ExtractionController extends AbstractController
             ];
 
             foreach($fields as $field){
-                if(!$this->verificationField($field)){
+                if(!$this->formValidator->verificationField($field)){
                     $response = 'Please fill in the fields correctly.';
                 }
             }
@@ -152,7 +169,8 @@ class ExtractionController extends AbstractController
 
         echo $this->twig->render('admin/update-extraction.html.twig', [
             'extraction' => $extraction,
-            'user' => $this->user
+            'user' => $this->user,
+            'response' => $reponse ?? ''
         ]);
     }
 

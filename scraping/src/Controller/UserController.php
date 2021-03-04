@@ -6,11 +6,17 @@ use App\Entity\User;
 use App\Controller\AbstractController;
 use App\Services\MailService;
 use App\Services\FormBuilder;
-use FormValidator;
 
 class UserController extends AbstractController
 {
+    /**
+     * @var User
+     */
     private $manager;
+
+    /**
+     * @var MailService
+     */
     private $mail;
 
     public function __construct() 
@@ -20,26 +26,35 @@ class UserController extends AbstractController
         $this->mail = new MailService();
     }
 
-
+    
     public function signup()
     {
         $response = '';
 
-        if(!empty($_POST)){ 
-            $fields = ['firstname', 'lastname', 'password', 'passwordConfirm', 'email'];
+        if(!empty($_POST)){
+
+            $fields = [
+                    'firstname', 
+                    'lastname', 
+                    'password', 
+                    'passwordConfirm', 
+                    'email'
+                ];
+
             if($fields[2] === $fields[3]){
                 foreach($fields as $field){
-                    $verif = $this->userVerif($field);
+                    $verif = $this->formValidator->userVerif($_POST[$field], $field);
                     if($verif === false){
                         $response = 'Please fill in the required fields.';
                         break;
-                    } else { 
+                    } else if(!empty($verif)){
                         $response .= $verif;
                     }
                 }
             }
 
             if(empty($response)) {
+
                 if($_POST[$fields[2]] === $_POST[$fields[3]]){                
                     $user = $this->manager
                             ->setFirstname($_POST[$fields[0]])
@@ -47,20 +62,21 @@ class UserController extends AbstractController
                             ->setEmail($_POST[$fields[4]])
                             ->setPassword(password_hash($_POST[$fields[2]], PASSWORD_ARGON2I));
 
-                    $this->manager->create($user);
-                    $user = $this->manager->findBy(['email' => $_POST[$fields[4]]]);
-                    $user = $this->manager->hydrate($user[0]);
-                    
-                    
-                    if(is_object($user)){
+                    if($this->manager->create($user)) {
+
+                        //get UUID generate in SQL
+                        $user = $this->manager->findBy(['email' => $_POST[$fields[4]]]);
+                        $user = $this->manager->hydrate($user[0]);
+
                         $to = $_POST[$fields[4]];
                         $subject = 'Registration to the Scraping platform';
                         $message = '<p>Please log in by going to this link: <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
                         $this->mail->send($to, $subject, $message);
-                        $response = 'A link has been sent to you on '. $to.'. Please click on this link to log in.';                         
-                    } else {
-                        $response = $user;
-                    }
+
+                        $response = 'A link has been sent to you on '. $to.'. Please click on this link to log in.';  
+
+                    };                       
+               
                 } else {
                     $response = 'The passwords do not match. Please start again.';
                 }
@@ -68,8 +84,10 @@ class UserController extends AbstractController
         }
 
         $form = new FormBuilder();
-        $form->setTitle('Create my account');
-        $form->setInfo(['title' => 'Already an account ? Login', 'link' => 'login']);
+        $form->setTitle('Create my account')
+            ->setInfo(['title' => 'Already an account ? Login', 'link' => 'login'])
+        ;
+
         $form->add('text', 'firstname', 'Firstname *');
         $form->add('text','lastname','Lastname *');
         $form->add('email','email','Email *');
@@ -78,31 +96,37 @@ class UserController extends AbstractController
 
         echo $this->twig->render('form/signup.html.twig', [
             'form' => $form,
-            'response' => $response
+            'response' => $response ?? ''
         ]);
     }
 
     public function logIn() 
     {
-        $response = '';
 
         if(!empty($_POST)){
-            $fields = ['email', 'password'];
+
+            $response = '';
+
+            $fields = [
+                'email', 
+                'password'
+            ];
+
             foreach($fields as $field){
-                $verif = $this->userVerif($field);
+                $verif = $this->formValidator->userVerif($_POST[$field], $field);
                 if($verif === false){
                     $response = 'Please fill in the required fields.';
                     break;
-                } else { 
+                } else if(!empty($verif)) { 
                     $response .= $verif;
                 }
             }
 
             if(empty($response)) {
+
                 $array = [
                     'email' => $_POST[$fields[0]],
                 ];
-                
                 if(isset($_GET['client']) && !empty($_GET['client'])){
                     $array['uuid'] = $_GET['client'];
                     $uuid = $_GET['client'];
@@ -111,7 +135,7 @@ class UserController extends AbstractController
                 $user = $this->manager->findBy($array);
                 if(is_array($user)){
                     $user = $this->manager->hydrate($user[0]);
-                    if(is_object($user) && password_verify($_POST['password'], $user->getPassword()) && (!empty($uuid) || $user->getEmailVerif())){
+                    if(password_verify($_POST['password'], $user->getPassword()) && (!empty($uuid) || $user->getEmailVerif())){
                         if(!empty($uuid)){
                             $user = $user->setEmailVerif(1);
                             $login = $this->manager->update($user->getId(), $user);
@@ -148,22 +172,30 @@ class UserController extends AbstractController
    
     public function update()
     { 
-        $response = '';
 
         if(!empty($_POST)){
-            $fields = ['firstname', 'lastname', 'email'];
+
+            $response = '';
+
+            $fields = [
+                'firstname', 
+                'lastname', 
+                'email'
+            ];
+
             foreach($fields as $field){
-                $verif = $this->userVerif($field);
+                $verif = $this->formValidator->userVerif($_POST[$field],$field);
                 if($verif === false){
                     $response = 'Please fill in the required fields.';
                     break;
-                } else { 
+                } else if(!empty($verif)) { 
                     $response .= $verif;
                 }
             }
             
             if(empty($response)) {
                 if($this->user->getFirstname() != $_POST[$fields[0]] || $this->user->getLastname() != $_POST[$fields[1]] || $this->user->getEmail() != $_POST[$fields[2]]){
+                    
                     $this->user->setFirstname($_POST[$fields[0]])
                                 ->setLastname($_POST[$fields[1]])
                                 ->setEmail($_POST[$fields[2]]) 
@@ -183,15 +215,17 @@ class UserController extends AbstractController
 
         echo $this->twig->render('admin/my-account.html.twig', [
             'user' => $this->user,
-            'response' => $response
+            'response' => $response ?? ''
         ]);
     }
 
     public function recoveryAccount() {
 
         if(!empty($_POST)){
+
             $response = '';
-            $verif = $this->userVerif('email');
+
+            $verif = $this->formValidator->userVerif($_POST['email'], 'email');
             if($verif === false){
                 $response = 'Please fill in the required fields.';
             } else { 
@@ -215,24 +249,29 @@ class UserController extends AbstractController
 
         echo $this->twig->render('form/recovery-account.html.twig', [
             'form' => $form,
-            'response' => $response
+            'response' => $response ?? ''
         ]);
     }
 
 
     public function changePassword()
     { 
-        $response = '';
-
         if(!empty($_POST)){
-            $fields = ['newPassword', 'confirmPassword'];
+
+            $response = '';
+
+            $fields = [
+                'newPassword', 
+                'confirmPassword'
+            ];
+
             if($fields[0] === $fields[1]){
                 foreach($fields as $field){
-                    $verif = $this->userVerif($field);
+                    $verif = $this->formValidator->userVerif($_POST[$field], $field);
                     if($verif === false){
                         $response = 'Please fill in the required fields.';
                         break;
-                    } else { 
+                    } else if(!empty($verif)){ 
                         $response .= $verif;
                     }
                 }
@@ -265,7 +304,8 @@ class UserController extends AbstractController
 
         echo $this->twig->render('form/change-password.html.twig', [
             'user' => $this->user,
-            'form' => $form,
+            'form' => $form ?? '',
+            'response' => $reponse ?? ''
         ]);
     }
 
