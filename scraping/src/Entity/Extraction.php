@@ -51,7 +51,6 @@ class Extraction extends Model
      */
     protected $datas;
 
-
      /**
      * @var User
      */
@@ -83,7 +82,6 @@ class Extraction extends Model
     public function setId(int $id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -273,8 +271,13 @@ class Extraction extends Model
      *
      * @return  self
      */ 
-    public function setDatas(Array $datas)
+    public function setDatas()
     {
+        $datasManager = new Datas();
+        $datas = $datasManager->findBy(['extraction_id' => $this->getId()]);
+        foreach($datas as $data){
+            $this->datas[] =  $datasManager->hydrate($data);
+        }
         $this->datas = $datas;
 
         return $this;
@@ -293,12 +296,15 @@ class Extraction extends Model
     /**
      * Set the value of user
      *
-     * @param  User  $user
+     * @param Int $user_id
      *
-     * @return  self
+     * @return self
      */ 
-    public function setUser(User $user)
+    public function setUser($user_id)
     {
+        $userManager = new User();
+        $user = $userManager->find($user_id);
+        $user = $userManager->hydrate($user);
         $this->user = $user;
 
         return $this;

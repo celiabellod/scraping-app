@@ -102,10 +102,9 @@ class UserController extends AbstractController
 
     public function logIn() 
     {
-
+        $response = '';
+        
         if(!empty($_POST)){
-
-            $response = '';
 
             $fields = [
                 'email', 

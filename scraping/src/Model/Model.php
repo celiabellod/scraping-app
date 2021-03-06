@@ -10,16 +10,23 @@ class Model extends Db
 
     protected $table;
 
+    public function __construct(){
+        $this->createTable();
+    }
+
     
     public function hydrate(array $datas) 
     {
         foreach ($datas as $key => $value){
-          $method = 'set'.ucfirst($key);
-              
-          if (method_exists($this, $method)) {
-            $this->$method($value);
-          }
+            $method = 'set'.ucfirst($key);
+            if(preg_match('/_id$/',$key, $matches)){
+                $method = 'set'.ucfirst(str_replace($matches[0], "", $key));
+            }
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
         }
+
         return $this;
     }
 
@@ -33,7 +40,9 @@ class Model extends Db
         $champs = [];
         $inter = [];
         $valeurs = [];
+
         foreach($model as $champ => $valeur){
+
             if($valeur !== null && $champ != 'db' && $champ != 'table'){
                 if(is_object($valeur)){
                     $champ = $champ.'_id';
@@ -44,15 +53,17 @@ class Model extends Db
                 $valeurs[] = $valeur;
             }
         }
+
         $liste_champs = implode(', ', $champs);
         $liste_inter = implode(', ', $inter);
+
         return $this->request('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES('.$liste_inter.')', $valeurs);
     }
 
 
      /**
-     * @param int $id id
-     * @param Model $model Objet
+     * @param int $id
+     * @param Model $model
      * @return bool
      */
     public function update(int $id, Model $model)
@@ -77,7 +88,7 @@ class Model extends Db
 
 
     /**
-     * @param int $id id
+     * @param int $id
      * @return array
      */
     public function find(int $id)
@@ -87,7 +98,7 @@ class Model extends Db
 
 
     /**
-     * @param int $id id
+     * @param int $id
      * @return array
      */
     public function findLast()
@@ -104,11 +115,14 @@ class Model extends Db
     {
         $champs = [];
         $valeurs = [];
+
         foreach($attributs as $champ => $valeur){
             $champs[] = "$champ = ?";
             $valeurs[]= $valeur;
         }
+
         $liste_champs = implode(' AND ', $champs);
+
 
         return $this->request("SELECT * FROM {$this->table} WHERE $liste_champs ORDER BY id DESC", $valeurs)->fetchAll();
     }
@@ -129,6 +143,7 @@ class Model extends Db
      * @return bool 
      */
     public function delete(int $id){
+        
         return $this->request("DELETE FROM {$this->table} WHERE id = ?", [$id]);
     }
 

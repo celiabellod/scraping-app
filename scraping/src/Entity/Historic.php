@@ -6,7 +6,6 @@ use App\Model\Model;
 
 class Historic extends Model
 {
-
     /**
     * @var int
     */
@@ -76,9 +75,6 @@ class Historic extends Model
         return $this->date;
     }
 
-  
-
-
     /**
      * Get the value of extraction
      *
@@ -92,12 +88,15 @@ class Historic extends Model
     /**
      * Set the value of extraction
      *
-     * @param  Extraction  $extraction
+     * @param  Int  $extraction
      *
      * @return  self
      */ 
-    public function setExtraction(Extraction $extraction)
+    public function setExtraction(Int $extraction_id)
     {
+        $extractionManager = new Extraction();
+        $extraction = $extractionManager->find($extraction_id);
+        $extraction = $extractionManager->hydrate($extraction);
         $this->extraction = $extraction;
 
         return $this;

@@ -31,7 +31,7 @@ class HistoricController extends AbstractController
         $datas = $this->datasManager->findBy(['extraction_id' => $extraction->getId()]);
 
         $extraction->setDatas($datas);
-        $historic = $this->manager->setExtraction($extraction);
+        $historic = $this->manager->setExtraction($extraction->getId());
         if($this->manager->create($historic)) {
             $historic = $this->manager->findLast();
             $historic = $this->manager->hydrate($historic);

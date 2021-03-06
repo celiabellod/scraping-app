@@ -57,7 +57,7 @@ class ExtractionController extends AbstractController
                     ->setCategory($_POST[$fields[4]])
                     ->setPrimaryContainer($_POST[$fields[5]])
                     ->setSecondaryContainer($secondaryContainer)
-                    ->setUser($this->user)
+                    ->setUser($this->user->getId())
             ;
             $this->manager->create($extraction);
             $lastExtraction = $this->manager->findLast();
@@ -68,12 +68,11 @@ class ExtractionController extends AbstractController
                         ->setDataName($_POST[$fields[6]][$data])
                         ->setDataType($_POST[$fields[7]][$data])
                         ->setDataPath($_POST[$fields[8]][$data])
-                        ->setExtraction($extraction)
+                        ->setExtraction($extraction->getId())
                 ;
                 $this->datasManager->create($datas);
             }
-            $datas = $this->datasManager->findBy(['extraction_id' => $extraction->getId()]);
-            $extraction->setDatas($datas);
+            $extraction->setDatas();
             header('location:/dashboard');
 
         } else {
@@ -143,7 +142,7 @@ class ExtractionController extends AbstractController
                     ->setCategory($_POST[$fields[4]])
                     ->setPrimaryContainer($_POST[$fields[5]])
                     ->setSecondaryContainer($secondaryContainer)
-                    ->setUser($this->user)
+                    ->setUser($this->user->getId())
             ;
 
             if($this->manager->update($extractionId, $extraction)) {
@@ -152,20 +151,17 @@ class ExtractionController extends AbstractController
                         ->setDataName($_POST[$fields[6]][$dataId])
                         ->setDataType($_POST[$fields[7]][$dataId])
                         ->setDataPath($_POST[$fields[8]][$dataId])
-                        ->setExtraction($extraction)
+                        ->setExtraction($extraction->getId())
                     ;
                     $this->datasManager->update($dataId, $datas);
                 }
-                $datas = $this->datasManager->findBy(['extraction_id' => $extraction->getId()]);
-                $extraction->setDatas($datas);
             };
             header('location:/dashboard');
         }
 
         $extraction = $this->manager->find($extractionId);
         $extraction = $this->manager->hydrate($extraction);
-        $datas = $this->datasManager->findBy(['extraction_id' => $extraction->getId()]);
-        $extraction->setDatas($datas);
+        $extraction->setDatas();
 
         echo $this->twig->render('admin/update-extraction.html.twig', [
             'extraction' => $extraction,

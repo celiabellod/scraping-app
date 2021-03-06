@@ -42,7 +42,6 @@ class User extends Model
   
     public function __construct()
     {
-        $this->createTable();
         $this->table = 'user';
     }
 
