@@ -323,7 +323,7 @@ class UserController extends AbstractController
         $to = $user->getEmail();
         $subject = 'Change password';
         $message = '<div>
-                        <h2 style="color:#E62F7B; font-weight:bold;">Last step before your account could be validate</h2></br>
+                        <h2 style="color:#E62F7B; font-weight:bold;">Password change</h2></br>
                         <p style="color:#3E4E68">Follow this link for update your password: 
                             <a style="text-transformation:none;color:#3E4E68; font-weight:bold;" href="http://'.$_SERVER['HTTP_HOST'].'/change-password?client='.$user->getUuid().'">Change password here<a>
                         </p>

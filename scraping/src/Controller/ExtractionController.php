@@ -87,7 +87,7 @@ class ExtractionController extends AbstractController
 
     public function getList() 
     {
-        $extractions = $this->manager->findAll();
+        $extractions = $this->manager->findBy(['user_id' => $this->user->getId()]);
         echo $this->twig->render('admin/dashboard.html.twig', [
             'extractions' => $extractions,
             'user' => $this->user
