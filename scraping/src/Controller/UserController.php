@@ -69,8 +69,13 @@ class UserController extends AbstractController
                         $user = $this->manager->hydrate($user[0]);
 
                         $to = $_POST[$fields[4]];
-                        $subject = 'Registration to the Scraping platform';
-                        $message = '<p>Please log in by going to this link: <a href="http://localhost:8000/login?client='.$user->getUuid().'">http://localhost:8000/login?client='.$user->getUuid().'<a></p>';
+                        $subject = 'Registration to Scraping application';
+                        $message = '<div>
+                                    <h2 style="color:#E62F7B; font-weight:bold;">Last step before your account could be validate</h2></br>
+                                    <p style="color:#3E4E68">Please log in by going to this link: 
+                                        <a style="text-transformation:none;color:#3E4E68; font-weight:bold;" href="http://'.$_SERVER['HTTP_HOST'].'/login?client='.$user->getUuid().'">Click here<a>
+                                    </p>
+                                </div>';
                         $this->mail->send($to, $subject, $message);
 
                         $response = 'A link has been sent to you on '. $to.'. Please click on this link to log in.';  
@@ -317,7 +322,12 @@ class UserController extends AbstractController
     private function sentEmailForPasswordChange(User $user) {
         $to = $user->getEmail();
         $subject = 'Change password';
-        $message = '<p>Follow this link for update your password : <a href="http://'.$_SERVER['HTTP_HOST'].'/change-password?client='.$user->getUuid().'">Change password here<a></p>';
+        $message = '<div>
+                        <h2 style="color:#E62F7B; font-weight:bold;">Last step before your account could be validate</h2></br>
+                        <p style="color:#3E4E68">Follow this link for update your password: 
+                            <a style="text-transformation:none;color:#3E4E68; font-weight:bold;" href="http://'.$_SERVER['HTTP_HOST'].'/change-password?client='.$user->getUuid().'">Change password here<a>
+                        </p>
+                    </div>';
         $this->mail->send($to, $subject, $message);
         return 'A link has been sent to you on '. $to. '. Please click on this link to login.'; 
     }

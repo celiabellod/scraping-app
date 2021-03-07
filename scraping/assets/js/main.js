@@ -84,3 +84,24 @@ function error() {
     response.innerHTML = 'Tous les champs doivent être remplis !'
     return false
 }
+
+
+
+var aside = document.querySelector('.js-menu');
+var menu = aside.querySelector('.menu');
+
+var drowpdown = aside.querySelector('.dropdownMenu');
+
+menu.addEventListener('click', (e) => {
+
+
+    if(drowpdown.style.display == "block"){
+        drowpdown.style.animationName = "close-menu";
+        drowpdown.style.animationDuration = "0.5s";
+        setTimeout(function(){ drowpdown.style.display = "none"; }, 505);
+    } else {
+        drowpdown.style.animationName = "open-menu";
+        drowpdown.style.animationDuration = "0.5s";
+        drowpdown.style.display = "block";
+    }
+})

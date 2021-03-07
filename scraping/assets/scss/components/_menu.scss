@@ -1,0 +1,44 @@
+.nav-mobile {
+    .menu {
+        cursor: pointer;
+    }
+    .dropdownMenu{
+        margin-left: -2rem;
+        background-color: $color-primary;
+        z-index: 99999 !important;
+        position: absolute;
+        height: 50vh;
+        display: none;
+        animation-duration: 0.5s;
+        animation-name: open-menu;
+        width:100%;
+        .nav {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 6rem;
+            margin-top: 2rem;
+        }
+        a {
+            color: #fff !important;
+            display: block;
+            margin: 2rem 5rem;
+            font-size: 1.2rem;
+        }
+    }
+}
+@keyframes open-menu {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+@keyframes close-menu {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

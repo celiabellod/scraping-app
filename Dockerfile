@@ -9,3 +9,19 @@ RUN sudo apt-get update && sudo apt-get install -y libzip-dev zlib1g-dev unzip w
 RUN sudo wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_85.0.4183.121-1_amd64.deb" -O /tmp/chrome.deb
 
 RUN sudo apt-get install -y --allow-downgrades /tmp/chrome.deb
+
+# RUN sudo apt-get update && sudo apt-get -y install cron
+
+# RUN sudo chown www-data:www-data /etc/cron.d/
+
+# COPY cron-file /etc/cron.d/cron-file
+ 
+# RUN sudo chmod 0744 /etc/cron.d/cron-file
+
+# RUN crontab /etc/cron.d/cron-file
+ 
+# RUN sudo touch /var/log/cron.log
+ 
+# CMD cron && tail -f /var/log/cron.log
+
+

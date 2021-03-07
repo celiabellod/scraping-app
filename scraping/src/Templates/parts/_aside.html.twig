@@ -18,14 +18,24 @@
     </div>
 </div>
 
-<nav class="nav-mobile">
+<nav class="nav-mobile js-menu">
     <div class="nav-content">
-        <img src="{{ assets('images/menu.svg') }}" alt="" width="35">
+        <img class="menu" src="{{ assets('images/menu.svg') }}" alt="" width="35">
         <div class="nav-user">
             <h2 class="title is-4 user-name">Célia BELLOD</h2>
             <svg  class="icon" width="2.5rem" height="2.5rem">
                 <use xlink:href="{{ assets('images/svgsprite.svg#user') }}"></use>
             </svg>
         </div>
+    </div>
+     <div class="aside-content dropdownMenu">
+        <nav class="nav">
+            <a href="/dashboard" class="nav-link">My extractions</a>
+            <a href="/extraction/new" class="nav-link">Add an extraction</a>
+        </nav>
+        <a href="/logout" class="logout">
+            <img src="{{ assets('images/enter.svg') }}" alt="" width="20">
+            Log out
+        </a>
     </div>
 </nav>

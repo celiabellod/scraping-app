@@ -308,6 +308,9 @@ a:hover {
 .nav-mobile .nav-user h2 {
   margin: 0 1rem;
 }
+.nav-mobile .nav-user .icon {
+  color: #fff !important;
+}
 
 @media screen and (min-width: 960px) {
   .main-aside {
@@ -412,6 +415,49 @@ a:hover {
   color: #E62F7B;
 }
 
+.nav-mobile .menu {
+  cursor: pointer;
+}
+.nav-mobile .dropdownMenu {
+  margin-left: -2rem;
+  background-color: #3E4E68;
+  z-index: 99999 !important;
+  position: absolute;
+  height: 50vh;
+  display: none;
+  animation-duration: 0.5s;
+  animation-name: open-menu;
+  width: 100%;
+}
+.nav-mobile .dropdownMenu .nav {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6rem;
+  margin-top: 2rem;
+}
+.nav-mobile .dropdownMenu a {
+  color: #fff !important;
+  display: block;
+  margin: 2rem 5rem;
+  font-size: 1.2rem;
+}
+
+@keyframes open-menu {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+@keyframes close-menu {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 @media screen and (min-width: 960px) {
   .grid {
     display: grid;

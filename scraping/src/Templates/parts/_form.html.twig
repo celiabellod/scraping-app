@@ -6,6 +6,7 @@
     </div>
     <div class="form-right">
         <form method="post" class="form-container" onsubmit="return valideConnect();">
+            {% include 'parts/_message.html.twig' %}
             <h1 class="form-title title is-1">{{ form.title }}</h1>
 
             {% if (form.title == 'Create my account') %}
@@ -23,12 +24,11 @@
             {% endif %}
 
             {% if (form.title == 'LOGIN') %}
-                <a class="has-text-center" href="/recovery-account">Mot de passe oublié ?</a>
+                <a class="has-text-center" href="/recovery-account">Forgot your password ?</a>
             {% endif %}
 
             <button type="submit" class="btn btn-secondary is-large">Go !</button>
             <a href="{{ form.info.link }}" class="form-info">{{ form.info.title }}</a>
-            {% include 'parts/_message.html.twig' %}
         </form>
     </div>
 </main>
