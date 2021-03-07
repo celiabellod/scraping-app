@@ -105,3 +105,8 @@ menu.addEventListener('click', (e) => {
         drowpdown.style.display = "block";
     }
 })
+
+
+function confirmDelete() {
+    confirm("Are you sure ? This action is irreversible.");
+}

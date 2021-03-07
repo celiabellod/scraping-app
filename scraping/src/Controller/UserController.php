@@ -319,6 +319,12 @@ class UserController extends AbstractController
         header('Location:/login');
     }
 
+    public function delete(){
+        unset($_SESSION['user']);
+        $this->manager->delete($this->user->getId());
+        header('Location:/login');
+    }
+
     private function sentEmailForPasswordChange(User $user) {
         $to = $user->getEmail();
         $subject = 'Change password';

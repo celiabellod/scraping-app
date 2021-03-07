@@ -50,6 +50,10 @@ my-account:
     controller: UserController
     method: update
     autorization: admin
+my-account/delete:
+    controller: UserController
+    method: delete
+    autorization: admin
 extraction/(\d+)/historic/(\d+):
     controller: HistoricController
     method: getOne
