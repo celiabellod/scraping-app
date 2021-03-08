@@ -69,7 +69,4 @@ class Routing {
         return $this->routes;
     }
 
-    public function get404() {
-
-    }
 }
